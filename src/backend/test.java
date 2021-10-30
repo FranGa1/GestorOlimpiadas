@@ -26,8 +26,6 @@ public class test {
 //        PaisDAOjdbc pDAO = new PaisDAOjdbc();
 //        pDAO.cargar(p);
 
-        System.out.println(MiConnection.getCon());
-
 //        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", "root", "fran");
     }
 }
