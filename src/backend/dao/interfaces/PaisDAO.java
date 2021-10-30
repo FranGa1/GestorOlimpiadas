@@ -5,9 +5,9 @@ import objetos.Pais;
 import java.util.List;
 
 public interface PaisDAO {
-    void cargar(Pais nuevoPais);
-    void eliminar(Pais paisEliminar);
-    void editar(Pais paisEditar, String nombre);
-    Pais encontrar(Pais pais);
+    int cargar(Pais nuevoPais);
+    int eliminar(Pais paisEliminar);
+    int editar(Pais paisEditar, String nombre);
+    boolean encontrar(Pais pais);
     List<Pais> getPaises();
 }

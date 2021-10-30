@@ -12,11 +12,11 @@ import java.util.List;
 public class DeportistaDAOjdbc implements DeportistaDAO {
 
     /**
-     * Se carga un deportista en la base de datos
+     * Se carga un deportista en la base de datoss
      * @param deportistaNuevo
      */
     @Override
-    public void cargar(Deportista deportistaNuevo) {
+    public int cargar(Deportista deportistaNuevo) {
 
         // Se establece la conexion a la BD
         Connection connection = MiConnection.getCon();
@@ -29,7 +29,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             statementDeportista.setString(2, deportistaNuevo.getNombre());
             statementDeportista.setString(3, deportistaNuevo.getEmail());
             statementDeportista.setString(4, deportistaNuevo.getTelefono());
-            statementDeportista.setInt(5, deportistaNuevo.getPais().getID());
+//            statementDeportista.setInt(5, deportistaNuevo.getPais().getID());
             statementDeportista.executeUpdate();
 
             // Se obtiene el id del deportista recien agregado
@@ -44,13 +44,15 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             ArrayList<Disciplina> disciplinasDeportista = deportistaNuevo.getDisciplinas();
             for(Disciplina disciplina : disciplinasDeportista){
                 statementDisciplina.setInt(1, idDeportista);
-                statementDisciplina.setInt(2, disciplina.getID());
+//                statementDisciplina.setInt(2, disciplina.getID());
                 statementDisciplina.executeUpdate();
             }
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: " + e.getMessage());
+            return 1;
         }
+        return 0;
     }
 
     /**
@@ -58,13 +60,15 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
      * @param deportistaEliminar
      */
     @Override
-    public void eliminar(Deportista deportistaEliminar) {
+    public int eliminar(Deportista deportistaEliminar) {
 //        String sql = "DELETE FROM deportista WHERE "
+        return 0;
     }
 
     @Override
-    public void editar(Deportista deportistaEditar, Deportista deportistaEditado) {
+    public int editar(Deportista deportistaEditar, Deportista deportistaEditado) {
 
+        return 0;
     }
 
     @Override
