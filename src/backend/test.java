@@ -8,6 +8,7 @@ import objetos.Pais;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 
 public class test {
     public static void main(String[] args) throws SQLException {
@@ -21,11 +22,24 @@ public class test {
 //        d.setEmail("asdf");
 //        d.setTelefono("9784235");
 
-//        Pais p = new Pais();
-//        p.setNombre("Argentina");
-//        PaisDAOjdbc pDAO = new PaisDAOjdbc();
-//        pDAO.cargar(p);
+        Pais p = new Pais("Chile");
+        PaisDAOjdbc pDAO = new PaisDAOjdbc();
+        pDAO.cargar(p);
 
+
+        List<Pais> listaPaises = pDAO.getPaises();
+
+        for (Pais pais : listaPaises)
+            System.out.println(pais.getNombre());
+
+        pDAO.eliminar(new Pais("Chile"));
+
+        System.out.println("------------------");
+
+        List<Pais> listaPaises2 = pDAO.getPaises();
+
+        for (Pais pais2 : listaPaises2)
+            System.out.println(pais2.getNombre());
 //        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", "root", "fran");
     }
 }
