@@ -95,7 +95,6 @@ public class PaisDAOjdbc implements PaisDAO {
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
-            return null;
         }
         return listaPaises;
     }

@@ -1,6 +1,11 @@
 package backend;
 
+import backend.dao.FactoryDAO;
+import backend.dao.implementaciones.DisciplinaDAOjdbc;
 import backend.dao.implementaciones.PaisDAOjdbc;
+import backend.dao.interfaces.DeportistaDAO;
+import backend.dao.interfaces.DisciplinaDAO;
+import backend.dao.interfaces.PaisDAO;
 import objetos.Deportista;
 import objetos.Disciplina;
 import objetos.Pais;
@@ -23,11 +28,17 @@ public class test {
 //        d.setTelefono("9784235");
 
 //        Pais p = new Pais("Chile");
-        PaisDAOjdbc pDAO = new PaisDAOjdbc();
+        PaisDAO pDAO = FactoryDAO.getPaisDAO();
+        DeportistaDAO d = FactoryDAO.getDeportistaDAO();
 //        pDAO.cargar(p);
 
-        System.out.println(pDAO.encontrar(new Pais("Brasil")));
-        System.out.println(pDAO.encontrar(new Pais("Argentina")));
+        DisciplinaDAO di = FactoryDAO.getDisciplinaDAO();
+        List<Disciplina> listD = di.getDisciplinas();
+        for (Disciplina disciplina : listD)
+            System.out.println(disciplina.getNombre());
+
+//        System.out.println(pDAO.encontrar(new Pais("Brasil")));
+//        System.out.println(pDAO.encontrar(new Pais("Argentina")));
 
 //        List<Pais> listaPaises = pDAO.getPaises();
 //
