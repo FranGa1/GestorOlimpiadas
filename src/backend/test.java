@@ -22,9 +22,9 @@ public class test {
 //        d.setEmail("asdf");
 //        d.setTelefono("9784235");
 
-        Pais p = new Pais("Chile");
+//        Pais p = new Pais("Chile");
         PaisDAOjdbc pDAO = new PaisDAOjdbc();
-        pDAO.cargar(p);
+//        pDAO.cargar(p);
 
 
         List<Pais> listaPaises = pDAO.getPaises();
@@ -32,14 +32,16 @@ public class test {
         for (Pais pais : listaPaises)
             System.out.println(pais.getNombre());
 
-        pDAO.eliminar(new Pais("Chile"));
+//        pDAO.eliminar(new Pais("Chile"));
 
         System.out.println("------------------");
 
+        pDAO.editar(new Pais("Argentina"), "Brasil");
         List<Pais> listaPaises2 = pDAO.getPaises();
 
         for (Pais pais2 : listaPaises2)
             System.out.println(pais2.getNombre());
+
 //        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", "root", "fran");
     }
 }

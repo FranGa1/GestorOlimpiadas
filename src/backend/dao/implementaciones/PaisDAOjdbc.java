@@ -32,7 +32,6 @@ public class PaisDAOjdbc implements PaisDAO {
         Connection connection = MiConnection.getCon();
 
         try {
-            // Se inserta el pais en la base de datos
             String sql = "DELETE FROM pais WHERE nombre=?";
             PreparedStatement statementPais = connection.prepareStatement(sql);
             statementPais.setString(1, paisEliminar.getNombre());
@@ -45,8 +44,18 @@ public class PaisDAOjdbc implements PaisDAO {
     }
 
     @Override
-    public int editar(Pais paisEditar, String nombre) {
-
+    public int editar(Pais paisEditar, String nuevoNombre) {
+        Connection connection = MiConnection.getCon();
+        try {
+            String sql = "UPDATE pais SET nombre=? WHERE nombre=?";
+            PreparedStatement statementPais = connection.prepareStatement(sql);
+            statementPais.setString(1, nuevoNombre);
+            statementPais.setString(2, paisEditar.getNombre());
+            statementPais.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error de SQL: "+e.getMessage());
+            return 1;
+        }
         return 0;
     }
 
