@@ -60,35 +60,23 @@ public class PaisDAOjdbc implements PaisDAO {
     }
 
     @Override
-    public boolean encontrar(Pais pais) {
+    public boolean encontrar(Pais paisEncontrar) {
         Connection connection = MiConnection.getCon();
 
+        try {
+            // Se inserta el pais en la base de datos
+            String sql = "SELECT * FROM pais WHERE nombre=?";
+            PreparedStatement statementPais = connection.prepareStatement(sql);
+            statementPais.setString(1, paisEncontrar.getNombre());
+            ResultSet pais = statementPais.executeQuery();
 
-//        try {
-//            // Se inserta el pais en la base de datos
-//            String sql = "SELECT FROM pais WHERE nombre=?";
-//            PreparedStatement statementPais = connection.prepareStatement(sql);
-//            statementPais.setString(1, paisEliminar.getNombre());
-//            statementPais.executeUpdate();
-//
-//            return true
-//        } catch (SQLException e) {
-//            System.out.println("Error de SQL: "+e.getMessage());
-//            return false;
-//        }
-        return true;
+            return pais.isBeforeFirst();
+
+        } catch (SQLException e) {
+            System.out.println("Error de SQL: "+e.getMessage());
+            return false;
+        }
     }
-
-//    @Override
-//    public Pais encontrar(Pais pais){
-//        Connection connection = MiConnection.getCon();
-//
-//        try{
-//            Statement statement = connection.createStatement();
-//        } catch (SQLException e) {
-//            System.out.println("Error de SQL: " + e.getMessage());
-//        }
-//    }
 
     @Override
     public List<Pais> getPaises() {

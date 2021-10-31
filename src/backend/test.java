@@ -26,7 +26,8 @@ public class test {
         PaisDAOjdbc pDAO = new PaisDAOjdbc();
 //        pDAO.cargar(p);
 
-        pDAO.editar();
+        System.out.println(pDAO.encontrar(new Pais("Brasil")));
+        System.out.println(pDAO.encontrar(new Pais("Argentina")));
 
 //        List<Pais> listaPaises = pDAO.getPaises();
 //
