@@ -26,21 +26,22 @@ public class test {
         PaisDAOjdbc pDAO = new PaisDAOjdbc();
 //        pDAO.cargar(p);
 
+        pDAO.editar();
 
-        List<Pais> listaPaises = pDAO.getPaises();
-
-        for (Pais pais : listaPaises)
-            System.out.println(pais.getNombre());
+//        List<Pais> listaPaises = pDAO.getPaises();
+//
+//        for (Pais pais : listaPaises)
+//            System.out.println(pais.getNombre());
 
 //        pDAO.eliminar(new Pais("Chile"));
 
-        System.out.println("------------------");
-
-        pDAO.editar(new Pais("Argentina"), "Brasil");
-        List<Pais> listaPaises2 = pDAO.getPaises();
-
-        for (Pais pais2 : listaPaises2)
-            System.out.println(pais2.getNombre());
+//        System.out.println("------------------");
+//
+//        pDAO.editar(new Pais("Argentina"), "Brasil");
+//        List<Pais> listaPaises2 = pDAO.getPaises();
+//
+//        for (Pais pais2 : listaPaises2)
+//            System.out.println(pais2.getNombre());
 
 //        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", "root", "fran");
     }
