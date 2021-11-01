@@ -60,11 +60,10 @@ public class PaisDAOjdbc implements PaisDAO {
     }
 
     @Override
-    public boolean encontrar(Pais paisEncontrar) {
+    public boolean existe(Pais paisEncontrar) {
         Connection connection = MiConnection.getCon();
 
         try {
-            // Se inserta el pais en la base de datos
             String sql = "SELECT * FROM pais WHERE nombre=?";
             PreparedStatement statementPais = connection.prepareStatement(sql);
             statementPais.setString(1, paisEncontrar.getNombre());
@@ -76,6 +75,28 @@ public class PaisDAOjdbc implements PaisDAO {
             System.out.println("Error de SQL: "+e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public Pais encontrar(int id){
+        Connection connection = MiConnection.getCon();
+        Pais pais = new Pais();
+
+        try {
+            String sql = "SELECT * FROM pais WHERE id=?";
+            PreparedStatement statementPais = connection.prepareStatement(sql);
+            statementPais.setInt(1, id);
+            ResultSet result = statementPais.executeQuery();
+
+            // Si se encontro el pais, se lo devuelve
+            if (!result.isBeforeFirst())
+                pais.setNombre(result.getString("nombre"));
+
+        } catch (SQLException e) {
+            System.out.println("Error de SQL: "+e.getMessage());
+        }
+
+        return pais;
     }
 
     @Override
@@ -98,4 +119,24 @@ public class PaisDAOjdbc implements PaisDAO {
         }
         return listaPaises;
     }
+
+//    public int getIDPais(Pais pais){
+//        Connection connection = MiConnection.getCon();
+//        List<Pais> listaPaises = new LinkedList<>();
+//        try {
+//            // Se obtienen los paises de la base de datos
+//            String sql = "SELECT * FROM pais";
+//            Statement statement = connection.createStatement();
+//            ResultSet paises = statement.executeQuery(sql);
+//
+//            // Se agregan en la lista que se va a devolver
+//            while (paises.next()){
+//                listaPaises.add(new Pais(paises.getString("nombre")));
+//            }
+//
+//        } catch (SQLException e) {
+//            System.out.println("Error de SQL: "+e.getMessage());
+//        }
+//        return listaPaises;
+//    }
 }

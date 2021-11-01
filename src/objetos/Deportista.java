@@ -7,6 +7,14 @@ public class Deportista {
     private Pais pais;
     private ArrayList<Disciplina> disciplinas;
 
+    public Deportista(String nombre, String apellido, String email, String telefono, Pais pais) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.telefono = telefono;
+        this.pais = pais;
+    }
+
     public String getNombre() {
         return nombre;
     }

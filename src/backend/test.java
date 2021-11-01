@@ -28,14 +28,18 @@ public class test {
 //        d.setTelefono("9784235");
 
 //        Pais p = new Pais("Chile");
-        PaisDAO pDAO = FactoryDAO.getPaisDAO();
+//        PaisDAO pDAO = FactoryDAO.getPaisDAO();
         DeportistaDAO d = FactoryDAO.getDeportistaDAO();
-//        pDAO.cargar(p);
 
-        DisciplinaDAO di = FactoryDAO.getDisciplinaDAO();
-        List<Disciplina> listD = di.getDisciplinas();
-        for (Disciplina disciplina : listD)
-            System.out.println(disciplina.getNombre());
+        
+
+
+//        pDAO.cargar(p);
+//
+//        DisciplinaDAO di = FactoryDAO.getDisciplinaDAO();
+//        List<Disciplina> listD = di.getDisciplinas();
+//        for (Disciplina disciplina : listD)
+//            System.out.println(disciplina.getNombre());
 
 //        System.out.println(pDAO.encontrar(new Pais("Brasil")));
 //        System.out.println(pDAO.encontrar(new Pais("Argentina")));
