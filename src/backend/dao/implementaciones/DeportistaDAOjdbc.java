@@ -10,7 +10,6 @@ import objetos.Disciplina;
 import objetos.Pais;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,8 +29,8 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             // Se inserta en la tabla deportista al deportistaNuevo
             String sql =  "INSERT INTO deportista (apellidos, nombres, email, telefono, id_pais) VALUES(?,?,?,?,(SELECT id FROM pais WHERE nombre=?))";
             PreparedStatement statementDeportista = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statementDeportista.setString(1, deportistaNuevo.getApellido());
-            statementDeportista.setString(2, deportistaNuevo.getNombre());
+            statementDeportista.setString(1, deportistaNuevo.getApellidos());
+            statementDeportista.setString(2, deportistaNuevo.getNombres());
             statementDeportista.setString(3, deportistaNuevo.getEmail());
             statementDeportista.setString(4, deportistaNuevo.getTelefono());
             statementDeportista.setString(5, deportistaNuevo.getPais().getNombre());
@@ -74,8 +73,8 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             // Se borra al deportista de la tabla deportista_en_disciplina
             String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=(SELECT id FROM deportista WHERE (nombres=? and apellidos=? and email=? and telefono=?))";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, deportistaEliminar.getNombre());
-            statement.setString(2, deportistaEliminar.getApellido());
+            statement.setString(1, deportistaEliminar.getNombres());
+            statement.setString(2, deportistaEliminar.getApellidos());
             statement.setString(3, deportistaEliminar.getEmail());
             statement.setString(4, deportistaEliminar.getTelefono());
             statement.executeUpdate();
@@ -84,8 +83,8 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             sql = "DELETE FROM deportista WHERE (email=? and nombres=? and apellidos=? and telefono=?)";
             statement = connection.prepareStatement(sql);
             statement.setString(1, deportistaEliminar.getEmail());
-            statement.setString(2, deportistaEliminar.getNombre());
-            statement.setString(3, deportistaEliminar.getApellido());
+            statement.setString(2, deportistaEliminar.getNombres());
+            statement.setString(3, deportistaEliminar.getApellidos());
             statement.setString(4, deportistaEliminar.getTelefono());
             statement.executeUpdate();
 
@@ -135,6 +134,24 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         return 0;
     }
 
+    public int editar(Deportista deportistaEditar, String nombres){
+        Connection connection = MiConnection.getCon();
+        int idDeportista = getIdDeportista(deportistaEditar);
+
+        try{
+            String sql = "UPDATE deportista SET nombres=? WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, nombres);
+            statement.setInt(2, idDeportista);
+        } catch (SQLException e){
+            System.out.println("Error de SQL: "+e.getMessage());
+            return 1;
+        }
+        return 0;
+    }
+
+
+
     @Override
     public List<Deportista> getDeportistas() {
         // Se establece la conexcion con la base de datos
@@ -167,5 +184,28 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         }
 
         return listasDeportistas;
+    }
+
+    @Override
+    public int getIdDeportista(Deportista deportista){
+        Connection connection = MiConnection.getCon();
+        int id = 0;
+        try {
+            String sql = "SELECT id FROM deportista WHERE (nombres=? and apellidos=? and email=? and telefono=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, deportista.getNombres());
+            statement.setString(2, deportista.getApellidos());
+            statement.setString(3, deportista.getEmail());
+            statement.setString(4, deportista.getTelefono());
+            ResultSet deportistaBD = statement.executeQuery();
+
+            if (deportistaBD.isBeforeFirst()){
+                id = deportistaBD.getInt("id");
+            }
+
+        } catch (SQLException e){
+            System.out.println("Error de SQL: "+e.getMessage());
+        }
+        return  id;
     }
 }

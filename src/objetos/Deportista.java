@@ -3,33 +3,33 @@ package objetos;
 import java.util.List;
 
 public class Deportista {
-    private String nombre, apellido, email, telefono;
+    private String nombres, apellidos, email, telefono;
     private Pais pais;
     private List<Disciplina> disciplinas;
 
-    public Deportista(String nombre, String apellido, String email, String telefono, Pais pais, List<Disciplina> disciplinas) {
-        this.nombre = nombre;
-        this.apellido = apellido;
+    public Deportista(String nombres, String apellidos, String email, String telefono, Pais pais, List<Disciplina> disciplinas) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
         this.email = email;
         this.telefono = telefono;
         this.pais = pais;
         this.disciplinas = disciplinas;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getEmail() {

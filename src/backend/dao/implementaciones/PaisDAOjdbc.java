@@ -89,7 +89,7 @@ public class PaisDAOjdbc implements PaisDAO {
             ResultSet result = statementPais.executeQuery();
 
             // Si se encontro el pais, se lo devuelve
-            if (!result.isBeforeFirst())
+            if (result.isBeforeFirst())
                 pais.setNombre(result.getString("nombre"));
 
         } catch (SQLException e) {
