@@ -137,7 +137,11 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
     public int editar(Deportista deportistaEditar, String nombres){
         Connection connection = MiConnection.getCon();
         int idDeportista = getIdDeportista(deportistaEditar);
+        return editar(idDeportista, nombres);
+    }
 
+    public int editar(int idDeportista, String nombres){
+        Connection connection = MiConnection.getCon();
         try{
             String sql = "UPDATE deportista SET nombres=? WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -149,8 +153,6 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         }
         return 0;
     }
-
-
 
     @Override
     public List<Deportista> getDeportistas() {

@@ -3,11 +3,21 @@ package objetos;
 import java.util.List;
 
 public class Deportista {
+    private int id;
     private String nombres, apellidos, email, telefono;
     private Pais pais;
     private List<Disciplina> disciplinas;
 
     public Deportista(String nombres, String apellidos, String email, String telefono, Pais pais, List<Disciplina> disciplinas) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.telefono = telefono;
+        this.pais = pais;
+        this.disciplinas = disciplinas;
+    }
+
+    public Deportista(int id, String nombres, String apellidos, String email, String telefono, Pais pais, List<Disciplina> disciplinas) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.email = email;
@@ -62,5 +72,13 @@ public class Deportista {
 
     public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
