@@ -1,18 +1,19 @@
 package objetos;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Deportista {
     private String nombre, apellido, email, telefono;
     private Pais pais;
-    private ArrayList<Disciplina> disciplinas;
+    private List<Disciplina> disciplinas;
 
-    public Deportista(String nombre, String apellido, String email, String telefono, Pais pais) {
+    public Deportista(String nombre, String apellido, String email, String telefono, Pais pais, List<Disciplina> disciplinas) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.telefono = telefono;
         this.pais = pais;
+        this.disciplinas = disciplinas;
     }
 
     public String getNombre() {
@@ -55,11 +56,11 @@ public class Deportista {
         this.pais = pais;
     }
 
-    public ArrayList<Disciplina> getDisciplinas() {
+    public List<Disciplina> getDisciplinas() {
         return disciplinas;
     }
 
-    public void setDisciplinas(ArrayList<Disciplina> disciplinas) {
+    public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
 }
