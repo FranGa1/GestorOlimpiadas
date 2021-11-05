@@ -97,58 +97,36 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
     }
 
     @Override
-    public int editar(Deportista deportistaEditar, Deportista deportistaEditado) {
+    public int editar(Deportista deportistaEditar) {
         // Se establece la conexion a la BD
         Connection connection = MiConnection.getCon();
 
         try {
-            String sql =  "UPDATE";
+            String sql =  "UPDATE deportista " +
+                    "SET nombres=?, apellidos=?, email=?, telfono=?, id_pais=(SELECT id FROM pais WHERE nombre=?)" +
+                    " WHERE id=?";
             PreparedStatement statementDeportista = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//            statementDeportista.setString(1, deportistaNuevo.getApellido());
-//            statementDeportista.setString(2, deportistaNuevo.getNombre());
-//            statementDeportista.setString(3, deportistaNuevo.getEmail());
-//            statementDeportista.setString(4, deportistaNuevo.getTelefono());
-//            statementDeportista.setString(5, deportistaNuevo.getPais().getNombre());
+            statementDeportista.setString(1, deportistaEditar.getNombres());
+            statementDeportista.setString(2, deportistaEditar.getApellidos());
+            statementDeportista.setString(3, deportistaEditar.getEmail());
+            statementDeportista.setString(4, deportistaEditar.getTelefono());
+            statementDeportista.setString(5, deportistaEditar.getPais().getNombre());
+            statementDeportista.setInt(6, deportistaEditar.getId());
             statementDeportista.executeUpdate();
 
-            // Se obtiene el id del deportista recien agregado
-            ResultSet generatedKeysResultSet = statementDeportista.getGeneratedKeys();
-            generatedKeysResultSet.next();
-            int idDeportista = generatedKeysResultSet.getInt(1);
-
             // Se le asignan las disciplinas al deportista
-            sql =  "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) VALUES(?,(SELECT id FROM disciplina WHERE nombre=?))";
+            sql =  "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) " +
+                    "VALUES(?,(SELECT id FROM disciplina WHERE nombre=?))";
             PreparedStatement statementDisciplina = connection.prepareStatement(sql);
 
-//            List<Disciplina> disciplinasDeportista = deportistaNuevo.getDisciplinas();
-//            for(Disciplina disciplina : disciplinasDeportista){
-//                statementDisciplina.setInt(1, idDeportista);
-//                statementDisciplina.setString(2, disciplina.getNombre());
-//                statementDisciplina.executeUpdate();
-//            }
+            for(Disciplina disciplina : deportistaEditar.getDisciplinas()){
+                statementDisciplina.setInt(1, deportistaEditar.getId());
+                statementDisciplina.setString(2, disciplina.getNombre());
+                statementDisciplina.executeUpdate();
+            }
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: " + e.getMessage());
-            return 1;
-        }
-        return 0;
-    }
-
-    public int editar(Deportista deportistaEditar, String nombres){
-        Connection connection = MiConnection.getCon();
-        int idDeportista = getIdDeportista(deportistaEditar);
-        return editar(idDeportista, nombres);
-    }
-
-    public int editar(int idDeportista, String nombres){
-        Connection connection = MiConnection.getCon();
-        try{
-            String sql = "UPDATE deportista SET nombres=? WHERE id=?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, nombres);
-            statement.setInt(2, idDeportista);
-        } catch (SQLException e){
-            System.out.println("Error de SQL: "+e.getMessage());
             return 1;
         }
         return 0;

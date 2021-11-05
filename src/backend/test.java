@@ -13,22 +13,39 @@ import objetos.Pais;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class test {
     public static void main(String[] args) throws SQLException {
-//        Disciplina di = new Disciplina();
-//        di.setID(1);
-//        di.setNombre("asdf");
-//
-//        Deportista d = new Deportista();
-//        d.setApellido("garay");
-//        d.setNombre("fran");
-//        d.setEmail("asdf");
-//        d.setTelefono("9784235");
+        Deportista d = new Deportista();
+        d.setApellidos("garay");
+        d.setNombres("fran");
+        d.setEmail("asdf");
+        d.setTelefono("9784235");
 
-//        Pais p = new Pais("Chile");
-        PaisDAO pDAO = FactoryDAO.getPaisDAO();
+
+//        Disciplina di = new Disciplina("Atletismo");
+//        List<Disciplina> dis = new LinkedList<>();
+//        dis.add(di);
+//
+//        Pais p = new Pais("Brasil");
+//        d.setPais(p);
+//        d.setDisciplinas(dis);
+        DeportistaDAO dao = FactoryDAO.getDeportistaDAO();
+////        dao.cargar(d);
+        dao.eliminar(d);
+//        List<Deportista> ds = dao.getDeportistas();
+//        for (Deportista deportista : ds)
+//            System.out.println(deportista.getNombres());
+//
+//
+//
+//        ds = dao.getDeportistas();
+//        for (Deportista deportista : ds)
+//            System.out.println(deportista.getNombres());
+
+//        PaisDAO pDAO = FactoryDAO.getPaisDAO();
 //        DeportistaDAO d = FactoryDAO.getDeportistaDAO();
 
         
@@ -38,10 +55,9 @@ public class test {
 //
 //        DisciplinaDAO di = FactoryDAO.getDisciplinaDAO();
 //        List<Disciplina> listD = di.getDisciplinas();
-//        for (Disciplina disciplina : listD)
-//            System.out.println(disciplina.getNombre());
-
-        System.out.println(pDAO.existe(new Pais("Brasil")));
+//
+//
+//        System.out.println(pDAO.existe(new Pais("Brasil")));
 //        System.out.println(pDAO.encontrar(new Pais("Argentina")));
 
 //        List<Pais> listaPaises = pDAO.getPaises();

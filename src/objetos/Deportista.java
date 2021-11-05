@@ -8,6 +8,8 @@ public class Deportista {
     private Pais pais;
     private List<Disciplina> disciplinas;
 
+    public Deportista(){}
+
     public Deportista(String nombres, String apellidos, String email, String telefono, Pais pais, List<Disciplina> disciplinas) {
         this.nombres = nombres;
         this.apellidos = apellidos;
