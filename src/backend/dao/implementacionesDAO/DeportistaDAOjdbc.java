@@ -1,10 +1,10 @@
-package backend.dao.implementaciones;
+package backend.dao.implementacionesDAO;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
-import backend.dao.interfaces.DeportistaDAO;
-import backend.dao.interfaces.DisciplinaDAO;
-import backend.dao.interfaces.PaisDAO;
+import backend.dao.interfacesDAO.DeportistaDAO;
+import backend.dao.interfacesDAO.DisciplinaDAO;
+import backend.dao.interfacesDAO.PaisDAO;
 import objetos.Deportista;
 import objetos.Disciplina;
 import objetos.Pais;

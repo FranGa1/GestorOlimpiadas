@@ -1,11 +1,11 @@
 package backend.dao;
 
-import backend.dao.implementaciones.DeportistaDAOjdbc;
-import backend.dao.implementaciones.DisciplinaDAOjdbc;
-import backend.dao.implementaciones.PaisDAOjdbc;
-import backend.dao.interfaces.DeportistaDAO;
-import backend.dao.interfaces.DisciplinaDAO;
-import backend.dao.interfaces.PaisDAO;
+import backend.dao.implementacionesDAO.DeportistaDAOjdbc;
+import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
+import backend.dao.implementacionesDAO.PaisDAOjdbc;
+import backend.dao.interfacesDAO.DeportistaDAO;
+import backend.dao.interfacesDAO.DisciplinaDAO;
+import backend.dao.interfacesDAO.PaisDAO;
 
 public class FactoryDAO {
     public static DeportistaDAO getDeportistaDAO(){

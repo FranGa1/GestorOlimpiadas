@@ -1,7 +1,8 @@
-package frontend.panels;
+package frontend.panels.menu;
 
 import frontend.changeDefaults.ButtonUI;
 import frontend.changeDefaults.WPanel;
+import frontend.panels.ChangeCards;
 
 import javax.swing.*;
 import java.awt.*;

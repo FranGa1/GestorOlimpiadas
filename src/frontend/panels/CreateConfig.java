@@ -1,7 +1,9 @@
 package frontend.panels;
 
+import backend.MiConnection;
 import frontend.Aplicacion;
 import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.PasswordFieldUI;
 import frontend.changeDefaults.TextFieldUI;
 import frontend.changeDefaults.WPanel;
 
@@ -35,7 +37,7 @@ public class CreateConfig {
 
         //Creamos los textFields
         userField = new TextFieldUI(30);
-        passwdField = new TextFieldUI(30);
+        passwdField = new PasswordFieldUI(30);
 
         //Agregamos a data
         data.setLayout(new GridBagLayout());
@@ -96,15 +98,14 @@ public class CreateConfig {
                 frame.setPasswd(passwdField.getText());
 
                 //Si la coneccion es exitosa
-                if (frame.getUser().equals("Jero") && frame.getPasswd().equals("1234")) {
+                if (MiConnection.validCredentials(userField.getText(), passwdField.getText())) {
                     ChangeCards.swap("MenuC");
                 }
                 else{
-                    ChangeCards.swap("MenuD");
+                    JOptionPane.showMessageDialog(null,
+                            "Usuario o contraseña invalidos", "Error Message",
+                            JOptionPane.ERROR_MESSAGE);
                 }
-
-                System.out.println("Usuario: " + frame.getUser());
-                System.out.println("Contraseña: " + frame.getPasswd());
 
                 cleanFields();
             }

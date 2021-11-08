@@ -1,10 +1,9 @@
-package backend.dao.implementaciones;
+package backend.dao.implementacionesDAO;
 
 import backend.MiConnection;
-import backend.dao.interfaces.DisciplinaDAO;
+import backend.dao.interfacesDAO.DisciplinaDAO;
 import objetos.Disciplina;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;

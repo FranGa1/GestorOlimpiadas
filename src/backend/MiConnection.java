@@ -15,4 +15,8 @@ public class MiConnection {
     public static Connection getCon() {
         return con;
     }
+
+    public static boolean validCredentials(String username, String password){
+        return (username.compareTo("root") == 0) && (password.compareTo("fran") == 0);
+    }
 }

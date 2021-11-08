@@ -1,4 +1,4 @@
-package backend.dao.interfaces;
+package backend.dao.interfacesDAO;
 
 import objetos.Disciplina;
 

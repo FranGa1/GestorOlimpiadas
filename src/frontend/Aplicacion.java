@@ -1,6 +1,8 @@
 package frontend;
 
 import frontend.panels.*;
+import frontend.panels.menu.CreateMenuConectado;
+import frontend.panels.menu.CreateMenuDesconectado;
 
 import javax.swing.*;
 import java.awt.*;

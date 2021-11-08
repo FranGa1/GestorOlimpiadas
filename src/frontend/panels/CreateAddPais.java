@@ -1,6 +1,7 @@
 package frontend.panels;
 
-import frontend.Aplicacion;
+import backend.dao.FactoryDAO;
+import backend.dao.interfacesDAO.PaisDAO;
 import frontend.changeDefaults.ButtonUI;
 import frontend.changeDefaults.TextFieldUI;
 import frontend.changeDefaults.WPanel;
@@ -114,20 +115,17 @@ public class CreateAddPais {
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                PaisDAO pDAO = FactoryDAO.getPaisDAO();
-//                Pais p = new Pais(inpt.getText());
-//                if (!pDAO.existe(p)) {
-//                    //pDAO.cargar(pais);
-//                    ChangeCards.swapPrev();
-//                }
-//                else{
-//                    JOptionPane.showMessageDialog(null,
-//                            "El pais ya se encuentra en la Base de Datos", "Error Message",
-//                            JOptionPane.ERROR_MESSAGE);
-//                }
-
-                ChangeCards.swapPrev();
-
+                PaisDAO pDAO = FactoryDAO.getPaisDAO();
+                Pais pais = new Pais(inpt.getText());
+                if (!pDAO.existe(pais)) {
+                    pDAO.cargar(pais);
+                    ChangeCards.swapPrev();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,
+                            "El pais ya se encuentra en la Base de Datos", "Error Message",
+                            JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 

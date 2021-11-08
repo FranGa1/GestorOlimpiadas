@@ -29,11 +29,11 @@ public class ChangeCards {
 
 
     //Muestra la card anterior
-    static void swapPrev(){
+    public static void swapPrev(){
         swap(anterior);
     }
 
-    static void swap(String cardName) {
+    public static void swap(String cardName) {
         switch (cardName) {
             case "MenuD", "MenuC" -> {
                 cl.show(cardPanel, cardName);

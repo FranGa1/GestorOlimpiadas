@@ -11,5 +11,4 @@ public class TextFieldUI extends JTextField {
         this.setBorder(null);
         this.setBorder(BorderFactory.createMatteBorder(1,1,1,1, new Color(0x282828)));
     }
-
 }

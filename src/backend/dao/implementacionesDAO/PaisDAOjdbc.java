@@ -1,7 +1,7 @@
-package backend.dao.implementaciones;
+package backend.dao.implementacionesDAO;
 
 import backend.MiConnection;
-import backend.dao.interfaces.PaisDAO;
+import backend.dao.interfacesDAO.PaisDAO;
 import objetos.Pais;
 
 import java.sql.*;
