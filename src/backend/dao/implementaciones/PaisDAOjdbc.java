@@ -32,9 +32,9 @@ public class PaisDAOjdbc implements PaisDAO {
         Connection connection = MiConnection.getCon();
 
         try {
-            String sql = "DELETE FROM pais WHERE nombre=?";
+            String sql = "DELETE FROM pais WHERE id=?";
             PreparedStatement statementPais = connection.prepareStatement(sql);
-            statementPais.setString(1, paisEliminar.getNombre());
+            statementPais.setInt(1, paisEliminar.getId());
             statementPais.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
@@ -47,10 +47,10 @@ public class PaisDAOjdbc implements PaisDAO {
     public int editar(Pais paisEditar, String nuevoNombre) {
         Connection connection = MiConnection.getCon();
         try {
-            String sql = "UPDATE pais SET nombre=? WHERE nombre=?";
+            String sql = "UPDATE pais SET nombre=? WHERE id=?";
             PreparedStatement statementPais = connection.prepareStatement(sql);
             statementPais.setString(1, nuevoNombre);
-            statementPais.setString(2, paisEditar.getNombre());
+            statementPais.setInt(2, paisEditar.getId());
             statementPais.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
@@ -64,9 +64,9 @@ public class PaisDAOjdbc implements PaisDAO {
         Connection connection = MiConnection.getCon();
 
         try {
-            String sql = "SELECT * FROM pais WHERE nombre=?";
+            String sql = "SELECT * FROM pais WHERE id=?";
             PreparedStatement statementPais = connection.prepareStatement(sql);
-            statementPais.setString(1, paisEncontrar.getNombre());
+            statementPais.setInt(1, paisEncontrar.getId());
             ResultSet pais = statementPais.executeQuery();
 
             return pais.isBeforeFirst();
@@ -89,8 +89,10 @@ public class PaisDAOjdbc implements PaisDAO {
             ResultSet result = statementPais.executeQuery();
 
             // Si se encontro el pais, se lo devuelve
-            if (result.isBeforeFirst())
+            if (result.isBeforeFirst()) {
                 pais.setNombre(result.getString("nombre"));
+                pais.setId(result.getInt("id"));
+            }
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
@@ -111,7 +113,7 @@ public class PaisDAOjdbc implements PaisDAO {
 
             // Se agregan en la lista que se va a devolver
             while (paises.next()){
-                listaPaises.add(new Pais(paises.getString("nombre")));
+                listaPaises.add(new Pais(paises.getString("nombre"), paises.getInt("id")));
             }
 
         } catch (SQLException e) {

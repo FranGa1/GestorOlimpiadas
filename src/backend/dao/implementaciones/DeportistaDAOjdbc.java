@@ -71,23 +71,16 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 
         try {
             // Se borra al deportista de la tabla deportista_en_disciplina
-            String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=(SELECT id FROM deportista WHERE (nombres=? and apellidos=? and email=? and telefono=?))";
+            String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, deportistaEliminar.getNombres());
-            statement.setString(2, deportistaEliminar.getApellidos());
-            statement.setString(3, deportistaEliminar.getEmail());
-            statement.setString(4, deportistaEliminar.getTelefono());
+            statement.setInt(1, deportistaEliminar.getId());
             statement.executeUpdate();
 
             // Se borra al deportista de la tabla deportista
-            sql = "DELETE FROM deportista WHERE (email=? and nombres=? and apellidos=? and telefono=?)";
+            sql = "DELETE FROM deportista WHERE id=?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, deportistaEliminar.getEmail());
-            statement.setString(2, deportistaEliminar.getNombres());
-            statement.setString(3, deportistaEliminar.getApellidos());
-            statement.setString(4, deportistaEliminar.getTelefono());
+            statement.setInt(1, deportistaEliminar.getId());
             statement.executeUpdate();
-
 
         } catch (SQLException e){
             System.out.println("Error de SQL: "+e.getMessage());
@@ -157,7 +150,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
                 List<Disciplina> disciplinas = disciplinaDAO.getDisciplinasDeportista(idDeportista);
 
                 // Se lo agrega a la lista a devolver
-                listasDeportistas.add(new Deportista(nombre, apellido, email, telefono, pais, disciplinas));
+                listasDeportistas.add(new Deportista(nombre, apellido, email, telefono, pais, disciplinas, idDeportista));
             }
         } catch (SQLException e){
             System.out.println("Error de SQL: "+e.getMessage());

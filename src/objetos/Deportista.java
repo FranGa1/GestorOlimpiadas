@@ -19,7 +19,7 @@ public class Deportista {
         this.disciplinas = disciplinas;
     }
 
-    public Deportista(int id, String nombres, String apellidos, String email, String telefono, Pais pais, List<Disciplina> disciplinas) {
+    public Deportista(String nombres, String apellidos, String email, String telefono, Pais pais, List<Disciplina> disciplinas,int id) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.email = email;
