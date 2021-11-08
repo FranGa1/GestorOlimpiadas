@@ -12,12 +12,13 @@ import objetos.Pais;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class DeportistaDAOjdbc implements DeportistaDAO {
 
     /**
      * Se carga un deportista en la base de datos
-     * @param deportistaNuevo
+     * @param deportistaNuevo Deportista a crear
      */
     @Override
     public int cargar(Deportista deportistaNuevo) {
@@ -28,28 +29,28 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         try {
             // Se inserta en la tabla deportista al deportistaNuevo
             String sql =  "INSERT INTO deportista (apellidos, nombres, email, telefono, id_pais) VALUES(?,?,?,?,(SELECT id FROM pais WHERE nombre=?))";
-            PreparedStatement statementDeportista = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statementDeportista.setString(1, deportistaNuevo.getApellidos());
-            statementDeportista.setString(2, deportistaNuevo.getNombres());
-            statementDeportista.setString(3, deportistaNuevo.getEmail());
-            statementDeportista.setString(4, deportistaNuevo.getTelefono());
-            statementDeportista.setString(5, deportistaNuevo.getPais().getNombre());
-            statementDeportista.executeUpdate();
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, deportistaNuevo.getApellidos().toUpperCase(Locale.ROOT));
+            statement.setString(2, deportistaNuevo.getNombres().toUpperCase(Locale.ROOT));
+            statement.setString(3, deportistaNuevo.getEmail().toUpperCase(Locale.ROOT));
+            statement.setString(4, deportistaNuevo.getTelefono());
+            statement.setString(5, deportistaNuevo.getPais().getNombre().toUpperCase(Locale.ROOT));
+            statement.executeUpdate();
 
             // Se obtiene el id del deportista recien agregado
-            ResultSet generatedKeysResultSet = statementDeportista.getGeneratedKeys();
+            ResultSet generatedKeysResultSet = statement.getGeneratedKeys();
             generatedKeysResultSet.next();
             int idDeportista = generatedKeysResultSet.getInt(1);
 
             // Se le asignan las disciplinas al deportista
             sql =  "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) VALUES(?,(SELECT id FROM disciplina WHERE nombre=?))";
-            PreparedStatement statementDisciplina = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
 
             List<Disciplina> disciplinasDeportista = deportistaNuevo.getDisciplinas();
             for(Disciplina disciplina : disciplinasDeportista){
-                statementDisciplina.setInt(1, idDeportista);
-                statementDisciplina.setString(2, disciplina.getNombre());
-                statementDisciplina.executeUpdate();
+                statement.setInt(1, idDeportista);
+                statement.setString(2, disciplina.getNombre());
+                statement.executeUpdate();
             }
 
         } catch (SQLException e) {
@@ -61,7 +62,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 
     /**
      * Se elimina un deportista de la base de datos
-     * @param deportistaEliminar
+     * @param deportistaEliminar Deportista a eliminar
      */
     @Override
     public int eliminar(Deportista deportistaEliminar) {
@@ -89,6 +90,11 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         return 0;
     }
 
+    /**
+     * Se edita un deportista en la base de datos
+     * @param deportistaEditar Deportista a editar
+     * @return 0 si fue exitoso, 1 en caso contrario
+     */
     @Override
     public int editar(Deportista deportistaEditar) {
         // Se establece la conexion a la BD
@@ -96,26 +102,32 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 
         try {
             String sql =  "UPDATE deportista " +
-                    "SET nombres=?, apellidos=?, email=?, telfono=?, id_pais=(SELECT id FROM pais WHERE nombre=?)" +
+                    "SET nombres=?, apellidos=?, email=?, telfono=?, id_pais=?" +
                     " WHERE id=?";
-            PreparedStatement statementDeportista = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statementDeportista.setString(1, deportistaEditar.getNombres());
-            statementDeportista.setString(2, deportistaEditar.getApellidos());
-            statementDeportista.setString(3, deportistaEditar.getEmail());
-            statementDeportista.setString(4, deportistaEditar.getTelefono());
-            statementDeportista.setString(5, deportistaEditar.getPais().getNombre());
-            statementDeportista.setInt(6, deportistaEditar.getId());
-            statementDeportista.executeUpdate();
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, deportistaEditar.getNombres().toUpperCase(Locale.ROOT));
+            statement.setString(2, deportistaEditar.getApellidos().toUpperCase(Locale.ROOT));
+            statement.setString(3, deportistaEditar.getEmail().toUpperCase(Locale.ROOT));
+            statement.setString(4, deportistaEditar.getTelefono());
+            statement.setInt(5, deportistaEditar.getPais().getId());
+            statement.setInt(6, deportistaEditar.getId());
+            statement.executeUpdate();
+
+            // Se borra al deportista de la tabla deportista_en_disciplina
+            sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?)";
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, deportistaEditar.getId());
+            statement.executeUpdate();
 
             // Se le asignan las disciplinas al deportista
             sql =  "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) " +
                     "VALUES(?,(SELECT id FROM disciplina WHERE nombre=?))";
-            PreparedStatement statementDisciplina = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(sql);
 
             for(Disciplina disciplina : deportistaEditar.getDisciplinas()){
-                statementDisciplina.setInt(1, deportistaEditar.getId());
-                statementDisciplina.setString(2, disciplina.getNombre());
-                statementDisciplina.executeUpdate();
+                statement.setInt(1, deportistaEditar.getId());
+                statement.setString(2, disciplina.getNombre());
+                statement.executeUpdate();
             }
 
         } catch (SQLException e) {
@@ -125,6 +137,10 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         return 0;
     }
 
+    /**
+     * Se obtiene una lista de deportistas
+     * @return 0 si es exitoso, 1 en caso contrario
+     */
     @Override
     public List<Deportista> getDeportistas() {
         // Se establece la conexcion con la base de datos
@@ -159,6 +175,11 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         return listasDeportistas;
     }
 
+    /**
+     * Se obtiene el id de un deportista a partir de este
+     * @param deportista
+     * @return id deportista si es exitoso, 0 caso contrario
+     */
     @Override
     public int getIdDeportista(Deportista deportista){
         Connection connection = MiConnection.getCon();

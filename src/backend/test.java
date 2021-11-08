@@ -1,28 +1,28 @@
 package backend;
 
-import backend.dao.FactoryDAO;
-import backend.dao.implementaciones.DisciplinaDAOjdbc;
-import backend.dao.implementaciones.PaisDAOjdbc;
-import backend.dao.interfaces.DeportistaDAO;
-import backend.dao.interfaces.DisciplinaDAO;
-import backend.dao.interfaces.PaisDAO;
 import objetos.Deportista;
-import objetos.Disciplina;
-import objetos.Pais;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
 
 public class test {
+    public static int prueba(int numero){
+        return numero;
+    }
+
     public static void main(String[] args) throws SQLException {
         Deportista d = new Deportista();
-        d.setApellidos("garay");
-        d.setNombres("fran");
-        d.setEmail("asdf");
-        d.setTelefono("9784235");
+        int a;
+//        try {
+//            a = "asdf" + d.getNombres();
+//        } catch (NullPointerException e){
+//            System.out.println("ERROR");
+//        }
+//        System.out.println(prueba(d));
+//        Deportista d = new Deportista();
+//        d.setApellidos("garay");
+//        d.setNombres("fran");
+//        d.setEmail("asdf");
+//        d.setTelefono("9784235");
 
 
 //        Disciplina di = new Disciplina("Atletismo");
@@ -32,9 +32,9 @@ public class test {
 //        Pais p = new Pais("Brasil");
 //        d.setPais(p);
 //        d.setDisciplinas(dis);
-        DeportistaDAO dao = FactoryDAO.getDeportistaDAO();
+//        DeportistaDAO dao = FactoryDAO.getDeportistaDAO();
 ////        dao.cargar(d);
-        dao.eliminar(d);
+//        dao.eliminar(d);
 //        List<Deportista> ds = dao.getDeportistas();
 //        for (Deportista deportista : ds)
 //            System.out.println(deportista.getNombres());
@@ -48,7 +48,7 @@ public class test {
 //        PaisDAO pDAO = FactoryDAO.getPaisDAO();
 //        DeportistaDAO d = FactoryDAO.getDeportistaDAO();
 
-        
+//        System.out.println(pDAO.existe(new Pais("Brasil")));
 
 
 //        pDAO.cargar(p);

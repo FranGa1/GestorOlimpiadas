@@ -7,7 +7,7 @@ import java.util.List;
 public interface PaisDAO {
     int cargar(Pais nuevoPais);
     int eliminar(Pais paisEliminar);
-    int editar(Pais paisEditar, String nombre);
+    int editar(Pais paisEditar);
     boolean existe(Pais pais);
     Pais encontrar(int id);
     List<Pais> getPaises();
