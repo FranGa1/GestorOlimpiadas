@@ -10,14 +10,14 @@ import frontend.changeDefaults.WPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CreateConfig {
-
+public class CreatePaisTable {
     private static JTextField userField;
     private static JTextField passwdField;
 
     public static JPanel create(Aplicacion frame){
-        
+
         //Creamos los paneles
         JPanel panel = new WPanel();
         JPanel header = new WPanel();
@@ -25,14 +25,11 @@ public class CreateConfig {
         JPanel buttons = new WPanel();
 
         //Creamos los botones
-        JButton btnOK = new ButtonUI("OK");
-        JButton btnCancel = new ButtonUI("Cancelar");
-        JButton btnReset = new ButtonUI("Reset Data");
+        JButton btnOK = new ButtonUI("Nuevo");
+        JButton btnCancel = new ButtonUI("Volver");
 
         //Creamos los labels
-        JLabel userLbl = new JLabel("Usuario: ");
-        JLabel passwdLbl = new JLabel("Contraseña: ");
-        JLabel headerLbl = new JLabel("CONFIGURACION", SwingConstants.CENTER);
+        JLabel headerLbl = new JLabel("PAISES", SwingConstants.CENTER);
 
         //Creamos los textFields
         userField = new TextFieldUI(30);
@@ -126,6 +123,22 @@ public class CreateConfig {
 
             cleanFields();
         });
+
+        // Permite apretar enter para guardar
+//        passwdField.addKeyListener(new KeyAdapter() {
+//
+//            public void keyPressed(KeyEvent e) {
+//                Pattern p = Pattern.compile("^[a-zA-Z\\s]+$|^$");
+//                if (!p.matcher(passwdField.getText()).find()){
+//                    error.setText("ERROR: Ingrese solo letras o espacios");
+//                    error.setBackground(Color.RED);
+//                }
+//                else {
+//                    error.setText("");
+//                    error.setBackground(null);
+//                }
+//            }
+//        });
         return panel;
     }
 

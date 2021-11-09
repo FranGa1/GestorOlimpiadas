@@ -12,8 +12,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.regex.Pattern;
 
 public class CreateAddPais {
@@ -120,15 +119,17 @@ public class CreateAddPais {
                 }
             }
         });
-
         return panel;
     }
 
     //Listener para el boton save
-    private static class SaveListener implements ActionListener{
-
+    private static class SaveListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            savePais();
+        }
+
+        public static void savePais(){
             PaisDAO pDAO = FactoryDAO.getPaisDAO();
             Pais p = new Pais(input.getText().trim());
             //Chequeamos que no haya errores o que el campo no este vacio
@@ -163,7 +164,6 @@ public class CreateAddPais {
                 cleanFields();
                 ChangeCards.swapPrev();
             }
-
         }
     }
 

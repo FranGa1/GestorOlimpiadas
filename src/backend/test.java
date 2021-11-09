@@ -1,5 +1,7 @@
 package backend;
 
+import backend.dao.FactoryDAO;
+import backend.dao.interfacesDAO.PaisDAO;
 import objetos.Deportista;
 
 import java.sql.SQLException;
@@ -10,8 +12,8 @@ public class test {
     }
 
     public static void main(String[] args) throws SQLException {
-        Deportista d = new Deportista();
-        int a;
+//        Deportista d = new Deportista();
+//        int a;
 //        try {
 //            a = "asdf" + d.getNombres();
 //        } catch (NullPointerException e){
@@ -45,8 +47,11 @@ public class test {
 //        for (Deportista deportista : ds)
 //            System.out.println(deportista.getNombres());
 
-//        PaisDAO pDAO = FactoryDAO.getPaisDAO();
-//        DeportistaDAO d = FactoryDAO.getDeportistaDAO();
+        PaisDAO pDAO = FactoryDAO.getPaisDAO();
+        MiConnection.login("root", "fran");
+        System.out.println(pDAO.getPaisesAsStrings());
+//        DeportistaDAO d = FactoryDAO.getDepor
+//        tistaDAO();
 
 //        System.out.println(pDAO.existe(new Pais("Brasil")));
 
