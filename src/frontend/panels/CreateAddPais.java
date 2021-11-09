@@ -139,7 +139,7 @@ public class CreateAddPais {
                 //Si no hay coneccion con la BD
                 JOptionPane.showMessageDialog(null,
                         "No se conecto a la base de datos", "Error Message",
-                        JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.WARNING_MESSAGE);
             }else if (!error.getText().equals("")){
                 //Si hay algun error
                 JOptionPane.showMessageDialog(null,

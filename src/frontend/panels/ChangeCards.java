@@ -38,7 +38,7 @@ public class ChangeCards {
             case "MenuD", "MenuC" -> {
                 cl.show(cardPanel, cardName);
                 frame.setSize(500, 380);
-                frame.setName("Gestor de Olimpiadas - NUEVO DEPORTISTA");
+                frame.setName("Gestor de Olimpiadas");
             }
             case "Configuracion" -> {
                 cl.show(cardPanel, cardName);
@@ -54,6 +54,11 @@ public class ChangeCards {
                 cl.show(cardPanel, cardName);
                 frame.setSize(510, 420);
                 frame.setName("Gestor de Olimpiadas - NUEVO DEPORTISTA");
+            }
+            case "DeportistasTable" -> {
+                cl.show(cardPanel, cardName);
+                frame.setSize(530, 420);
+                frame.setName("Gestor de Olimpiadas - DEPORTISTAS");
             }
         }
         update(cardName);

@@ -1,21 +1,16 @@
 package frontend.panels.menu;
 
-import backend.MiConnection;
 import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
 import backend.dao.implementacionesDAO.PaisDAOjdbc;
-import com.mysql.cj.MysqlConnection;
 import frontend.changeDefaults.ButtonUI;
 import frontend.changeDefaults.WPanel;
 import frontend.panels.ChangeCards;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import static frontend.panels.CreateAddDeportista.changePaisCB;
+import static frontend.panels.CreateAddDeportista.updateCB;
 
 public abstract class CreateMenu {
 
@@ -36,7 +31,8 @@ public abstract class CreateMenu {
         c.weighty = 1;
 
         c.gridx = 0;
-        panelC.add(new ButtonUI("1"), c);
+        JButton deportistas = new ButtonUI("Deportistas");
+        panelC.add(deportistas);
         c.gridx = 1;
         panelC.add(new ButtonUI("2"), c);
         c.gridx = 2;
@@ -86,13 +82,17 @@ public abstract class CreateMenu {
             }
         });
 
+        deportistas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ChangeCards.swap("DeportistasTable");
+            }
+        });
+
         nuevoPais.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChangeCards.swap("AddPais");
-                PaisDAOjdbc p = new PaisDAOjdbc();
-                DisciplinaDAOjdbc d = new DisciplinaDAOjdbc();
-                updateCB(p.getPaises(), d.getDisciplinas());
             }
         });
 
@@ -100,6 +100,9 @@ public abstract class CreateMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChangeCards.swap("AddDeportista");
+                PaisDAOjdbc p = new PaisDAOjdbc();
+                DisciplinaDAOjdbc d = new DisciplinaDAOjdbc();
+                updateCB(p.getPaisesAsStrings(), d.getDisciplinasAsStrings());
             }
         });
 

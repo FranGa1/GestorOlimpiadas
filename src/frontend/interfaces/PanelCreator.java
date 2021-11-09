@@ -4,7 +4,4 @@
 //
 //public interface PanelCreator {
 //
-//    static JPanel create() {
-//        return null;
-//    }
 //}
