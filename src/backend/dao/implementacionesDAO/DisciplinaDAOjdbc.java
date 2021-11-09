@@ -30,6 +30,26 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
         return listaDisciplinas;
     }
 
+    public List<String> getDisciplinasAsStrings(){
+        Connection connection = MiConnection.getCon();
+        List<String> listaDisciplinasAsStrings = new LinkedList<>();
+
+        try {
+            String sql = "SELECT * FROM disciplina";
+            Statement statement = connection.createStatement();
+            ResultSet disciplinasBD = statement.executeQuery(sql);
+
+            while (disciplinasBD.next()){
+                listaDisciplinasAsStrings.add(disciplinasBD.getString("nombre"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error de SQL: "+e.getMessage());
+        }
+
+        return listaDisciplinasAsStrings;
+    }
+
     @Override
     public List<Disciplina> getDisciplinasDeportista(int idDeportista){
         Connection connection = MiConnection.getCon();
@@ -53,11 +73,23 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
     }
 
     public List<String> getDisciplinasDeportistaAsStrings(int idDeportista){
-        List<Disciplina> disciplinas = getDisciplinasDeportista(idDeportista);
-        List<String> disciplinasAsStrings = new LinkedList<>();
-        for (Disciplina disciplina : disciplinas){
-            disciplinasAsStrings.add(disciplina.getNombre());
+        Connection connection = MiConnection.getCon();
+        List<String> listaDisciplinasAsStrings = new LinkedList<>();
+
+        try {
+            String sql = "SELECT * FROM disciplina WHERE id_deportista=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, idDeportista);
+            ResultSet disciplinasBD = statement.executeQuery(sql);
+
+            while (disciplinasBD.next()){
+                listaDisciplinasAsStrings.add(disciplinasBD.getString("nombre"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error de SQL: "+e.getMessage());
         }
-        return disciplinasAsStrings;
+
+        return listaDisciplinasAsStrings;
     }
 }
