@@ -1,5 +1,9 @@
 package frontend.panels.menu;
 
+import backend.MiConnection;
+import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
+import backend.dao.implementacionesDAO.PaisDAOjdbc;
+import com.mysql.cj.MysqlConnection;
 import frontend.changeDefaults.ButtonUI;
 import frontend.changeDefaults.WPanel;
 import frontend.panels.ChangeCards;
@@ -8,6 +12,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static frontend.panels.CreateAddDeportista.changePaisCB;
 
 public abstract class CreateMenu {
 
@@ -82,6 +90,9 @@ public abstract class CreateMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChangeCards.swap("AddPais");
+                PaisDAOjdbc p = new PaisDAOjdbc();
+                DisciplinaDAOjdbc d = new DisciplinaDAOjdbc();
+                updateCB(p.getPaises(), d.getDisciplinas());
             }
         });
 

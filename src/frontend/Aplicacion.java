@@ -30,7 +30,7 @@ public class Aplicacion extends JFrame {
         JPanel mainPanelConnected = CreateMenuConectado.create();
         JPanel mainPanelDesconectado = CreateMenuDesconectado.create();
 
-        JPanel config = CreateConfig.create(this);
+        JPanel config = CreateConfig.create();
         JPanel addPais = CreateAddPais.create();
         JPanel addDeportista = CreateAddDeportista.create();
 
