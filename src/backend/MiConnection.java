@@ -6,8 +6,8 @@ import java.sql.DriverManager;
 public class MiConnection {
     private static Connection con = null;
 
-    private static String accesPassword = "fran";
-    private static String accessUsername = "root";
+    private static final String accesPassword = "fran";
+    private static final String accessUsername = "root";
 
     private static void createCon() {
         if (con == null) {

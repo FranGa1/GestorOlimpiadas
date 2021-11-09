@@ -11,4 +11,5 @@ public interface PaisDAO {
     boolean existe(Pais pais);
     Pais encontrar(int id);
     List<Pais> getPaises();
+    List<String> getPaisesAsStrings();
 }

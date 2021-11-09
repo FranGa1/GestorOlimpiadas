@@ -30,6 +30,11 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
         return listaDisciplinas;
     }
 
+    /**
+     * Se obtiene una lista de nombres de desiciplinas
+     * @return Lista de Strings
+     */
+    @Override
     public List<String> getDisciplinasAsStrings(){
         Connection connection = MiConnection.getCon();
         List<String> listaDisciplinasAsStrings = new LinkedList<>();
@@ -72,6 +77,12 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
         return listaDisciplinas;
     }
 
+    /**
+     * Se obtiene una lista de
+     * @param idDeportista
+     * @return
+     */
+    @Override
     public List<String> getDisciplinasDeportistaAsStrings(int idDeportista){
         Connection connection = MiConnection.getCon();
         List<String> listaDisciplinasAsStrings = new LinkedList<>();

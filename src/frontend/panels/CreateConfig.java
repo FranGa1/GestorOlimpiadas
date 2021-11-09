@@ -87,7 +87,6 @@ public class CreateConfig {
         //Agregamos borde abajo
         panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
-
         //Listeners
         btnOK.addActionListener(new ActionListener() {
             @Override
@@ -106,41 +105,27 @@ public class CreateConfig {
                             "Usuario o contraseña invalidos", "Error Message",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
                 cleanFields();
             }
         });
 
-        btnReset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnReset.addActionListener(e -> {
 
-                //Reset user and password
-                frame.setUser("");
-                frame.setPasswd("");
+            //Reset user and password
+            frame.setUser("");
+            frame.setPasswd("");
 
-                ChangeCards.swap("MenuD");
+            ChangeCards.swap("MenuD");
 
-                System.out.println("Usuario: " + frame.getUser());
-                System.out.println("Contraseña: " + frame.getPasswd());
+            cleanFields();
 
-                cleanFields();
-
-            }
         });
 
-        btnCancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        btnCancel.addActionListener(e -> {
 
-                ChangeCards.swapPrev();
+            ChangeCards.swapPrev();
 
-                System.out.println("Usuario: " + frame.getUser());
-                System.out.println("Contraseña: " + frame.getPasswd());
-
-                cleanFields();
-
-            }
+            cleanFields();
         });
         return panel;
     }
