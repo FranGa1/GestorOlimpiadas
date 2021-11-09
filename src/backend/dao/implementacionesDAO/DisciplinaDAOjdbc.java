@@ -51,4 +51,13 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
 
         return listaDisciplinas;
     }
+
+    public List<String> getDisciplinasDeportistaAsStrings(int idDeportista){
+        List<Disciplina> disciplinas = getDisciplinasDeportista(idDeportista);
+        List<String> disciplinasAsStrings = new LinkedList<>();
+        for (Disciplina disciplina : disciplinas){
+            disciplinasAsStrings.add(disciplina.getNombre());
+        }
+        return disciplinasAsStrings;
+    }
 }
