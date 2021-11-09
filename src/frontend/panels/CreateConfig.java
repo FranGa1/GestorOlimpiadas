@@ -1,5 +1,6 @@
 package frontend.panels;
 
+
 import backend.MiConnection;
 import frontend.Aplicacion;
 import frontend.changeDefaults.ButtonUI;
@@ -17,7 +18,7 @@ public class CreateConfig {
     private static JTextField userField;
     private static JTextField passwdField;
 
-    public static JPanel create(Aplicacion frame){
+    public static JPanel create(){
 
         //Creamos los paneles
         JPanel panel = new WPanel();
@@ -93,12 +94,13 @@ public class CreateConfig {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                //Guardamos la informacion
-                frame.setUser(userField.getText());
-                frame.setPasswd(passwdField.getText());
+                MiConnection.login(userField.getText(), passwdField.getText());
 
                 //Si la coneccion es exitosa
-                if (MiConnection.validCredentials(userField.getText(), passwdField.getText())) {
+                if (MiConnection.getCon() != null) {
+                    JOptionPane.showMessageDialog(null,
+                            "Se conecto a la BD", "Info",
+                            JOptionPane.INFORMATION_MESSAGE);
                     ChangeCards.swap("MenuC");
                 }
                 else{
@@ -116,13 +118,9 @@ public class CreateConfig {
             public void actionPerformed(ActionEvent e) {
 
                 //Reset user and password
-                frame.setUser("");
-                frame.setPasswd("");
-
+                MiConnection.login("", "");
+                //Load Disconnected Menu
                 ChangeCards.swap("MenuD");
-
-                System.out.println("Usuario: " + frame.getUser());
-                System.out.println("Contraseña: " + frame.getPasswd());
 
                 cleanFields();
 
@@ -133,10 +131,8 @@ public class CreateConfig {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                //Go back to previous card
                 ChangeCards.swapPrev();
-
-                System.out.println("Usuario: " + frame.getUser());
-                System.out.println("Contraseña: " + frame.getPasswd());
 
                 cleanFields();
 

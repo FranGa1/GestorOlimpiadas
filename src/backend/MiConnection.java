@@ -6,13 +6,10 @@ import java.sql.DriverManager;
 public class MiConnection {
     private static Connection con = null;
 
-    private static String accesPassword = "fran";
-    private static String accessUsername = "root";
-
     private static void createCon() {
         if (con == null) {
             try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", "root", "fran");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", "root", "12345");
             } catch (java.sql.SQLException e) {
                 System.out.println("Error de SQL: " + e.getMessage());
             }
@@ -33,7 +30,7 @@ public class MiConnection {
     }
 
     public static boolean validCredentials(String username, String password){
-        return (username.compareTo(accessUsername) == 0) && (password.compareTo(accesPassword) == 0);
+        return (username.compareTo("root") == 0) && (password.compareTo("12345") == 0);
     }
 
     public static boolean nullConnection(){

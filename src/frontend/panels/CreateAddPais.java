@@ -92,9 +92,12 @@ public class CreateAddPais {
 
         save.addActionListener(new SaveListener());
 
-        cancel.addActionListener(e -> {
-            cleanFields();
-            ChangeCards.swapPrev();
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cleanFields();
+                ChangeCards.swapPrev();
+            }
         });
 
         input.getDocument().addDocumentListener(new DocumentListener() {
