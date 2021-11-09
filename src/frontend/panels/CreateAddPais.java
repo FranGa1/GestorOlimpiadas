@@ -1,5 +1,6 @@
 package frontend.panels;
 
+import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.PaisDAO;
 import frontend.changeDefaults.ButtonUI;
@@ -17,6 +18,9 @@ import java.util.regex.Pattern;
 
 public class CreateAddPais {
 
+    private static JTextField input;
+    private static JTextField error;
+
     public static JPanel create(){
 
         //Creamos los paneles
@@ -32,8 +36,8 @@ public class CreateAddPais {
         JLabel headerLbl = new JLabel("CREAR NUEVO PAIS",  SwingConstants.CENTER);
 
         //Creamos los text fields
-        JTextField inpt = new TextFieldUI(30);
-        JTextField error = new TextFieldUI(30);
+        input = new TextFieldUI(30);
+        error = new TextFieldUI(30);
         error.setEditable(false);
 
         //Creamos los botones
@@ -69,7 +73,7 @@ public class CreateAddPais {
         c.gridy = 0;
         centerC.add(label);
         c.gridx = 1;
-        centerC.add(inpt);
+        centerC.add(input);
 
         //Construimos el panel Center
         center.setLayout(new BorderLayout());
@@ -85,7 +89,15 @@ public class CreateAddPais {
 
 
         //listeners
-        inpt.getDocument().addDocumentListener(new DocumentListener() {
+
+        save.addActionListener(new SaveListener());
+
+        cancel.addActionListener(e -> {
+            cleanFields();
+            ChangeCards.swapPrev();
+        });
+
+        input.getDocument().addDocumentListener(new DocumentListener() {
             public void changedUpdate(DocumentEvent e) {
                 warn();
             }
@@ -97,11 +109,8 @@ public class CreateAddPais {
             }
 
             public void warn() {
-                Pattern p = Pattern.compile("^[a-zA-Z\\s]+$");
-                if (!p.matcher(inpt.getText()).find()){
-//                    JOptionPane.showMessageDialog(null,
-//                            "Error: Please enter number bigger than 0", "Error Message",
-//                            JOptionPane.ERROR_MESSAGE);
+                Pattern p = Pattern.compile("^[a-zA-Z\\s]+$|^$");
+                if (!p.matcher(input.getText()).find()){
                     error.setText("ERROR: Ingrese solo letras o espacios");
                     error.setBackground(Color.RED);
                 }
@@ -112,30 +121,55 @@ public class CreateAddPais {
             }
         });
 
-        save.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PaisDAO pDAO = FactoryDAO.getPaisDAO();
-                Pais pais = new Pais(inpt.getText());
-                if (!pDAO.existe(pais)) {
-                    pDAO.cargar(pais);
-                    ChangeCards.swapPrev();
-                }
-                else{
-                    JOptionPane.showMessageDialog(null,
-                            "El pais ya se encuentra en la Base de Datos", "Error Message",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
+        return panel;
+    }
 
-        cancel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+    //Listener para el boton save
+    private static class SaveListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            PaisDAO pDAO = FactoryDAO.getPaisDAO();
+            Pais p = new Pais(input.getText().trim());
+            //Chequeamos que no haya errores o que el campo no este vacio
+            if (MiConnection.nullConnection()) {
+                //Si no hay coneccion con la BD
+                JOptionPane.showMessageDialog(null,
+                        "No se conecto a la base de datos", "Error Message",
+                        JOptionPane.ERROR_MESSAGE);
+            }else if (!error.getText().equals("")){
+                //Si hay algun error
+                JOptionPane.showMessageDialog(null,
+                        "Solucione primero los errores", "Error Message",
+                        JOptionPane.ERROR_MESSAGE);
+
+            }else if (input.getText().equals("")){
+                //Si el campo esta vacio
+                JOptionPane.showMessageDialog(null,
+                        "El campo es obligatorio", "Error Message",
+                        JOptionPane.ERROR_MESSAGE);
+
+            }else if (pDAO.existe(p)) {
+                //Si ya esta en la base de datos
+                JOptionPane.showMessageDialog(null,
+                        "El pais ya se encuentra en la Base de Datos", "Error Message",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                //Cargamos el jugador
+                pDAO.cargar(p);
+                JOptionPane.showMessageDialog(null, "Agregado Exitoso", "Action Complete",
+                        JOptionPane.INFORMATION_MESSAGE);
+                cleanFields();
                 ChangeCards.swapPrev();
             }
-        });
 
-        return panel;
+        }
+    }
+
+    //Limpia los datos ingresados por el usuario
+    private static void cleanFields(){
+        input.setText("");
+        error.setText("");
     }
 }
