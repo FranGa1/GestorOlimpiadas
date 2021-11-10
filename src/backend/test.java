@@ -1,9 +1,14 @@
 package backend;
 
+import backend.dao.FactoryDAO;
 import objetos.Deportista;
+import objetos.Pais;
 
 import javax.swing.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class test {
     public static int prueba(int numero){
@@ -11,20 +16,9 @@ public class test {
     }
 
     public static void main(String[] args) throws SQLException {
-//        JFrame f;
-//        f=new JFrame();
-//
-//        JButton b = new JButton("hola");
-//
-//        String data[][]={ {"1","Argentina",b},
-//                {"102","Jai","780000"},
-//                {"101","Sachin","700000"}};
-//        String column[]={"Paises"};
-//        JTable jt=new JTable(data,column);
-//        jt.setBounds(30,40,200,300);
-//        JScrollPane sp=new JScrollPane(jt);
-//        f.add(sp);
-//        f.setSize(300,400);
-//        f.setVisible(true);
+        MiConnection.login("root", "fran");
+//        FactoryDAO.getPaisDAO().cargar(new Pais("franciass"));
+
+        System.out.println(FactoryDAO.getPaisDAO().encontrar(1).getNombre());
     }
 }

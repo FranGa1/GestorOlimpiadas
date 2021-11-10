@@ -5,7 +5,6 @@ import backend.dao.FactoryDAO;
 import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
 import backend.dao.implementacionesDAO.PaisDAOjdbc;
 import backend.dao.interfacesDAO.DeportistaDAO;
-import backend.dao.interfacesDAO.PaisDAO;
 import frontend.changeDefaults.ButtonUI;
 import frontend.changeDefaults.ComboBoxUI;
 import frontend.changeDefaults.TextFieldUI;
@@ -20,7 +19,6 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -264,10 +262,6 @@ public class CreateAddDeportista {
                 cleanFields();
                 ChangeCards.swapPrev();
             }
-<<<<<<< HEAD
-
-=======
->>>>>>> merges
         }
     }
 
@@ -284,7 +278,7 @@ public class CreateAddDeportista {
 
     //Actualizamos los ComboBox
     public static void updateCB(){
-        List<String> pais = new PaisDAOjdbc().getPaisesAsStrings();
+        List<String> pais = FactoryDAO.getPaisDAO().getPaisesAsStrings();
         List<String> disciplinas = new DisciplinaDAOjdbc().getDisciplinasAsStrings();
         pais.add(0, "" );
         paisCB.setModel(new DefaultComboBoxModel<>(pais.toArray(new String[0])));

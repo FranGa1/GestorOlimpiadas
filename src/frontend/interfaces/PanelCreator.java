@@ -4,10 +4,7 @@
 //
 //public interface PanelCreator {
 //
-<<<<<<< HEAD
 //    static JPanel create() {
 //        return null;
 //    }
-=======
->>>>>>> merges
 //}

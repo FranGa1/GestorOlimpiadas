@@ -78,15 +78,17 @@ public class PaisDAOjdbc implements PaisDAO {
      */
     @Override
     public boolean existe(Pais paisEncontrar) {
+        MiConnection.login("root", "fran");
         Connection connection = MiConnection.getCon();
 
         try {
             String sql = "SELECT * FROM pais WHERE nombre=?";
+            System.out.println(sql);
             PreparedStatement statementPais = connection.prepareStatement(sql);
             statementPais.setString(1, paisEncontrar.getNombre().toUpperCase(Locale.ROOT));
-            ResultSet pais = statementPais.executeQuery();
+            ResultSet result = statementPais.executeQuery(sql);
 
-            return pais.isBeforeFirst();
+            return result.next();
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
@@ -109,9 +111,9 @@ public class PaisDAOjdbc implements PaisDAO {
             ResultSet result = statementPais.executeQuery();
 
             // Si se encontro el pais, se lo devuelve
-            if (result.isBeforeFirst()) {
+            if (result.next()) {
                 pais.setNombre(result.getString("nombre"));
-                pais.setId(result.getInt("id"));
+                pais.setId(id);
             }
 
         } catch (SQLException e) {
@@ -140,27 +142,6 @@ public class PaisDAOjdbc implements PaisDAO {
             System.out.println("Error de SQL: "+e.getMessage());
         } catch (NullPointerException e){
             System.out.println("ERROR: NullPointerException");
-        }
-        return listaPaises;
-    }
-
-    @Override
-    public List<String> getPaisesAsStrings(){
-        Connection connection = MiConnection.getCon();
-        List<String> listaPaises = new LinkedList<>();
-        try {
-            // Se obtienen los paises de la base de datos
-            String sql = "SELECT * FROM pais ORDER BY nombre";
-            Statement statement = connection.createStatement();
-            ResultSet paises = statement.executeQuery(sql);
-
-            // Se agregan en la lista que se va a devolver
-            while (paises.next()){
-                listaPaises.add(paises.getString("nombre"));
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
         }
         return listaPaises;
     }

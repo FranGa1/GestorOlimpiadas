@@ -185,7 +185,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         Connection connection = MiConnection.getCon();
         int id = 0;
         try {
-            String sql = "SELECT id FROM deportista WHERE (nombres=? and apellidos=? and email=? and telefono=?";
+            String sql = "SELECT id FROM deportista WHERE (nombres=? and apellidos=? and email=? and telefono=?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, deportista.getNombres());
             statement.setString(2, deportista.getApellidos());
@@ -193,7 +193,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             statement.setString(4, deportista.getTelefono());
             ResultSet deportistaBD = statement.executeQuery();
 
-            if (deportistaBD.isBeforeFirst()){
+            if (!deportistaBD.isBeforeFirst()){
                 id = deportistaBD.getInt("id");
             }
 
