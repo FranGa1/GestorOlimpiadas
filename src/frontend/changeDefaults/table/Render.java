@@ -1,4 +1,4 @@
-package frontend.panels.tables;
+package frontend.changeDefaults.table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -16,5 +16,9 @@ public class Render extends DefaultTableCellRenderer {
         }
 
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+    }
+
+    public boolean isCellEditable(int row, int column){
+        return false;
     }
 }

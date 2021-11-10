@@ -3,6 +3,7 @@ package frontend;
 import frontend.panels.*;
 import frontend.panels.menu.CreateMenuConectado;
 import frontend.panels.menu.CreateMenuDesconectado;
+import frontend.panels.CreatePaisTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +30,8 @@ public class Aplicacion extends JFrame {
 
         JPanel mainPanelConnected = CreateMenuConectado.create();
         JPanel mainPanelDesconectado = CreateMenuDesconectado.create();
-//        JPanel deportistasTable = CreatePaisTable.create();
-        JPanel paisesTable = frontend.panels.tables.CreatePaisTable.create();
+        JPanel deportistasTable = CreateDeportistaTable.create();
+        JPanel paisesTable = CreatePaisTable.create();
         JPanel config = CreateConfig.create();
         JPanel addPais = CreateAddPais.create();
         JPanel addDeportista = CreateAddDeportista.create();
@@ -38,7 +39,7 @@ public class Aplicacion extends JFrame {
         //Agregamos las cards
         cardPanel.add(mainPanelConnected, "MenuC");
         cardPanel.add(mainPanelDesconectado, "MenuD");
-//        cardPanel.add(deportistasTable, "DeportistasTable");
+        cardPanel.add(deportistasTable, "DeportistasTable");
         cardPanel.add(config, "Configuracion");
         cardPanel.add(addPais, "AddPais");
         cardPanel.add(addDeportista, "AddDeportista");

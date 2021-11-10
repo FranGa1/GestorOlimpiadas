@@ -1,4 +1,4 @@
-package frontend.panels.tables;
+package frontend.changeDefaults.table;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

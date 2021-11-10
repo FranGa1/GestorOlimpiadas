@@ -1,14 +1,10 @@
 package frontend.changeDefaults;
 
-import com.sun.net.httpserver.Headers;
-import frontend.panels.tables.CellsStyle;
-import frontend.panels.tables.Render;
-import frontend.panels.tables.TableModel;
+import frontend.changeDefaults.table.CellsStyle;
+import frontend.changeDefaults.table.Render;
+import frontend.changeDefaults.table.TableModelUI;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import java.awt.*;
 
 public class TableUI extends JTable {
     public TableUI(Object[][] tableContent){
@@ -16,7 +12,7 @@ public class TableUI extends JTable {
 
         String[] indices = new String[] {"ID", "Nombre","btnModificar", "btnEliminar"};
 
-        TableModel model = new TableModel(tableContent, indices);
+        TableModelUI model = new TableModelUI(tableContent, indices);
         setModel(model);
 
         setPreferredScrollableViewportSize(getPreferredSize());

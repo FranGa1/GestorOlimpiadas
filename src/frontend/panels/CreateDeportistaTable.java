@@ -55,64 +55,64 @@ public class CreateDeportistaTable {
         buttonPanel.add(volver);
 
         //Construimos la table
-       // String[] columnNames = {"Nombre y apellido", "Pais", "Disciplinas", "", "" };
-         //Object[] columnNames = {"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
-//        Object[][] data = {
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false}
-//        };
-        String[] columnNames = {"No conection to DB"};
-        Object[][] data = {{"No conection to DB"}};
+//        String[] columnNames = {"Nombre y apellido", "Pais", "Disciplinas", "", "" };
+         String[] columnNames = {"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
+        Object[][] data = {
+                {"Kathy", "Smith",
+                        "Snowboarding", 5,false},
+                {"John", "Doe",
+                        "Rowing", 3, true},
+                {"Sue", "Black",
+                        "Knitting", 2,false},
+                {"Jane", "White",
+                        "Speed reading",20, true},
+                {"Joe", "Brown",
+                        "Pool", 10,false},
+                {"Kathy", "Smith",
+                        "Snowboarding", 5,false},
+                {"John", "Doe",
+                        "Rowing", 3, true},
+                {"Sue", "Black",
+                        "Knitting", 2,false},
+                {"Jane", "White",
+                        "Speed reading",20, true},
+                {"Joe", "Brown",
+                        "Pool", 10,false},
+                {"Kathy", "Smith",
+                        "Snowboarding", 5,false},
+                {"John", "Doe",
+                        "Rowing", 3, true},
+                {"Sue", "Black",
+                        "Knitting", 2,false},
+                {"Jane", "White",
+                        "Speed reading",20, true},
+                {"Joe", "Brown",
+                        "Pool", 10,false},
+                {"Kathy", "Smith",
+                        "Snowboarding", 5,false},
+                {"John", "Doe",
+                        "Rowing", 3, true},
+                {"Sue", "Black",
+                        "Knitting", 2,false},
+                {"Jane", "White",
+                        "Speed reading",20, true},
+                {"Joe", "Brown",
+                        "Pool", 10,false},
+                {"Kathy", "Smith",
+                        "Snowboarding", 5,false},
+                {"John", "Doe",
+                        "Rowing", 3, true},
+                {"Sue", "Black",
+                        "Knitting", 2,false},
+                {"Jane", "White",
+                        "Speed reading",20, true},
+                {"Joe", "Brown",
+                        "Pool", 10,false}
+        };
+//        String[] columnNames = {"No conection to DB"};
+//        Object[][] data = {{"No conection to DB"}};
         TableModel model = new DefaultTableModel(data, columnNames);
-        table = new TableUI(model, 600, 250);
+        table = new TableUI(data, columnNames);
         //table.set
         JScrollPane scrollPane = new  JScrollPane(table);
         centerTable.add(scrollPane);
@@ -120,8 +120,7 @@ public class CreateDeportistaTable {
         //Construimos el center
         center.setLayout(new BorderLayout());
         center.add(buttonPanel, BorderLayout.NORTH);
-        center.add(centerTable, BorderLayout.CENTER);
-
+        center.add(scrollPane, BorderLayout.CENTER);
 
         //Construimos el panel final
         panel.setLayout(new BorderLayout());

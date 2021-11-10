@@ -1,8 +1,8 @@
-package frontend.panels.tables;
+package frontend.changeDefaults.table;
 
 import javax.swing.table.DefaultTableModel;
 
-public class TableModel extends DefaultTableModel {
+public class TableModelUI extends DefaultTableModel {
 
     String[] titulos;
     Object[][] datos;
@@ -12,16 +12,17 @@ public class TableModel extends DefaultTableModel {
      * @param datos
      * @param titulos
      */
-    public TableModel(Object[][] datos, String[] titulos) {
+    public TableModelUI(Object[][] datos, String[] titulos) {
         super();
         this.titulos=titulos;
         this.datos=datos;
         setDataVector(datos, titulos);
     }
 
-    public TableModel() {
+    public TableModelUI() {
     }
 
+    @Override
     public boolean isCellEditable(int row, int column){
         return false;
     }
