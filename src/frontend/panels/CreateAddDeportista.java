@@ -264,7 +264,10 @@ public class CreateAddDeportista {
                 cleanFields();
                 ChangeCards.swapPrev();
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> merges
         }
     }
 

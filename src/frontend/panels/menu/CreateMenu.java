@@ -34,7 +34,12 @@ public abstract class CreateMenu {
         JButton deportistas = new ButtonUI("Deportistas");
         panelC.add(deportistas);
         c.gridx = 1;
+<<<<<<< HEAD
         panelC.add(new ButtonUI("2"), c);
+=======
+        JButton paises = new ButtonUI("Paises");
+        panelC.add(paises, c);
+>>>>>>> merges
         c.gridx = 2;
         panelC.add(new ButtonUI("3"), c);
 
@@ -103,6 +108,13 @@ public abstract class CreateMenu {
             }
         });
 
+<<<<<<< HEAD
+=======
+        paises.addActionListener(e -> {
+            ChangeCards.swap("PaisesTable");
+        });
+
+>>>>>>> merges
 
         //Insertamos ambos en el panel final
         mainPanel.setLayout(new BorderLayout());

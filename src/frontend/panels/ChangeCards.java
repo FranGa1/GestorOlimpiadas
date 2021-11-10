@@ -71,6 +71,14 @@ public class ChangeCards {
                 frame.setSize(700, 420);
                 frame.setName("Gestor de Olimpiadas - DEPORTISTAS");
             }
+<<<<<<< HEAD
+=======
+            case "PaisesTable" -> {
+                cl.show(cardPanel, cardName);
+                frame.setSize(530, 420);
+                frame.setName("Gestor de Olimpiadas - PAISES");
+            }
+>>>>>>> merges
         }
         update(cardName);
     }

@@ -3,6 +3,10 @@ package frontend;
 import frontend.panels.*;
 import frontend.panels.menu.CreateMenuConectado;
 import frontend.panels.menu.CreateMenuDesconectado;
+<<<<<<< HEAD
+=======
+import frontend.panels.CreatePaisTable;
+>>>>>>> merges
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +34,10 @@ public class Aplicacion extends JFrame {
         JPanel mainPanelConnected = CreateMenuConectado.create();
         JPanel mainPanelDesconectado = CreateMenuDesconectado.create();
         JPanel deportistasTable = CreateDeportistaTable.create();
+<<<<<<< HEAD
+=======
+        JPanel paisesTable = CreatePaisTable.create();
+>>>>>>> merges
         JPanel config = CreateConfig.create();
         JPanel addPais = CreateAddPais.create();
         JPanel addDeportista = CreateAddDeportista.create();
@@ -41,13 +49,20 @@ public class Aplicacion extends JFrame {
         cardPanel.add(config, "Configuracion");
         cardPanel.add(addPais, "AddPais");
         cardPanel.add(addDeportista, "AddDeportista");
+<<<<<<< HEAD
+=======
+        cardPanel.add(paisesTable, "PaisesTable");
+>>>>>>> merges
 
         //Agregamos al frame
         add(cardPanel);
 
         //Iniciamos la aplicacion en el menu e inicializamos la clase Change Cards
         ChangeCards.swap("MenuD", cl, cardPanel, this);
+<<<<<<< HEAD
 
+=======
+>>>>>>> merges
     }
 
     public static void main(String[] args)
