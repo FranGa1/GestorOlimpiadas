@@ -26,6 +26,7 @@ public class Deportista {
         this.telefono = telefono;
         this.pais = pais;
         this.disciplinas = disciplinas;
+        this.id = id;
     }
 
     public String getNombres() {

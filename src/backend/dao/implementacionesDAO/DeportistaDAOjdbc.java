@@ -30,11 +30,11 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             // Se inserta en la tabla deportista al deportistaNuevo
             String sql =  "INSERT INTO deportista (apellidos, nombres, email, telefono, id_pais) VALUES(?,?,?,?,(SELECT id FROM pais WHERE nombre=?))";
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, deportistaNuevo.getApellidos().toUpperCase(Locale.ROOT).trim());
-            statement.setString(2, deportistaNuevo.getNombres().toUpperCase(Locale.ROOT).trim());
-            statement.setString(3, deportistaNuevo.getEmail().toUpperCase(Locale.ROOT).trim());
-            statement.setString(4, deportistaNuevo.getTelefono().trim());
-            statement.setString(5, deportistaNuevo.getPais().getNombre().toUpperCase(Locale.ROOT).trim());
+            statement.setString(1, deportistaNuevo.getApellidos().toUpperCase(Locale.ROOT));
+            statement.setString(2, deportistaNuevo.getNombres().toUpperCase(Locale.ROOT));
+            statement.setString(3, deportistaNuevo.getEmail().toUpperCase(Locale.ROOT));
+            statement.setString(4, deportistaNuevo.getTelefono());
+            statement.setString(5, deportistaNuevo.getPais().getNombre().toUpperCase(Locale.ROOT));
             statement.executeUpdate();
 
             // Se obtiene el id del deportista recien agregado
@@ -105,10 +105,10 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
                     "SET nombres=?, apellidos=?, email=?, telfono=?, id_pais=?" +
                     " WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, deportistaEditar.getNombres().toUpperCase(Locale.ROOT).trim());
-            statement.setString(2, deportistaEditar.getApellidos().toUpperCase(Locale.ROOT).trim());
-            statement.setString(3, deportistaEditar.getEmail().toUpperCase(Locale.ROOT).trim());
-            statement.setString(4, deportistaEditar.getTelefono().trim());
+            statement.setString(1, deportistaEditar.getNombres().toUpperCase(Locale.ROOT));
+            statement.setString(2, deportistaEditar.getApellidos().toUpperCase(Locale.ROOT));
+            statement.setString(3, deportistaEditar.getEmail().toUpperCase(Locale.ROOT));
+            statement.setString(4, deportistaEditar.getTelefono());
             statement.setInt(5, deportistaEditar.getPais().getId());
             statement.setInt(6, deportistaEditar.getId());
             statement.executeUpdate();
@@ -158,11 +158,11 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
                 String nombre = deportistasBD.getString("nombres");
                 String telefono = deportistasBD.getString("telefono");
                 String email = deportistasBD.getString("email");
+                int idDeportista = deportistasBD.getInt("id");
                 int idPais = deportistasBD.getInt("id_pais");
                 PaisDAO paisDAO = FactoryDAO.getPaisDAO();
                 Pais pais = paisDAO.encontrar(idPais);
                 DisciplinaDAO disciplinaDAO = FactoryDAO.getDisciplinaDAO();
-                int idDeportista = deportistasBD.getInt("id");
                 List<Disciplina> disciplinas = disciplinaDAO.getDisciplinasDeportista(idDeportista);
 
                 // Se lo agrega a la lista a devolver

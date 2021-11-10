@@ -30,7 +30,6 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
         return listaDisciplinas;
     }
 
-<<<<<<< HEAD
     /**
      * Se obtiene una lista de nombres de desiciplinas
      * @return Lista de Strings
@@ -56,30 +55,28 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
         return listaDisciplinasAsStrings;
     }
 
-=======
->>>>>>> 54826b58b3797160c41cec07006df56b7bd5f4d4
     @Override
     public List<Disciplina> getDisciplinasDeportista(int idDeportista){
         Connection connection = MiConnection.getCon();
         List<Disciplina> listaDisciplinas = new LinkedList<>();
 
         try {
-            String sql = "SELECT * FROM disciplina WHERE id_deportista=?";
+            String sql = "SELECT nombre FROM disciplina WHERE id IN (SELECT id_disciplina FROM deportista_en_disciplina WHERE id_deportista = ?);";
             PreparedStatement statement = connection.prepareStatement(sql);
+            statement.clearParameters();
             statement.setInt(1, idDeportista);
-            ResultSet disciplinasBD = statement.executeQuery(sql);
+            ResultSet disciplinasBD = statement.executeQuery();
 
             while (disciplinasBD.next()){
                 listaDisciplinas.add(new Disciplina(disciplinasBD.getString("nombre")));
             }
 
         } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
+            System.out.println("Error de SQL: "+e);
         }
 
         return listaDisciplinas;
     }
-<<<<<<< HEAD
 
     /**
      * Se obtiene una lista de
@@ -92,10 +89,10 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
         List<String> listaDisciplinasAsStrings = new LinkedList<>();
 
         try {
-            String sql = "SELECT * FROM disciplina WHERE id_deportista=?";
+            String sql = "SELECT nombre FROM disciplina WHERE id IN (SELECT id_disciplina FROM deportista_en_disciplina WHERE id_deportista = ?);";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, idDeportista);
-            ResultSet disciplinasBD = statement.executeQuery(sql);
+            ResultSet disciplinasBD = statement.executeQuery();
 
             while (disciplinasBD.next()){
                 listaDisciplinasAsStrings.add(disciplinasBD.getString("nombre"));
@@ -107,6 +104,4 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
 
         return listaDisciplinasAsStrings;
     }
-=======
->>>>>>> 54826b58b3797160c41cec07006df56b7bd5f4d4
 }

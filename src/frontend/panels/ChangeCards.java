@@ -1,5 +1,8 @@
 package frontend.panels;
 
+import backend.MiConnection;
+import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
+import backend.dao.implementacionesDAO.PaisDAOjdbc;
 import frontend.Aplicacion;
 
 import javax.swing.*;
@@ -9,6 +12,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
+
+import static frontend.panels.CreateAddDeportista.updateCB;
 
 public class ChangeCards {
 
@@ -38,7 +43,7 @@ public class ChangeCards {
             case "MenuD", "MenuC" -> {
                 cl.show(cardPanel, cardName);
                 frame.setSize(500, 380);
-                frame.setName("Gestor de Olimpiadas - NUEVO DEPORTISTA");
+                frame.setName("Gestor de Olimpiadas");
             }
             case "Configuracion" -> {
                 cl.show(cardPanel, cardName);
@@ -51,9 +56,20 @@ public class ChangeCards {
                 frame.setName("Gestor de Olimpiadas - NUEVO PAIS");
             }
             case "AddDeportista" -> {
+                //Actualizamos los comboBox
+                if (!MiConnection.nullConnection()) CreateAddDeportista.updateCB();
+
                 cl.show(cardPanel, cardName);
                 frame.setSize(510, 420);
                 frame.setName("Gestor de Olimpiadas - NUEVO DEPORTISTA");
+            }
+            case "DeportistasTable" -> {
+                //Actualizamos la tabla
+                if (!MiConnection.nullConnection()) CreateDeportistaTable.updateTable();
+
+                cl.show(cardPanel, cardName);
+                frame.setSize(700, 420);
+                frame.setName("Gestor de Olimpiadas - DEPORTISTAS");
             }
         }
         update(cardName);

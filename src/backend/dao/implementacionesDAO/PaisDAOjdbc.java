@@ -19,7 +19,7 @@ public class PaisDAOjdbc implements PaisDAO {
             // Se inserta el pais en la base de datos
             String sql = "INSERT INTO pais (nombre) VALUES (?)";
             PreparedStatement statementPais = connection.prepareStatement(sql);
-            statementPais.setString(1, nuevoPais.getNombre().toUpperCase(Locale.ROOT).trim());
+            statementPais.setString(1, nuevoPais.getNombre().toUpperCase(Locale.ROOT));
             statementPais.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
@@ -58,7 +58,7 @@ public class PaisDAOjdbc implements PaisDAO {
         try {
             String sql = "UPDATE pais SET nombre=? WHERE id=?";
             PreparedStatement statementPais = connection.prepareStatement(sql);
-            statementPais.setString(1, paisEditar.getNombre().toUpperCase(Locale.ROOT).trim());
+            statementPais.setString(1, paisEditar.getNombre().toUpperCase(Locale.ROOT));
             statementPais.setInt(2, paisEditar.getId());
             statementPais.executeUpdate();
         } catch (SQLException e) {

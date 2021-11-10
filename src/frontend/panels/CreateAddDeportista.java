@@ -2,6 +2,8 @@ package frontend.panels;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
+import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
+import backend.dao.implementacionesDAO.PaisDAOjdbc;
 import backend.dao.interfacesDAO.DeportistaDAO;
 import backend.dao.interfacesDAO.PaisDAO;
 import frontend.changeDefaults.ButtonUI;
@@ -9,6 +11,7 @@ import frontend.changeDefaults.ComboBoxUI;
 import frontend.changeDefaults.TextFieldUI;
 import frontend.changeDefaults.WPanel;
 import objetos.Deportista;
+import objetos.Disciplina;
 import objetos.Pais;
 
 import javax.swing.*;
@@ -19,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class CreateAddDeportista {
@@ -65,8 +69,8 @@ public class CreateAddDeportista {
         for (int i = 0; i < 4; i++ ) {
             textFields[i] = new TextFieldUI(LONGITUD);
         }
-        paisCB = new ComboBoxUI<>(new String[]{"", "Hola", "Como", "Andas"});
-        disciplinaCB = new ComboBoxUI<>(new String[]{"", "Hola", "Como", "Andas"});
+        paisCB = new ComboBoxUI<>(new String[]{""});
+        disciplinaCB = new ComboBoxUI<>(new String[]{""});
 
         //Construimos el header
         header.setLayout(new BorderLayout());
@@ -117,29 +121,7 @@ public class CreateAddDeportista {
         cola.add("");
 
         //Listeners
-        guardar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Cambiar por un for i<6 cuando se acceda a la base de datos para chequear si estan vacios
-                // y para armar el deportista
-                boolean empty = false;
-
-                for (JTextField element : textFields){
-                    if (element.getText().equals("")) empty = true;
-                }
-                if (paisCB.getSelectedItem().equals("") || disciplinaCB.getSelectedItem().equals("")) empty = true;
-
-                if (!empty) {
-                    cleanFields();
-                    ChangeCards.swapPrev();
-                }
-                else {
-                    JOptionPane.showMessageDialog(null,
-            "Todos los campos son obligatorios", "Error Message",
-                    JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
+        guardar.addActionListener(new SaveListener());
         cancelar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -166,8 +148,8 @@ public class CreateAddDeportista {
                 2));
 
         //Telefono
-        textFields[3].getDocument().addDocumentListener(new LetrasListener("^[0-9]{10,}$|^$",
-                " ERROR: Solo numeros para el telefono (Minimo 10 numeros Ej : 221 123 4567)",
+        textFields[3].getDocument().addDocumentListener(new LetrasListener("^[0-9]{3,}$|^$",
+                " ERROR: Solo numeros para el telefono (Minimo 3 numeros )",
                 3));
 
         //Combobox
@@ -176,7 +158,7 @@ public class CreateAddDeportista {
         return panel;
     }
 
-    //Listener
+    //Listener para el chequeo en tiempo real
     private static class LetrasListener implements DocumentListener {
 
         private final String regex;
@@ -232,39 +214,51 @@ public class CreateAddDeportista {
     }
 
     //Listener para el boton save
-    /*private static class SaveListener implements ActionListener{
+    private static class SaveListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            PaisDAO pDAO = FactoryDAO.getPaisDAO();
-            Pais p = new Pais(input.getText().trim());
+            DeportistaDAO dDAO = FactoryDAO.getDeportistaDAO();
+
+            boolean empty = false;
+            for (JTextField tf : textFields){
+                if (tf.getText().equals("")){
+                    empty = true;
+                }
+            }
+            if (!empty && (paisCB.getSelectedItem().equals("") || disciplinaCB.getSelectedItem().equals(""))) empty = true;
+
             //Chequeamos que no haya errores o que el campo no este vacio
             if (MiConnection.nullConnection()) {
                 //Si no hay coneccion con la BD
                 JOptionPane.showMessageDialog(null,
-                        "No se conecto a la base de datos", "Error Message",
-                        JOptionPane.ERROR_MESSAGE);
+                        "No se conecto a la base de datos", "Warning Message",
+                        JOptionPane.WARNING_MESSAGE);
             }else if (!error.getText().equals("")){
                 //Si hay algun error
                 JOptionPane.showMessageDialog(null,
                         "Solucione primero los errores", "Error Message",
                         JOptionPane.ERROR_MESSAGE);
 
-            }else if (input.getText().equals("")){
+            }else if (empty){
                 //Si el campo esta vacio
                 JOptionPane.showMessageDialog(null,
-                        "El campo es obligatorio", "Error Message",
+                        "Todos los campos son obligatorios", "Error Message",
                         JOptionPane.ERROR_MESSAGE);
 
-            }else if (pDAO.existe(p)) {
-                //Si ya esta en la base de datos
-                JOptionPane.showMessageDialog(null,
-                        "El pais ya se encuentra en la Base de Datos", "Error Message",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            else{
-                //Cargamos el jugador
-                pDAO.cargar(p);
+            }else{
+                Deportista deportista = new Deportista();
+                deportista.setNombres(textFields[0].getText());
+                deportista.setApellidos(textFields[1].getText());
+                deportista.setEmail(textFields[2].getText());
+                deportista.setTelefono(textFields[3].getText());
+                deportista.setPais(new Pais(paisCB.getSelectedItem().toString()));
+                List<Disciplina> listD = new LinkedList<>();
+                listD.add(new Disciplina(disciplinaCB.getSelectedItem().toString()));
+                deportista.setDisciplinas(listD);
+
+                //Cargamos el deportista
+                dDAO.cargar(deportista);
                 JOptionPane.showMessageDialog(null, "Agregado Exitoso", "Action Complete",
                         JOptionPane.INFORMATION_MESSAGE);
                 cleanFields();
@@ -273,7 +267,7 @@ public class CreateAddDeportista {
 
         }
     }
-*/
+
 
     //Borra los datos ingresados
     private static void cleanFields(){
@@ -286,10 +280,12 @@ public class CreateAddDeportista {
     }
 
     //Actualizamos los ComboBox
-    public static void updateCB(ArrayList<String> arrayListPais, ArrayList<String> arrayListDisciplinas){
-        arrayListPais.add(0, "" );
-        paisCB.setModel(new DefaultComboBoxModel<>(arrayListPais.toArray(new String[0])));
-        arrayListDisciplinas.add(0, "" );
-        disciplinaCB.setModel(new DefaultComboBoxModel<>(arrayListDisciplinas.toArray(new String[0])));
+    public static void updateCB(){
+        List<String> pais = FactoryDAO.getPaisDAO().getPaisesAsStrings();
+        List<String> disciplinas = FactoryDAO.getDisciplinaDAO().getDisciplinasAsStrings();
+        pais.add(0, "" );
+        paisCB.setModel(new DefaultComboBoxModel<>(pais.toArray(new String[0])));
+        disciplinas.add(0, "" );
+        disciplinaCB.setModel(new DefaultComboBoxModel<>(disciplinas.toArray(new String[0])));
     }
 }
