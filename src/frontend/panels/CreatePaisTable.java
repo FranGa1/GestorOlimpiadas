@@ -4,7 +4,7 @@ import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.PaisDAO;
 import frontend.changeDefaults.ButtonUI;
-import frontend.changeDefaults.TableUI;
+import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
 import objetos.Pais;
 
@@ -29,11 +29,10 @@ public class CreatePaisTable {
         //Creamos los labels
         JLabel headerLbl = new JLabel("PAISES", SwingConstants.CENTER);
 
-        MiConnection.login("root", "fran");
-        PaisDAO pDAO = FactoryDAO.getPaisDAO();
-
         //Creamos la tabla
-        TableUI table = new TableUI(createTable(pDAO.getPaises()));
+        Object[] titles = {"ID", "Nombre", "Modificar", "Eliminar"};
+        Object[][] data = {{" "}, {" "}, {" "}, {" "}};
+        TableUI table = new TableUI(data,titles);
         JScrollPane scrollPane = new JScrollPane(table);
         
         //Construimos el header

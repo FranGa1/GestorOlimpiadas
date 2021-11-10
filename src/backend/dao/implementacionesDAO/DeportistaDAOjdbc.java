@@ -158,11 +158,11 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
                 String nombre = deportistasBD.getString("nombres");
                 String telefono = deportistasBD.getString("telefono");
                 String email = deportistasBD.getString("email");
+                int idDeportista = deportistasBD.getInt("id");
                 int idPais = deportistasBD.getInt("id_pais");
                 PaisDAO paisDAO = FactoryDAO.getPaisDAO();
                 Pais pais = paisDAO.encontrar(idPais);
                 DisciplinaDAO disciplinaDAO = FactoryDAO.getDisciplinaDAO();
-                int idDeportista = deportistasBD.getInt("id");
                 List<Disciplina> disciplinas = disciplinaDAO.getDisciplinasDeportista(idDeportista);
 
                 // Se lo agrega a la lista a devolver

@@ -1,7 +1,6 @@
 package frontend.changeDefaults.table;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
 
 public class TableUI extends JTable {

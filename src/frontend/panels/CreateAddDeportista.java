@@ -156,7 +156,7 @@ public class CreateAddDeportista {
         return panel;
     }
 
-    //Listener
+    //Listener para el chequeo en tiempo real
     private static class LetrasListener implements DocumentListener {
 
         private final String regex;
@@ -265,7 +265,6 @@ public class CreateAddDeportista {
         }
     }
 
-
     //Borra los datos ingresados
     private static void cleanFields(){
         for (JTextField element : textFields){
@@ -279,7 +278,7 @@ public class CreateAddDeportista {
     //Actualizamos los ComboBox
     public static void updateCB(){
         List<String> pais = FactoryDAO.getPaisDAO().getPaisesAsStrings();
-        List<String> disciplinas = new DisciplinaDAOjdbc().getDisciplinasAsStrings();
+        List<String> disciplinas = FactoryDAO.getDisciplinaDAO().getDisciplinasAsStrings();
         pais.add(0, "" );
         paisCB.setModel(new DefaultComboBoxModel<>(pais.toArray(new String[0])));
         disciplinas.add(0, "" );

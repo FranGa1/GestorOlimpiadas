@@ -1,8 +1,12 @@
 package frontend.panels;
 
+import backend.dao.FactoryDAO;
 import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.table.TableModelUI;
 import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
+import objetos.Deportista;
+import objetos.Disciplina;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,10 +14,13 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CreateDeportistaTable {
 
     private static JTable table;
+    private static final String[] titles = {"Nombre y apellido", "Pais", "Disciplinas", "", ""};
 
     public static JPanel create(){
 
@@ -21,10 +28,6 @@ public class CreateDeportistaTable {
         JPanel panel = new WPanel();
         JPanel header = new WPanel();
         JPanel center = new WPanel();
-        JPanel centerTable = new WPanel();
-        JPanel tableHeader = new WPanel();
-        JPanel tableBody = new WPanel();
-        JPanel tableTitles = new WPanel();
         JPanel buttonPanel = new WPanel();
 
 
@@ -55,72 +58,71 @@ public class CreateDeportistaTable {
         buttonPanel.add(volver);
 
         //Construimos la table
-//        String[] columnNames = {"Nombre y apellido", "Pais", "Disciplinas", "", "" };
-         String[] columnNames = {"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
-        Object[][] data = {
-                {"Kathy", "Smith",
-                        "Snowboarding", 5,false},
-                {"John", "Doe",
-                        "Rowing", 3, true},
-                {"Sue", "Black",
-                        "Knitting", 2,false},
-                {"Jane", "White",
-                        "Speed reading",20, true},
-                {"Joe", "Brown",
-                        "Pool", 10,false},
-                {"Kathy", "Smith",
-                        "Snowboarding", 5,false},
-                {"John", "Doe",
-                        "Rowing", 3, true},
-                {"Sue", "Black",
-                        "Knitting", 2,false},
-                {"Jane", "White",
-                        "Speed reading",20, true},
-                {"Joe", "Brown",
-                        "Pool", 10,false},
-                {"Kathy", "Smith",
-                        "Snowboarding", 5,false},
-                {"John", "Doe",
-                        "Rowing", 3, true},
-                {"Sue", "Black",
-                        "Knitting", 2,false},
-                {"Jane", "White",
-                        "Speed reading",20, true},
-                {"Joe", "Brown",
-                        "Pool", 10,false},
-                {"Kathy", "Smith",
-                        "Snowboarding", 5,false},
-                {"John", "Doe",
-                        "Rowing", 3, true},
-                {"Sue", "Black",
-                        "Knitting", 2,false},
-                {"Jane", "White",
-                        "Speed reading",20, true},
-                {"Joe", "Brown",
-                        "Pool", 10,false},
-                {"Kathy", "Smith",
-                        "Snowboarding", 5,false},
-                {"John", "Doe",
-                        "Rowing", 3, true},
-                {"Sue", "Black",
-                        "Knitting", 2,false},
-                {"Jane", "White",
-                        "Speed reading",20, true},
-                {"Joe", "Brown",
-                        "Pool", 10,false}
-        };
-//        String[] columnNames = {"No conection to DB"};
-//        Object[][] data = {{"No conection to DB"}};
-        TableModel model = new DefaultTableModel(data, columnNames);
+
+//        Object[] columnNames = {"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
+//        Object[][] data = {
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false}
+//        };
+        String[] columnNames = {"No conection to DB"};
+        Object[][] data = {{"No conection to DB"}};
         table = new TableUI(data, columnNames);
-        //table.set
         JScrollPane scrollPane = new  JScrollPane(table);
-        centerTable.add(scrollPane);
 
         //Construimos el center
         center.setLayout(new BorderLayout());
         center.add(buttonPanel, BorderLayout.NORTH);
         center.add(scrollPane, BorderLayout.CENTER);
+        center.setBorder(BorderFactory.createEmptyBorder(10,20,20,20));
+
 
         //Construimos el panel final
         panel.setLayout(new BorderLayout());
@@ -148,10 +150,22 @@ public class CreateDeportistaTable {
 
     public static void updateTable(){
         //Buscamos en la base de datos
+        List<Deportista> list = FactoryDAO.getDeportistaDAO().getDeportistas();
+        Deportista[] array = list.toArray(new Deportista[0]);
 
         //Creamos la matriz
-
+        Object[][] matrix = new Object[array.length][5];
+        for (int i = 0, n = array.length; i < n; i++){
+            Deportista d = array[i];
+            matrix[i][0] = d.getNombres() +" "+ array[i].getApellidos();
+            matrix[i][1] = d.getPais().getNombre();
+            List<Disciplina> disciplinas = d.getDisciplinas();
+            matrix[i][2] = disciplinas.get(0).getNombre();
+            matrix[i][3] = "";
+            matrix[i][4] = "";
+        }
         //Asignamos la nueva matriz a la tabla
-        //table.setModel(newData, table.getColum);
+        TableModel model = new TableModelUI(matrix,titles);
+        table.setModel(model);
     }
 }
