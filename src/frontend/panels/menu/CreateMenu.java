@@ -101,9 +101,6 @@ public abstract class CreateMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChangeCards.swap("AddDeportista");
-                PaisDAOjdbc p = new PaisDAOjdbc();
-                DisciplinaDAOjdbc d = new DisciplinaDAOjdbc();
-                updateCB(p.getPaisesAsStrings(), d.getDisciplinasAsStrings());
             }
         });
 
