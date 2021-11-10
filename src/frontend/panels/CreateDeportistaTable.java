@@ -1,15 +1,18 @@
 package frontend.panels;
 
+import backend.dao.FactoryDAO;
 import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.table.TableModelUI;
 import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
-
+import objetos.Deportista;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class CreateDeportistaTable {
 
@@ -144,11 +147,21 @@ public class CreateDeportistaTable {
 
     public static void updateTable(){
         //Buscamos en la base de datos
+        List<Deportista> list = FactoryDAO.getDeportistaDAO().getDeportistas();
+        Deportista[] array = list.toArray(new Deportista[0]);
 
         //Creamos la matriz
-
+        Object[][] matrix = new Object[array.length][5];
+        for (int i = 0, n = array.length; i < n; i++){
+            Deportista d = array[i];
+            matrix[i][0] = d.getNombres() + array[i].getApellidos();
+            matrix[i][1] = d.getPais().getNombre();
+            matrix[i][2] = d.getDisciplinas().toArray()[0];
+            matrix[i][3] = "";
+            matrix[i][4] = "";
+        }
         //Asignamos la nueva matriz a la tabla
-        //TableModel model = new TableModelUI(data,titles);
-        //table.setModel(model);
+        TableModel model = new TableModelUI(matrix,titles);
+        table.setModel(model);
     }
 }
