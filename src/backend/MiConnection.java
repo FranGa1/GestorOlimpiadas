@@ -7,12 +7,12 @@ public class MiConnection {
     private static Connection con = null;
 
     private static final String accessUsername = "root";
-    private static final String accessPassword = "12345";
+    private static final String accessPassword = "fran";
 
     private static void createCon() {
         if (con == null) {
             try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", "root", "12345");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", accessUsername, accessPassword);
             } catch (java.sql.SQLException e) {
                 System.out.println("Error de SQL: " + e.getMessage());
             }

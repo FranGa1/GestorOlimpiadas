@@ -138,6 +138,8 @@ public class PaisDAOjdbc implements PaisDAO {
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
+        } catch (NullPointerException e){
+            System.out.println("ERROR: NullPointerException");
         }
         return listaPaises;
     }

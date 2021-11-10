@@ -29,7 +29,8 @@ public class Aplicacion extends JFrame {
 
         JPanel mainPanelConnected = CreateMenuConectado.create();
         JPanel mainPanelDesconectado = CreateMenuDesconectado.create();
-        JPanel deportistasTable = CreateDeportistaTable.create();
+//        JPanel deportistasTable = CreatePaisTable.create();
+        JPanel paisesTable = frontend.panels.tables.CreatePaisTable.create();
         JPanel config = CreateConfig.create();
         JPanel addPais = CreateAddPais.create();
         JPanel addDeportista = CreateAddDeportista.create();
@@ -37,17 +38,17 @@ public class Aplicacion extends JFrame {
         //Agregamos las cards
         cardPanel.add(mainPanelConnected, "MenuC");
         cardPanel.add(mainPanelDesconectado, "MenuD");
-        cardPanel.add(deportistasTable, "DeportistasTable");
+//        cardPanel.add(deportistasTable, "DeportistasTable");
         cardPanel.add(config, "Configuracion");
         cardPanel.add(addPais, "AddPais");
         cardPanel.add(addDeportista, "AddDeportista");
+        cardPanel.add(paisesTable, "PaisesTable");
 
         //Agregamos al frame
         add(cardPanel);
 
         //Iniciamos la aplicacion en el menu e inicializamos la clase Change Cards
         ChangeCards.swap("MenuD", cl, cardPanel, this);
-
     }
 
     public static void main(String[] args)

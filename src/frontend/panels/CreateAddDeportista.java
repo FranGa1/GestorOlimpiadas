@@ -262,7 +262,6 @@ public class CreateAddDeportista {
                 cleanFields();
                 ChangeCards.swapPrev();
             }
-
         }
     }
 
