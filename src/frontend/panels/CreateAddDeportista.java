@@ -2,6 +2,8 @@ package frontend.panels;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
+import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
+import backend.dao.implementacionesDAO.PaisDAOjdbc;
 import backend.dao.interfacesDAO.DeportistaDAO;
 import backend.dao.interfacesDAO.PaisDAO;
 import frontend.changeDefaults.ButtonUI;
@@ -278,10 +280,12 @@ public class CreateAddDeportista {
     }
 
     //Actualizamos los ComboBox
-    public static void updateCB(List<String> arrayListPais, List<String> arrayListDisciplinas){
-        arrayListPais.add(0, "" );
-        paisCB.setModel(new DefaultComboBoxModel<>(arrayListPais.toArray(new String[0])));
-        arrayListDisciplinas.add(0, "" );
-        disciplinaCB.setModel(new DefaultComboBoxModel<>(arrayListDisciplinas.toArray(new String[0])));
+    public static void updateCB(){
+        List<String> pais = new PaisDAOjdbc().getPaisesAsStrings();
+        List<String> disciplinas = new DisciplinaDAOjdbc().getDisciplinasAsStrings();
+        pais.add(0, "" );
+        paisCB.setModel(new DefaultComboBoxModel<>(pais.toArray(new String[0])));
+        disciplinas.add(0, "" );
+        disciplinaCB.setModel(new DefaultComboBoxModel<>(disciplinas.toArray(new String[0])));
     }
 }

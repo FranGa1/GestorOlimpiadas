@@ -1,12 +1,19 @@
 package frontend.panels;
 
 import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CreateDeportistaTable {
+
+    private static JTable table;
 
     public static JPanel create(){
 
@@ -15,6 +22,9 @@ public class CreateDeportistaTable {
         JPanel header = new WPanel();
         JPanel center = new WPanel();
         JPanel centerTable = new WPanel();
+        JPanel tableHeader = new WPanel();
+        JPanel tableBody = new WPanel();
+        JPanel tableTitles = new WPanel();
         JPanel buttonPanel = new WPanel();
 
 
@@ -24,15 +34,17 @@ public class CreateDeportistaTable {
         JButton volver = new ButtonUI("Volver");
 
         //Creamos los labels
-        JLabel headerLbl = new JLabel("DEPORTISTAS");
+        JLabel headerLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
+        JLabel headerTableLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
+        //JLabel headerLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
 
         //Creamos la tabla
-
+        //JTable table = new JTable();
 
         //Construimos el header
         header.setLayout(new BorderLayout());
         headerLbl.setFont(new Font("Bevan", Font.PLAIN, 30));
-        header.setBackground(Color.decode("#4BB99E"));
+        header.setBackground(new Color(0xEC34E1));
         header.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
         header.add(headerLbl);
 
@@ -42,7 +54,70 @@ public class CreateDeportistaTable {
         buttonPanel.add(export);
         buttonPanel.add(volver);
 
-        //Construimos el cenet
+        //Construimos la table
+       // String[] columnNames = {"Nombre y apellido", "Pais", "Disciplinas", "", "" };
+         //Object[] columnNames = {"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
+//        Object[][] data = {
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false}
+//        };
+        String[] columnNames = {"No conection to DB"};
+        Object[][] data = {{"No conection to DB"}};
+        TableModel model = new DefaultTableModel(data, columnNames);
+        table = new TableUI(model, 600, 250);
+        //table.set
+        JScrollPane scrollPane = new  JScrollPane(table);
+        centerTable.add(scrollPane);
+
+        //Construimos el center
         center.setLayout(new BorderLayout());
         center.add(buttonPanel, BorderLayout.NORTH);
         center.add(centerTable, BorderLayout.CENTER);
@@ -53,6 +128,31 @@ public class CreateDeportistaTable {
         panel.add(header, BorderLayout.NORTH);
         panel.add(center, BorderLayout.CENTER);
 
+        //Listeners
+        volver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ChangeCards.swapPrev();
+            }
+        });
+
+        nuevo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(table.getColumnModel().getColumns());
+                table.setModel(new DefaultTableModel(null, columnNames));
+            }
+        });
+
         return panel;
+    }
+
+    public static void updateTable(){
+        //Buscamos en la base de datos
+
+        //Creamos la matriz
+
+        //Asignamos la nueva matriz a la tabla
+        //table.setModel(newData, table.getColum);
     }
 }
