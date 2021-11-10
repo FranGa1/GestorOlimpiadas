@@ -29,7 +29,7 @@ public class Aplicacion extends JFrame {
 
         JPanel mainPanelConnected = CreateMenuConectado.create();
         JPanel mainPanelDesconectado = CreateMenuDesconectado.create();
-
+        JPanel deportistasTable = CreateDeportistaTable.create();
         JPanel config = CreateConfig.create();
         JPanel addPais = CreateAddPais.create();
         JPanel addDeportista = CreateAddDeportista.create();
@@ -37,6 +37,7 @@ public class Aplicacion extends JFrame {
         //Agregamos las cards
         cardPanel.add(mainPanelConnected, "MenuC");
         cardPanel.add(mainPanelDesconectado, "MenuD");
+        cardPanel.add(deportistasTable, "DeportistasTable");
         cardPanel.add(config, "Configuracion");
         cardPanel.add(addPais, "AddPais");
         cardPanel.add(addDeportista, "AddDeportista");

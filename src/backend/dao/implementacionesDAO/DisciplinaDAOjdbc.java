@@ -30,7 +30,6 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
         return listaDisciplinas;
     }
 
-<<<<<<< HEAD
     /**
      * Se obtiene una lista de nombres de desiciplinas
      * @return Lista de Strings
@@ -56,8 +55,6 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
         return listaDisciplinasAsStrings;
     }
 
-=======
->>>>>>> 54826b58b3797160c41cec07006df56b7bd5f4d4
     @Override
     public List<Disciplina> getDisciplinasDeportista(int idDeportista){
         Connection connection = MiConnection.getCon();
@@ -79,7 +76,6 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
 
         return listaDisciplinas;
     }
-<<<<<<< HEAD
 
     /**
      * Se obtiene una lista de
@@ -107,6 +103,4 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
 
         return listaDisciplinasAsStrings;
     }
-=======
->>>>>>> 54826b58b3797160c41cec07006df56b7bd5f4d4
 }
