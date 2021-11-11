@@ -100,7 +100,6 @@ public class CreatePaisTable {
     }
 
     public static void updateTable(){
-
         Object[][] matrix;
         TableModel model;
 

@@ -1,5 +1,6 @@
 package frontend.panels;
 
+import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import frontend.changeDefaults.ButtonUI;
 import frontend.changeDefaults.table.TableModelUI;
@@ -14,7 +15,6 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
 import java.util.List;
 
 public class CreateDeportistaTable {
@@ -39,6 +39,10 @@ public class CreateDeportistaTable {
         //Creamos los labels
         JLabel headerLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
         JLabel headerTableLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
+        //JLabel headerLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
+
+        //Creamos la tabla
+        //JTable table = new JTable();
 
         //Construimos el header
         header.setLayout(new BorderLayout());
@@ -54,6 +58,60 @@ public class CreateDeportistaTable {
         buttonPanel.add(volver);
 
         //Construimos la table
+
+//        Object[] columnNames = {"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
+//        Object[][] data = {
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false},
+//                {"Kathy", "Smith",
+//                        "Snowboarding", 5,false},
+//                {"John", "Doe",
+//                        "Rowing", 3, true},
+//                {"Sue", "Black",
+//                        "Knitting", 2,false},
+//                {"Jane", "White",
+//                        "Speed reading",20, true},
+//                {"Joe", "Brown",
+//                        "Pool", 10,false}
+//        };
         String[] columnNames = {"No conection to DB"};
         Object[][] data = {{"No conection to DB"}};
         table = new TableUI(data, columnNames);
@@ -65,6 +123,7 @@ public class CreateDeportistaTable {
         center.add(scrollPane, BorderLayout.CENTER);
         center.setBorder(BorderFactory.createEmptyBorder(10,20,20,20));
 
+
         //Construimos el panel final
         panel.setLayout(new BorderLayout());
         panel.add(header, BorderLayout.NORTH);
@@ -74,15 +133,16 @@ public class CreateDeportistaTable {
         volver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChangeCards.swapPrev();
+                if (MiConnection.nullConnection())
+                    ChangeCards.swap("MenuD");
+                else ChangeCards.swap("MenuC");
             }
         });
 
         nuevo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(table.getColumnModel().getColumns());
-                table.setModel(new DefaultTableModel(null, columnNames));
+                ChangeCards.swap("AddDeportista");
             }
         });
 
@@ -100,10 +160,9 @@ public class CreateDeportistaTable {
             Deportista d = array[i];
             matrix[i][0] = d.getNombres() +" "+ array[i].getApellidos();
             matrix[i][1] = d.getPais().getNombre();
-            List<Disciplina> disciplinas = d.getDisciplinas();
-            matrix[i][2] = disciplinas.get(0).getNombre();
-            matrix[i][3] = "";
-            matrix[i][4] = "";
+            matrix[i][2] = d.getDisciplinas().get(0).getNombre();
+            matrix[i][3] = new JButton("Editar");
+            matrix[i][4] = new JButton("Eliminar");
         }
         //Asignamos la nueva matriz a la tabla
         TableModel model = new TableModelUI(matrix,titles);
