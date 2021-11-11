@@ -56,7 +56,7 @@ public class ChangeCards {
             }
             case "DeportistasTable" -> {
                 //Actualizamos la tabla
-                CreateDeportistaTable.updateTable();
+                CreateDeportistaTable.updateTableDeportistas();
 
                 cl.show(cardPanel, cardName);
                 frame.setSize(700, 420);
@@ -64,7 +64,7 @@ public class ChangeCards {
             }
             case "PaisesTable" -> {
                 // Actualizamos la tabla
-                CreatePaisTable.updateTable();
+                CreatePaisTable.updateTablePais();
 
                 cl.show(cardPanel, cardName);
                 frame.setSize(700, 420);

@@ -149,7 +149,7 @@ public class CreateDeportistaTable {
         return panel;
     }
 
-    public static void updateTable(){
+    public static void updateTableDeportistas(){
         //Buscamos en la base de datos
         List<Deportista> list = FactoryDAO.getDeportistaDAO().getDeportistas();
         Deportista[] array = list.toArray(new Deportista[0]);

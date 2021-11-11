@@ -70,7 +70,9 @@ public class CreatePaisTable {
         volver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChangeCards.swapPrev();
+                if (MiConnection.nullConnection())
+                    ChangeCards.swap("MenuD");
+                else ChangeCards.swap("MenuC");
             }
         });
 
@@ -99,7 +101,7 @@ public class CreatePaisTable {
         return matrixPaises;
     }
 
-    public static void updateTable(){
+    public static void updateTablePais(){
         Object[][] matrix;
         TableModel model;
 
