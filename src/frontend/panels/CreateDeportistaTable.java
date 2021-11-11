@@ -2,7 +2,8 @@ package frontend.panels;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
-import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.buttons.ButtonTable;
+import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.table.TableModelUI;
 import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
@@ -10,7 +11,6 @@ import objetos.Deportista;
 import objetos.Disciplina;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -58,60 +58,6 @@ public class CreateDeportistaTable {
         buttonPanel.add(volver);
 
         //Construimos la table
-
-//        Object[] columnNames = {"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
-//        Object[][] data = {
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false}
-//        };
         String[] columnNames = {"No conection to DB"};
         Object[][] data = {{"No conection to DB"}};
         table = new TableUI(data, columnNames);
@@ -149,23 +95,33 @@ public class CreateDeportistaTable {
         return panel;
     }
 
-    public static void updateTableDeportistas(){
-        //Buscamos en la base de datos
-        List<Deportista> list = FactoryDAO.getDeportistaDAO().getDeportistas();
-        Deportista[] array = list.toArray(new Deportista[0]);
+    public static void updateTableDeportistas() {
 
-        //Creamos la matriz
-        Object[][] matrix = new Object[array.length][5];
-        for (int i = 0, n = array.length; i < n; i++){
-            Deportista d = array[i];
-            matrix[i][0] = d.getNombres() +" "+ array[i].getApellidos();
-            matrix[i][1] = d.getPais().getNombre();
-            matrix[i][2] = d.getDisciplinas().get(0).getNombre();
-            matrix[i][3] = new JButton("Editar");
-            matrix[i][4] = new JButton("Eliminar");
+        Object[][] matrix;
+        Object[] header = titles;
+
+        if (MiConnection.nullConnection()) {
+            matrix = new Object[][]{{"No connection to DB"}};
+            header = new Object[]{"No connection to DB"};
+        } else {
+            //Buscamos en la base de datos
+            List<Deportista> list = FactoryDAO.getDeportistaDAO().getDeportistas();
+            Deportista[] array = list.toArray(new Deportista[0]);
+
+            //Creamos la matriz
+            matrix = new Object[array.length][5];
+            for (int i = 0, n = array.length; i < n; i++) {
+                Deportista d = array[i];
+                matrix[i][0] = d.getNombres() + " " + array[i].getApellidos();
+                matrix[i][1] = d.getPais().getNombre();
+                List<Disciplina> disciplinas = d.getDisciplinas();
+                matrix[i][2] = disciplinas.get(0).getNombre();
+                matrix[i][3] = new ButtonTable("Editar");
+                matrix[i][4] = new ButtonTable("Eliminar");
+            }
         }
-        //Asignamos la nueva matriz a la tabla
-        TableModel model = new TableModelUI(matrix,titles);
-        table.setModel(model);
+            //Asignamos la nueva matriz a la tabla
+            TableModel model = new TableModelUI(matrix, header);
+            table.setModel(model);
     }
 }

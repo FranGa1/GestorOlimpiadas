@@ -5,7 +5,7 @@ public class Pais {
     private int id;
 
     public Pais(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.trim();;
     }
 
     public Pais(String nombre, int id) {

@@ -9,7 +9,8 @@ public class Render extends DefaultTableCellRenderer {
 
     public Render(){
         super();
-        this.setHorizontalAlignment( JLabel.CENTER );
+        //Centramos las cells
+        this.setHorizontalAlignment(JLabel.CENTER);
     }
 
     @Override

@@ -7,7 +7,7 @@ public class MiConnection {
     private static Connection con = null;
 
     private static final String accessUsername = "root";
-    private static final String accessPassword = "fran";
+    private static final String accessPassword = "12345";
 
     private static void createCon() {
         if (con == null) {

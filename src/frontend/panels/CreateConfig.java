@@ -2,8 +2,7 @@ package frontend.panels;
 
 
 import backend.MiConnection;
-import frontend.Aplicacion;
-import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.PasswordFieldUI;
 import frontend.changeDefaults.TextFieldUI;
 import frontend.changeDefaults.WPanel;

@@ -1,16 +1,12 @@
 package frontend.panels.menu;
 
-import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
-import backend.dao.implementacionesDAO.PaisDAOjdbc;
-import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.WPanel;
 import frontend.panels.ChangeCards;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static frontend.panels.CreateAddDeportista.updateCB;
 
 public abstract class CreateMenu {
 
@@ -106,6 +102,7 @@ public abstract class CreateMenu {
         paises.addActionListener(e -> {
             ChangeCards.swap("PaisesTable");
         });
+
 
         //Insertamos ambos en el panel final
         mainPanel.setLayout(new BorderLayout());
