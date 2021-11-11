@@ -4,36 +4,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class MiConnection {
+
     private static Connection con = null;
-
-    private static final String accessUsername = "root";
-    private static final String accessPassword = "fran";
-
-    private static void createCon() {
-        if (con == null) {
-            try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", accessUsername, accessPassword);
-            } catch (java.sql.SQLException e) {
-                System.out.println("Error de SQL: " + e.getMessage());
-            }
-        }
-    }
 
     public static Connection getCon() {
         return con;
     }
 
     public static void login(String user, String password){
-        if (validCredentials(user, password)){
-            createCon();
-        }
-        else {
-            con = null;
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", user, password);
+        } catch (java.sql.SQLException e) {
+            System.out.println("Error de SQL: " + e.getMessage());
+            System.out.println("No es posible conectarse a la base de datos");
         }
     }
 
-    public static boolean validCredentials(String username, String password){
-        return (username.equals(accessUsername) && password.equals(accessPassword));
+    public static void disconnect(){
+        con = null;
     }
 
     public static boolean nullConnection(){
