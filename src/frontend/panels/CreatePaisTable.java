@@ -2,7 +2,7 @@ package frontend.panels;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
-import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.table.TableModelUI;
 import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
@@ -40,7 +40,7 @@ public class CreatePaisTable {
         Object[] title = {"No connection to DB"};
         table = new TableUI(data,title);
         JScrollPane scrollPane = new JScrollPane(table);
-        
+
         //Construimos el header
         header.setLayout(new BorderLayout());
         headerLbl.setFont(new Font("Bevan", Font.PLAIN, 30));
@@ -103,20 +103,11 @@ public class CreatePaisTable {
                 matrix[i][1] = list.get(i).getNombre();
                 matrix[i][2] = new ButtonUI("Modificar");
                 matrix[i][3] = new ButtonUI("Eliminar");
-
             }
             //Asignamos la nueva matriz a la tabla
             model = new TableModelUI(matrix,titles);
         }
 
         table.setModel(model);
-
-//        class ModificarListener implements ActionListener{
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                ChangeCards.swap("EditPais");
-//            }
-//        }
     }
 }

@@ -3,7 +3,7 @@ package frontend.panels;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.PaisDAO;
-import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.TextFieldUI;
 import frontend.changeDefaults.WPanel;
 import objetos.Pais;

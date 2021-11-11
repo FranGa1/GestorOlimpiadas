@@ -2,10 +2,8 @@ package frontend.panels;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
-import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
-import backend.dao.implementacionesDAO.PaisDAOjdbc;
 import backend.dao.interfacesDAO.DeportistaDAO;
-import frontend.changeDefaults.ButtonUI;
+import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.ComboBoxUI;
 import frontend.changeDefaults.TextFieldUI;
 import frontend.changeDefaults.WPanel;
@@ -262,8 +260,10 @@ public class CreateAddDeportista {
                 cleanFields();
                 ChangeCards.swapPrev();
             }
+
         }
     }
+
 
     //Borra los datos ingresados
     private static void cleanFields(){

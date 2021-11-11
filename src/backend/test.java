@@ -1,8 +1,9 @@
 package backend;
 
-import backend.dao.FactoryDAO;
 import objetos.Deportista;
+
 import java.sql.SQLException;
+
 public class test {
     public static int prueba(int numero){
         return numero;
@@ -74,6 +75,6 @@ public class test {
 //        for (Pais pais2 : listaPaises2)
 //            System.out.println(pais2.getNombre());
 
-        System.out.println(FactoryDAO.getPaisDAO().encontrar(1).getNombre());
+//        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", "root", "fran");
     }
 }
