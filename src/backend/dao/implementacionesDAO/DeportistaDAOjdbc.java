@@ -3,8 +3,6 @@ package backend.dao.implementacionesDAO;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.DeportistaDAO;
-import backend.dao.interfacesDAO.DisciplinaDAO;
-import backend.dao.interfacesDAO.PaisDAO;
 import objetos.Deportista;
 import objetos.Disciplina;
 import objetos.Pais;
@@ -21,7 +19,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
      * @param deportistaNuevo Deportista a crear
      */
     @Override
-    public int cargar(Deportista deportistaNuevo) {
+    public void cargar(Deportista deportistaNuevo) {
 
         // Se establece la conexion a la BD
         Connection connection = MiConnection.getCon();
@@ -47,9 +45,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: " + e.getMessage());
-            return 1;
         }
-        return 0;
     }
 
     /**
@@ -57,7 +53,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
      * @param deportistaEliminar Deportista a eliminar
      */
     @Override
-    public int eliminar(Deportista deportistaEliminar) {
+    public void eliminar(Deportista deportistaEliminar) {
 
         // Se establece la conexcion con la base de datos
         Connection connection = MiConnection.getCon();
@@ -74,18 +70,15 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 
         } catch (SQLException e){
             System.out.println("Error de SQL: "+e.getMessage());
-            return 1;
         }
-        return 0;
     }
 
     /**
      * Se edita un deportista en la base de datos
      * @param deportistaEditar Deportista a editar
-     * @return 0 si fue exitoso, 1 en caso contrario
      */
     @Override
-    public int editar(Deportista deportistaEditar) {
+    public void editar(Deportista deportistaEditar) {
         // Se establece la conexion a la BD
         Connection connection = MiConnection.getCon();
 
@@ -102,33 +95,17 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             statement.setInt(6, deportistaEditar.getId());
             statement.executeUpdate();
 
-            // Se borra al deportista de la tabla deportista_en_disciplina
-            sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?)";
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, deportistaEditar.getId());
-            statement.executeUpdate();
-
-            // Se le asignan las disciplinas al deportista
-            sql =  "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) " +
-                    "VALUES(?,(SELECT id FROM disciplina WHERE nombre=?))";
-            statement = connection.prepareStatement(sql);
-
-            for(Disciplina disciplina : deportistaEditar.getDisciplinas()){
-                statement.setInt(1, deportistaEditar.getId());
-                statement.setString(2, disciplina.getNombre());
-                statement.executeUpdate();
-            }
+            // Se editan las disciplinas asociadas al deportista
+            FactoryDAO.getDeporEnDisciplinaDAO().editarDisciplinasDeportista(deportistaEditar.getDisciplinas(), deportistaEditar.getId());
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: " + e.getMessage());
-            return 1;
         }
-        return 0;
     }
 
     /**
      * Se obtiene una lista de deportistas
-     * @return 0 si es exitoso, 1 en caso contrario
+     * @return lista que contiene todos los deportistas
      */
     @Override
     public List<Deportista> getDeportistas() {
@@ -149,10 +126,8 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
                 String email = deportistasBD.getString("email");
                 int idDeportista = deportistasBD.getInt("id");
                 int idPais = deportistasBD.getInt("id_pais");
-                PaisDAO paisDAO = FactoryDAO.getPaisDAO();
-                Pais pais = paisDAO.encontrar(idPais);
-                DisciplinaDAO disciplinaDAO = FactoryDAO.getDisciplinaDAO();
-                List<Disciplina> disciplinas = disciplinaDAO.getDisciplinasDeportista(idDeportista);
+                Pais pais = FactoryDAO.getPaisDAO().encontrar(idPais);
+                List<Disciplina> disciplinas =  FactoryDAO.getDeporEnDisciplinaDAO().getDisciplinasDeportista(idDeportista);
 
                 // Se lo agrega a la lista a devolver
                 listasDeportistas.add(new Deportista(nombre, apellido, email, telefono, pais, disciplinas, idDeportista));

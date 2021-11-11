@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public class PaisDAOjdbc implements PaisDAO {
     @Override
-    public int cargar(Pais nuevoPais) {
+    public void cargar(Pais nuevoPais) {
         Connection connection = MiConnection.getCon();
 
         try {
@@ -23,16 +23,13 @@ public class PaisDAOjdbc implements PaisDAO {
             statementPais.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
-            return 1;
         } catch (NullPointerException e){
             System.out.println("ERROR: El pais no es valido");
-            return 1;
         }
-        return 0;
     }
 
     @Override
-    public int eliminar(Pais paisEliminar) {
+    public void eliminar(Pais paisEliminar) {
         Connection connection = MiConnection.getCon();
 
         try {
@@ -42,9 +39,7 @@ public class PaisDAOjdbc implements PaisDAO {
             statementPais.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
-            return 1;
         }
-        return 0;
     }
 
     /**
@@ -53,7 +48,7 @@ public class PaisDAOjdbc implements PaisDAO {
      * @return 0 si es exitoso, 1 en caso contrario
      */
     @Override
-    public int editar(Pais paisEditar) {
+    public void editar(Pais paisEditar) {
         Connection connection = MiConnection.getCon();
         try {
             String sql = "UPDATE pais SET nombre=? WHERE id=?";
@@ -63,12 +58,9 @@ public class PaisDAOjdbc implements PaisDAO {
             statementPais.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
-            return 1;
         } catch (NullPointerException e){
             System.out.println("ERROR: El pais no es valido");
-            return 1;
         }
-        return 0;
     }
 
     /**

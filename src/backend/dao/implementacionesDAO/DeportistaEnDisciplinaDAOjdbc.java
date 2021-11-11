@@ -6,7 +6,9 @@ import objetos.Disciplina;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO {
@@ -39,7 +41,7 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
         Connection connection = MiConnection.getCon();
         try {
             // Se borra al deportista de la tabla deportista
-            String sql = "DELETE FROM deportista WHERE id=?";
+            String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, idDeportista);
@@ -47,7 +49,61 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
         } catch (SQLException e){
             System.out.println("Error de SQL: "+e.getMessage());
         }
+    }
 
+    @Override
+    public void editarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista){
+        eliminarDisciplinasDeportista(idDeportista);
+        cargarDisciplinasDeportista(disciplinasDeportista, idDeportista);
+    }
 
+    @Override
+    public List<Disciplina> getDisciplinasDeportista(int idDeportista){
+        Connection connection = MiConnection.getCon();
+        List<Disciplina> listaDisciplinas = new LinkedList<>();
+
+        try {
+            String sql = "SELECT nombre FROM disciplina WHERE id IN (SELECT id_disciplina FROM deportista_en_disciplina WHERE id_deportista = ?);";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.clearParameters();
+            statement.setInt(1, idDeportista);
+            ResultSet disciplinasBD = statement.executeQuery();
+
+            while (disciplinasBD.next()){
+                listaDisciplinas.add(new Disciplina(disciplinasBD.getString("nombre")));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error de SQL: "+e);
+        }
+
+        return listaDisciplinas;
+    }
+
+    /**
+     * Se obtiene una lista de
+     * @param idDeportista
+     * @return
+     */
+    @Override
+    public List<String> getDisciplinasDeportistaAsStrings(int idDeportista){
+        Connection connection = MiConnection.getCon();
+        List<String> listaDisciplinasAsStrings = new LinkedList<>();
+
+        try {
+            String sql = "SELECT nombre FROM disciplina WHERE id IN (SELECT id_disciplina FROM deportista_en_disciplina WHERE id_deportista = ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, idDeportista);
+            ResultSet disciplinasBD = statement.executeQuery();
+
+            while (disciplinasBD.next()){
+                listaDisciplinasAsStrings.add(disciplinasBD.getString("nombre"));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error de SQL: "+e.getMessage());
+        }
+
+        return listaDisciplinasAsStrings;
     }
 }
