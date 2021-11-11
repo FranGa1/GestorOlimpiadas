@@ -9,7 +9,7 @@ public class Pais {
     }
 
     public Pais(String nombre, int id) {
-        this.nombre = nombre;
+        this.nombre = nombre.trim();
         this.id = id;
     }
 

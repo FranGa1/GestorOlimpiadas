@@ -6,8 +6,6 @@ import frontend.changeDefaults.ButtonUI;
 import frontend.changeDefaults.table.TableModelUI;
 import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
-import objetos.Deportista;
-import objetos.Disciplina;
 import objetos.Pais;
 
 import javax.swing.*;
