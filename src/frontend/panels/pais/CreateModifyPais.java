@@ -133,14 +133,6 @@ public abstract class CreateModifyPais {
 
         return panel;
     }
-    //Listener para el boton save
-//    protected static class SaveListener implements ActionListener{
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//
-//        }
-//
-//    }
 
     //Limpia los datos ingresados por el usuario
     protected static void cleanFields(){
