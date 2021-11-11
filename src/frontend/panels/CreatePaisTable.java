@@ -82,23 +82,6 @@ public class CreatePaisTable {
         return panel;
     }
 
-    private static Object[][] createTable(List<Pais> paises){
-
-        int rows = paises.size();
-        int cols = 4;
-
-        Object [][] matrixPaises = new Object[rows][cols];
-
-        for (int i=0; i<rows; i++){
-            matrixPaises[i][0] = paises.get(i).getId();
-            matrixPaises[i][1] = paises.get(i).getNombre();
-            matrixPaises[i][2] = new JButton("Modificar");
-            matrixPaises[i][3] = new JButton("Eliminar");
-        }
-
-        return matrixPaises;
-    }
-
     public static void updateTablePais(){
         Object[][] matrix;
         TableModel model;
@@ -120,11 +103,20 @@ public class CreatePaisTable {
                 matrix[i][1] = list.get(i).getNombre();
                 matrix[i][2] = new ButtonUI("Modificar");
                 matrix[i][3] = new ButtonUI("Eliminar");
+
             }
             //Asignamos la nueva matriz a la tabla
             model = new TableModelUI(matrix,titles);
         }
 
         table.setModel(model);
+
+//        class ModificarListener implements ActionListener{
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                ChangeCards.swap("EditPais");
+//            }
+//        }
     }
 }

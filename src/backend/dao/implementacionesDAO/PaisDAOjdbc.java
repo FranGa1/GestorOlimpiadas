@@ -83,19 +83,18 @@ public class PaisDAOjdbc implements PaisDAO {
 
         try {
             String sql = "SELECT * FROM pais WHERE nombre=?";
-            System.out.println(sql);
             PreparedStatement statementPais = connection.prepareStatement(sql);
             statementPais.setString(1, paisEncontrar.getNombre().toUpperCase(Locale.ROOT));
-            ResultSet result = statementPais.executeQuery(sql);
+            ResultSet result = statementPais.executeQuery();
 
             return result.next();
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
-            return false;
+            return true;
         } catch (NullPointerException e){
             System.out.println("ERROR: El pais no es valido");
-            return false;
+            return true;
         }
     }
 
@@ -162,7 +161,7 @@ public class PaisDAOjdbc implements PaisDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
+            System.out.println("Error de SQL: "+e.getMessage()+"ENTRO aca");
         }
         return listaPaises;
     }
