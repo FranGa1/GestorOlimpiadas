@@ -39,10 +39,6 @@ public class CreateDeportistaTable {
         //Creamos los labels
         JLabel headerLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
         JLabel headerTableLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
-        //JLabel headerLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
-
-        //Creamos la tabla
-        //JTable table = new JTable();
 
         //Construimos el header
         header.setLayout(new BorderLayout());
@@ -58,60 +54,6 @@ public class CreateDeportistaTable {
         buttonPanel.add(volver);
 
         //Construimos la table
-
-//        Object[] columnNames = {"First Name", "Last Name", "Sport", "# of Years", "Vegetarian"};
-//        Object[][] data = {
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false},
-//                {"Kathy", "Smith",
-//                        "Snowboarding", 5,false},
-//                {"John", "Doe",
-//                        "Rowing", 3, true},
-//                {"Sue", "Black",
-//                        "Knitting", 2,false},
-//                {"Jane", "White",
-//                        "Speed reading",20, true},
-//                {"Joe", "Brown",
-//                        "Pool", 10,false}
-//        };
         String[] columnNames = {"No conection to DB"};
         Object[][] data = {{"No conection to DB"}};
         table = new TableUI(data, columnNames);
@@ -122,7 +64,6 @@ public class CreateDeportistaTable {
         center.add(buttonPanel, BorderLayout.NORTH);
         center.add(scrollPane, BorderLayout.CENTER);
         center.setBorder(BorderFactory.createEmptyBorder(10,20,20,20));
-
 
         //Construimos el panel final
         panel.setLayout(new BorderLayout());

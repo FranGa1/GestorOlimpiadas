@@ -1,19 +1,10 @@
 package frontend.panels;
 
 import backend.MiConnection;
-import backend.dao.implementacionesDAO.DisciplinaDAOjdbc;
-import backend.dao.implementacionesDAO.PaisDAOjdbc;
 import frontend.Aplicacion;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.regex.Pattern;
-
-import static frontend.panels.CreateAddDeportista.updateCB;
 
 public class ChangeCards {
 
@@ -43,17 +34,17 @@ public class ChangeCards {
             case "MenuD", "MenuC" -> {
                 cl.show(cardPanel, cardName);
                 frame.setSize(500, 380);
-                frame.setName("Gestor de Olimpiadas");
+                frame.setTitle("Gestor de Olimpiadas");
             }
             case "Configuracion" -> {
                 cl.show(cardPanel, cardName);
                 frame.setSize(480, 230);
-                frame.setName("Gestor de Olimpiadas - CONFIGURACION");
+                frame.setTitle("Gestor de Olimpiadas - CONFIGURACION");
             }
             case "AddPais" -> {
                 cl.show(cardPanel, cardName);
                 frame.setSize(500, 220);
-                frame.setName("Gestor de Olimpiadas - NUEVO PAIS");
+                frame.setTitle("Gestor de Olimpiadas - NUEVO PAIS");
             }
             case "AddDeportista" -> {
                 //Actualizamos los comboBox
@@ -61,20 +52,23 @@ public class ChangeCards {
 
                 cl.show(cardPanel, cardName);
                 frame.setSize(510, 420);
-                frame.setName("Gestor de Olimpiadas - NUEVO DEPORTISTA");
+                frame.setTitle("Gestor de Olimpiadas - NUEVO DEPORTISTA");
             }
             case "DeportistasTable" -> {
                 //Actualizamos la tabla
-                if (!MiConnection.nullConnection()) CreateDeportistaTable.updateTable();
+                CreateDeportistaTable.updateTable();
 
                 cl.show(cardPanel, cardName);
                 frame.setSize(700, 420);
-                frame.setName("Gestor de Olimpiadas - DEPORTISTAS");
+                frame.setTitle("Gestor de Olimpiadas - DEPORTISTAS");
             }
             case "PaisesTable" -> {
+                // Actualizamos la tabla
+                CreatePaisTable.updateTable();
+
                 cl.show(cardPanel, cardName);
-                frame.setSize(530, 420);
-                frame.setName("Gestor de Olimpiadas - PAISES");
+                frame.setSize(700, 420);
+                frame.setTitle("Gestor de Olimpiadas - PAISES");
             }
         }
         update(cardName);

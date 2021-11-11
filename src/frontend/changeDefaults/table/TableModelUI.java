@@ -1,4 +1,3 @@
-
 package frontend.changeDefaults.table;
 
 import javax.swing.table.DefaultTableModel;

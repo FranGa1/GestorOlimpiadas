@@ -175,31 +175,31 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         return listasDeportistas;
     }
 
-    /**
-     * Se obtiene el id de un deportista a partir de este
-     * @param deportista
-     * @return id deportista si es exitoso, 0 caso contrario
-     */
-    @Override
-    public int getIdDeportista(Deportista deportista){
-        Connection connection = MiConnection.getCon();
-        int id = 0;
-        try {
-            String sql = "SELECT id FROM deportista WHERE (nombres=? and apellidos=? and email=? and telefono=?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, deportista.getNombres());
-            statement.setString(2, deportista.getApellidos());
-            statement.setString(3, deportista.getEmail());
-            statement.setString(4, deportista.getTelefono());
-            ResultSet deportistaBD = statement.executeQuery();
-
-            if (!deportistaBD.isBeforeFirst()){
-                id = deportistaBD.getInt("id");
-            }
-
-        } catch (SQLException e){
-            System.out.println("Error de SQL: "+e.getMessage());
-        }
-        return  id;
-    }
+//    /**
+//     * Se obtiene el id de un deportista a partir de este
+//     * @param deportista
+//     * @return id deportista si es exitoso, 0 caso contrario
+//     */
+//    @Override
+//    public int getIdDeportista(Deportista deportista){
+//        Connection connection = MiConnection.getCon();
+//        int id = 0;
+//        try {
+//            String sql = "SELECT id FROM deportista WHERE (nombres=? and apellidos=? and email=? and telefono=?)";
+//            PreparedStatement statement = connection.prepareStatement(sql);
+//            statement.setString(1, deportista.getNombres());
+//            statement.setString(2, deportista.getApellidos());
+//            statement.setString(3, deportista.getEmail());
+//            statement.setString(4, deportista.getTelefono());
+//            ResultSet deportistaBD = statement.executeQuery();
+//
+//            if (!deportistaBD.isBeforeFirst()){
+//                id = deportistaBD.getInt("id");
+//            }
+//
+//        } catch (SQLException e){
+//            System.out.println("Error de SQL: "+e.getMessage());
+//        }
+//        return  id;
+//    }
 }
