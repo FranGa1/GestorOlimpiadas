@@ -140,7 +140,7 @@ public class PaisDAOjdbc implements PaisDAO {
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e.getMessage());
         } catch (NullPointerException e){
-            System.out.println("ERROR: NullPointerException");
+            System.out.println("ERROR: No se esta conectado a la base de datos");
         }
         return listaPaises;
     }
@@ -161,7 +161,7 @@ public class PaisDAOjdbc implements PaisDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage()+"ENTRO aca");
+            System.out.println("Error de SQL: "+e.getMessage());
         }
         return listaPaises;
     }

@@ -25,7 +25,7 @@ public class ChangeCards {
 
 
     //Muestra la card anterior
-    static void swapPrev(){
+    public static void swapPrev(){
         swap(anterior);
     }
 
