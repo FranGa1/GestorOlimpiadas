@@ -42,16 +42,8 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             generatedKeysResultSet.next();
             int idDeportista = generatedKeysResultSet.getInt(1);
 
-            // Se le asignan las disciplinas al deportista
-            sql =  "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) VALUES(?,(SELECT id FROM disciplina WHERE nombre=?))";
-            statement = connection.prepareStatement(sql);
-
-            List<Disciplina> disciplinasDeportista = deportistaNuevo.getDisciplinas();
-            for(Disciplina disciplina : disciplinasDeportista){
-                statement.setInt(1, idDeportista);
-                statement.setString(2, disciplina.getNombre());
-                statement.executeUpdate();
-            }
+            // Se cargan las disciplinas del deportista
+            FactoryDAO.getDeporEnDisciplinaDAO().cargarDisciplinasDeportista(deportistaNuevo.getDisciplinas(), idDeportista);
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: " + e.getMessage());
@@ -77,11 +69,8 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             statement.setInt(1, deportistaEliminar.getId());
             statement.executeUpdate();
 
-            // Se borra al deportista de la tabla deportista
-            sql = "DELETE FROM deportista WHERE id=?";
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, deportistaEliminar.getId());
-            statement.executeUpdate();
+            // Se eliminan las disciplinas del deportista
+            FactoryDAO.getDeporEnDisciplinaDAO().eliminarDisciplinasDeportista(deportistaEliminar.getId());
 
         } catch (SQLException e){
             System.out.println("Error de SQL: "+e.getMessage());
