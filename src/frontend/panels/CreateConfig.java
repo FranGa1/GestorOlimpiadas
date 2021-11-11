@@ -117,7 +117,7 @@ public class CreateConfig {
             public void actionPerformed(ActionEvent e) {
 
                 //Reset user and password
-                MiConnection.login("", "");
+                MiConnection.disconnect();
                 //Load Disconnected Menu
                 ChangeCards.swap("MenuD");
 
