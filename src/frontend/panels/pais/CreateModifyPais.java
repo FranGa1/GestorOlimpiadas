@@ -1,14 +1,9 @@
 package frontend.panels.pais;
 
-import backend.MiConnection;
-import backend.dao.FactoryDAO;
-import backend.dao.interfacesDAO.PaisDAO;
-import frontend.Aplicacion;
-import frontend.changeDefaults.ButtonUI;
 import frontend.changeDefaults.TextFieldUI;
 import frontend.changeDefaults.WPanel;
+import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.panels.ChangeCards;
-import objetos.Pais;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
