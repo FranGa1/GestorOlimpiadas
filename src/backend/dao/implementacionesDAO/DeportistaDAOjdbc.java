@@ -53,14 +53,15 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         // Se establece la conexcion con la base de datos
         Connection connection = MiConnection.getCon();
 
+        // Se eliminan las disciplinas del deportista
+        FactoryDAO.getDeporEnDisciplinaDAO().eliminarDisciplinasDeportista(deportistaEliminar.getId());
+
         // Se borra al deportista de la tabla deportista_en_disciplina
-        String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?)";
+        String sql = "DELETE FROM deportista WHERE id=?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, deportistaEliminar.getId());
         statement.executeUpdate();
 
-        // Se eliminan las disciplinas del deportista
-        FactoryDAO.getDeporEnDisciplinaDAO().eliminarDisciplinasDeportista(deportistaEliminar.getId());
     }
 
     /**
