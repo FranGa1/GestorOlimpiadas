@@ -19,7 +19,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
      * @param deportistaNuevo Deportista a crear
      */
     @Override
-    public void cargar(Deportista deportistaNuevo) throws Exception {
+    public void cargar(Deportista deportistaNuevo) throws SQLException {
 
         // Se establece la conexion a la BD
         Connection connection = MiConnection.getCon();
