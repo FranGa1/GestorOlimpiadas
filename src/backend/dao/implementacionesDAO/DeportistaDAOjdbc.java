@@ -98,7 +98,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         Connection connection = MiConnection.getCon();
         List<Deportista> listasDeportistas = new LinkedList<>();
 
-        String sql = "SELECT * FROM deportista";
+        String sql = "SELECT * FROM deportista ORDER BY nombres";
         Statement statement = connection.createStatement();
         ResultSet deportistasBD = statement.executeQuery(sql);
 
