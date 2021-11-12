@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface DeportistaEnDisciplinaDAO {
-    void cargarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws SQLException, Exception;
+    void cargarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws SQLException;
     void eliminarDisciplinasDeportista(int idDeportista) throws SQLException;
     void editarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws SQLException;
     List<Integer>  getIDsDisciplinasDeportista(int idDeportista) throws SQLException;
