@@ -1,6 +1,7 @@
 package backend.dao.implementacionesDAO;
 
 import backend.MiConnection;
+import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.DeportistaEnDisciplinaDAO;
 import objetos.Disciplina;
 
@@ -19,40 +20,30 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
      * @param idDeportista
      */
     @Override
-    public void cargarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) {
+    public void cargarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws SQLException {
         Connection connection = MiConnection.getCon();
-
-        try {
-            // Se le asignan las disciplinas al deportista
-            String sql = "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) VALUES(?,(SELECT id FROM disciplina WHERE nombre=?))";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            for (Disciplina disciplina : disciplinasDeportista) {
-                statement.setInt(1, idDeportista);
-                statement.setString(2, disciplina.getNombre());
-                statement.executeUpdate();
-            }
-        } catch (SQLException e){
-            System.out.println("Error de SQL: "+e.getMessage());
-        }
-    }
-
-    @Override
-    public void eliminarDisciplinasDeportista(int idDeportista){
-        Connection connection = MiConnection.getCon();
-        try {
-            // Se borra al deportista de la tabla deportista
-            String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?";
-
-            PreparedStatement statement = connection.prepareStatement(sql);
+        String sql = "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) VALUES(?,(SELECT id FROM disciplina WHERE nombre=?))";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        for (Disciplina disciplina : disciplinasDeportista) {
             statement.setInt(1, idDeportista);
+            statement.setString(2, disciplina.getNombre());
             statement.executeUpdate();
-        } catch (SQLException e){
-            System.out.println("Error de SQL: "+e.getMessage());
         }
     }
 
     @Override
-    public void editarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista){
+    public void eliminarDisciplinasDeportista(int idDeportista) throws SQLException{
+        Connection connection = MiConnection.getCon();
+        // Se borra al deportista de la tabla deportista
+        String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, idDeportista);
+        statement.executeUpdate();
+    }
+
+    @Override
+    public void editarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws SQLException{
         eliminarDisciplinasDeportista(idDeportista);
         cargarDisciplinasDeportista(disciplinasDeportista, idDeportista);
     }
@@ -63,11 +54,10 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
      * @return listaDisciplinas
      */
     @Override
-    public List<Integer> getDisciplinasDeportista(int idDeportista){
+    public List<Integer> getIDsDisciplinasDeportista(int idDeportista) throws SQLException{
         Connection connection = MiConnection.getCon();
         List<Integer> listaDisciplinas = new LinkedList<>();
 
-        try {
             String sql = "SELECT id_disciplina FROM deportista_en_disciplina WHERE id_deportista=?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.clearParameters();
@@ -78,10 +68,19 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
                 listaDisciplinas.add(disciplinasBD.getInt("id_disciplina"));
             }
 
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e);
-        }
         return listaDisciplinas;
     }
 
+    /**
+     * Se obtiene una lista de
+     * @param idDeportista
+     * @return
+     */
+    @Override
+    public List<Disciplina> getDisciplinasDeportista(int idDeportista) throws SQLException {
+        Connection connection = MiConnection.getCon();
+        List<Integer> listaIdsDisciplinas = FactoryDAO.getDeporEnDisciplinaDAO().getIDsDisciplinasDeportista(idDeportista);
+
+        return FactoryDAO.getDisciplinaDAO().getDisciplinasSeleccionadas(listaIdsDisciplinas);
+    }
 }

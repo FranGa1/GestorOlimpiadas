@@ -12,34 +12,25 @@ import java.util.Locale;
 
 public class PaisDAOjdbc implements PaisDAO {
     @Override
-    public void cargar(Pais nuevoPais) {
+    public void cargar(Pais nuevoPais) throws SQLException{
         Connection connection = MiConnection.getCon();
 
-        try {
-            // Se inserta el pais en la base de datos
-            String sql = "INSERT INTO pais (nombre) VALUES (?)";
-            PreparedStatement statementPais = connection.prepareStatement(sql);
-            statementPais.setString(1, nuevoPais.getNombre().toUpperCase(Locale.ROOT).trim());
-            statementPais.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
-        } catch (NullPointerException e){
-            System.out.println("ERROR: El pais no es valido");
-        }
+        // Se inserta el pais en la base de datos
+        String sql = "INSERT INTO pais (nombre) VALUES (?)";
+        PreparedStatement statementPais = connection.prepareStatement(sql);
+        statementPais.setString(1, nuevoPais.getNombre().toUpperCase(Locale.ROOT).trim());
+        statementPais.executeUpdate();
+
     }
 
     @Override
-    public void eliminar(Pais paisEliminar) {
+    public void eliminar(Pais paisEliminar) throws SQLException{
         Connection connection = MiConnection.getCon();
 
-        try {
-            String sql = "DELETE FROM pais WHERE id=?";
-            PreparedStatement statementPais = connection.prepareStatement(sql);
-            statementPais.setInt(1, paisEliminar.getId());
-            statementPais.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
-        }
+        String sql = "DELETE FROM pais WHERE id=?";
+        PreparedStatement statementPais = connection.prepareStatement(sql);
+        statementPais.setInt(1, paisEliminar.getId());
+        statementPais.executeUpdate();
     }
 
     /**
@@ -48,19 +39,15 @@ public class PaisDAOjdbc implements PaisDAO {
      * @return 0 si es exitoso, 1 en caso contrario
      */
     @Override
-    public void editar(Pais paisEditar) {
+    public void editar(Pais paisEditar) throws SQLException{
         Connection connection = MiConnection.getCon();
-        try {
-            String sql = "UPDATE pais SET nombre=? WHERE id=?";
-            PreparedStatement statementPais = connection.prepareStatement(sql);
-            statementPais.setString(1, paisEditar.getNombre().toUpperCase(Locale.ROOT).trim());
-            statementPais.setInt(2, paisEditar.getId());
-            statementPais.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
-        } catch (NullPointerException e){
-            System.out.println("ERROR: El pais no es valido");
-        }
+
+        String sql = "UPDATE pais SET nombre=? WHERE id=?";
+        PreparedStatement statementPais = connection.prepareStatement(sql);
+        statementPais.setString(1, paisEditar.getNombre().toUpperCase(Locale.ROOT).trim());
+        statementPais.setInt(2, paisEditar.getId());
+        statementPais.executeUpdate();
+
     }
 
     /**
@@ -69,45 +56,32 @@ public class PaisDAOjdbc implements PaisDAO {
      * @return true si lo encontro, false caso contrario
      */
     @Override
-    public boolean existe(Pais paisEncontrar) {
+    public boolean existe(Pais paisEncontrar) throws SQLException {
         Connection connection = MiConnection.getCon();
 
-        try {
-            String sql = "SELECT * FROM pais WHERE nombre=?";
-            PreparedStatement statementPais = connection.prepareStatement(sql);
-            statementPais.setString(1, paisEncontrar.getNombre().toUpperCase(Locale.ROOT));
-            ResultSet result = statementPais.executeQuery();
+        String sql = "SELECT * FROM pais WHERE nombre=?";
+        PreparedStatement statementPais = connection.prepareStatement(sql);
+        statementPais.setString(1, paisEncontrar.getNombre().toUpperCase(Locale.ROOT));
+        ResultSet result = statementPais.executeQuery();
 
-            return result.next();
+        return result.next();
 
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
-            return true;
-        } catch (NullPointerException e){
-            System.out.println("ERROR: El pais no es valido");
-            return true;
-        }
     }
 
     @Override
-    public Pais encontrar(int id){
+    public Pais encontrar(int id) throws SQLException{
         Connection connection = MiConnection.getCon();
         Pais pais = new Pais();
 
-        try {
-            String sql = "SELECT * FROM pais WHERE id=?";
-            PreparedStatement statementPais = connection.prepareStatement(sql);
-            statementPais.setInt(1, id);
-            ResultSet result = statementPais.executeQuery();
+        String sql = "SELECT * FROM pais WHERE id=?";
+        PreparedStatement statementPais = connection.prepareStatement(sql);
+        statementPais.setInt(1, id);
+        ResultSet result = statementPais.executeQuery();
 
-            // Si se encontro el pais, se lo devuelve
-            if (result.next()) {
-                pais.setNombre(result.getString("nombre"));
-                pais.setId(id);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
+        // Si se encontro el pais, se lo devuelve
+        if (result.next()) {
+            pais.setNombre(result.getString("nombre"));
+            pais.setId(id);
         }
 
         return pais;
@@ -137,22 +111,17 @@ public class PaisDAOjdbc implements PaisDAO {
     }
 
     @Override
-    public List<String> getPaisesAsStrings(){
+    public List<String> getPaisesAsStrings() throws SQLException{
         Connection connection = MiConnection.getCon();
         List<String> listaPaises = new LinkedList<>();
-        try {
-            // Se obtienen los paises de la base de datos
-            String sql = "SELECT * FROM pais ORDER BY nombre";
-            Statement statement = connection.createStatement();
-            ResultSet paises = statement.executeQuery(sql);
+        // Se obtienen los paises de la base de datos
+        String sql = "SELECT * FROM pais ORDER BY nombre";
+        Statement statement = connection.createStatement();
+        ResultSet paises = statement.executeQuery(sql);
 
-            // Se agregan en la lista que se va a devolver
-            while (paises.next()){
-                listaPaises.add(paises.getString("nombre"));
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
+        // Se agregan en la lista que se va a devolver
+        while (paises.next()){
+            listaPaises.add(paises.getString("nombre"));
         }
         return listaPaises;
     }

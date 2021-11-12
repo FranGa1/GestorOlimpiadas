@@ -2,6 +2,7 @@ package backend;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class MiConnection {
 
@@ -14,7 +15,7 @@ public class MiConnection {
     public static void login(String user, String password){
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", user, password);
-        } catch (java.sql.SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Error de SQL: " + e.getMessage());
             System.out.println("No es posible conectarse a la base de datos");
         }

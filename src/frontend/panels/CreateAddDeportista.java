@@ -17,6 +17,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -276,7 +277,7 @@ public class CreateAddDeportista {
     }
 
     //Actualizamos los ComboBox
-    public static void updateCB(){
+    public static void updateCB() throws SQLException {
         List<String> pais = FactoryDAO.getPaisDAO().getPaisesAsStrings();
         List<String> disciplinas = FactoryDAO.getDisciplinaDAO().getDisciplinasAsStrings();
         pais.add(0, "" );

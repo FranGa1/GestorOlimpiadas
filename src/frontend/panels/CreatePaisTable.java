@@ -3,6 +3,7 @@ package frontend.panels;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import frontend.changeDefaults.buttons.ButtonUI;
+import frontend.changeDefaults.table.CellsStyle;
 import frontend.changeDefaults.table.TableModelUI;
 import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
