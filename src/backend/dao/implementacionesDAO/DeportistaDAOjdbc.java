@@ -7,6 +7,7 @@ import objetos.Deportista;
 import objetos.Disciplina;
 import objetos.Pais;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
 
         try {
             // Se borra al deportista de la tabla deportista_en_disciplina
-            String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?)";
+            String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, deportistaEliminar.getId());
             statement.executeUpdate();
@@ -69,6 +70,9 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             FactoryDAO.getDeporEnDisciplinaDAO().eliminarDisciplinasDeportista(deportistaEliminar.getId());
 
         } catch (SQLException e){
+            JOptionPane.showMessageDialog(null,
+                    "No se pudo eliminar", "SQL Error",
+                    JOptionPane.ERROR_MESSAGE);
             System.out.println("Error de SQL: "+e.getMessage());
         }
     }

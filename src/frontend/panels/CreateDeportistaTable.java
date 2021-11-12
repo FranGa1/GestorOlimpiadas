@@ -2,7 +2,6 @@ package frontend.panels;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
-import backend.dao.interfacesDAO.DeportistaDAO;
 import frontend.changeDefaults.buttons.ButtonTable;
 import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.table.TableModelUI;
@@ -16,12 +15,15 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 
 public class CreateDeportistaTable {
 
     private static JTable table;
-    private static final String[] titles = {"Nombre y apellido", "Pais", "Disciplinas", "", ""};
+    private static final Object[] titles = {"Nombre y apellido", "Pais", "Disciplinas", "Editar", "Eliminar"};
+    private static List<Deportista> lista;
 
     public static JPanel create(){
 
@@ -104,14 +106,18 @@ public class CreateDeportistaTable {
         if (MiConnection.nullConnection()) {
             matrix = new Object[][]{{"No connection to DB"}};
             header = new Object[]{"No connection to DB"};
+            table.removeMouseListener(new ListenerTable());
         } else {
+
             //Buscamos en la base de datos
-            List<Deportista> list = FactoryDAO.getDeportistaDAO().getDeportistas();
-            Deportista[] array = list.toArray(new Deportista[0]);
+            lista = FactoryDAO.getDeportistaDAO().getDeportistas();
+            Deportista[] array = lista.toArray(new Deportista[0]);
 
             //Creamos los botones
-            JButton editar = new ButtonTable("Editar");
-            JButton eliminar = new ButtonTable("Eliminar");
+            JButton editarBtn = new ButtonTable("Editar");
+            editarBtn.setName("edit");
+            JButton eliminarBtn = new ButtonTable("Eliminar");
+            eliminarBtn.setName("remove");
 
             //Creamos la matriz
             matrix = new Object[array.length][5];
@@ -121,19 +127,60 @@ public class CreateDeportistaTable {
                 matrix[i][1] = d.getPais().getNombre();
                 List<Disciplina> disciplinas = d.getDisciplinas();
                 matrix[i][2] = disciplinas.get(0).getNombre();
-
-                //Creamos y seteamos los botones
-                matrix[i][3] = editar;
-                matrix[i][4] = eliminar;
-
-//                eliminar.addActionListener(e -> {
-//                    DeportistaDAO
-//                });
-//                editar.addActionListener(new ListenerEditar);
+                matrix[i][3] = editarBtn;
+                matrix[i][4] = eliminarBtn;
             }
+
+            table.addMouseListener(new ListenerTable());
         }
             //Asignamos la nueva matriz a la tabla
             TableModel model = new TableModelUI(matrix, header);
             table.setModel(model);
+
+    }
+
+    private static class ListenerTable implements MouseListener{
+        @Override
+        public void mouseClicked(MouseEvent evt) {
+            int column = table.getColumnModel().getColumnIndexAtX(evt.getX());
+            int row = evt.getY() / table.getRowHeight();
+            System.out.println("Column: " + column + "\n Fila: " + row);
+
+            if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
+                Object value = table.getValueAt(row, column);
+                if (value instanceof JButton) {
+                    JButton boton = (JButton) value;
+                    Deportista dep = lista.get(row);
+
+                    if (boton.getName().equals("edit")) {
+                        System.out.println("Click en el boton editar deportista " + lista.get(row));
+                        //EVENTOS MODIFICAR
+                    }
+                    if (boton.getName().equals("remove")) {
+                        int reply = JOptionPane.showConfirmDialog(null, "Seguro que desea " +
+                                "eliminar al deportista " + dep.getNombres() + " " + dep.getApellidos(),
+                                "Eliminar Deportista",
+                                JOptionPane.YES_NO_OPTION);
+                        if (reply == JOptionPane.YES_OPTION) {
+                            ((TableModelUI)table.getModel()).removeRow(row);
+                            lista.remove(row);
+                            FactoryDAO.getDeportistaDAO().eliminar(dep);
+                        }
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {}
+
+        @Override
+        public void mouseReleased(MouseEvent e) {}
+
+        @Override
+        public void mouseEntered(MouseEvent e) {}
+
+        @Override
+        public void mouseExited(MouseEvent e) {}
     }
 }

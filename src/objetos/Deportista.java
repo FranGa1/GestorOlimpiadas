@@ -84,4 +84,17 @@ public class Deportista {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Deportista{" +
+                "id=" + id +
+                ", nombres='" + nombres + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", email='" + email + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", pais=" + pais +
+                ", disciplinas=" + disciplinas +
+                '}';
+    }
 }
