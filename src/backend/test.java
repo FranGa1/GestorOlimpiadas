@@ -1,8 +1,11 @@
 package backend;
 
+import backend.dao.FactoryDAO;
 import objetos.Deportista;
+import objetos.Disciplina;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class test {
     public static int prueba(int numero){
@@ -10,8 +13,12 @@ public class test {
     }
 
     public static void main(String[] args) throws SQLException {
-        Deportista d = new Deportista();
-        int a;
+        MiConnection.login("root", "fran");
+        List<Disciplina> dis = FactoryDAO.getDisciplinaDAO().getDisciplinasDeportista(2);
+        for (Disciplina disciplina : dis)
+            System.out.println(disciplina.getNombre());
+//        Deportista d = new Deportista();
+//        int a;
 //        try {
 //            a = "asdf" + d.getNombres();
 //        } catch (NullPointerException e){

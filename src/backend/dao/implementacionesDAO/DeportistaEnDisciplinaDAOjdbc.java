@@ -57,53 +57,31 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
         cargarDisciplinasDeportista(disciplinasDeportista, idDeportista);
     }
 
+    /**
+     * Retorna una lista con los id's de las disciplinas del deportista
+     * @param idDeportista
+     * @return listaDisciplinas
+     */
     @Override
-    public List<Disciplina> getDisciplinasDeportista(int idDeportista){
+    public List<Integer> getDisciplinasDeportista(int idDeportista){
         Connection connection = MiConnection.getCon();
-        List<Disciplina> listaDisciplinas = new LinkedList<>();
+        List<Integer> listaDisciplinas = new LinkedList<>();
 
         try {
-            String sql = "SELECT nombre FROM disciplina WHERE id IN (SELECT id_disciplina FROM deportista_en_disciplina WHERE id_deportista = ?);";
+            String sql = "SELECT id_disciplina FROM deportista_en_disciplina WHERE id_deportista=?;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.clearParameters();
             statement.setInt(1, idDeportista);
             ResultSet disciplinasBD = statement.executeQuery();
 
             while (disciplinasBD.next()){
-                listaDisciplinas.add(new Disciplina(disciplinasBD.getString("nombre")));
+                listaDisciplinas.add(disciplinasBD.getInt("id_disciplina"));
             }
 
         } catch (SQLException e) {
             System.out.println("Error de SQL: "+e);
         }
-
         return listaDisciplinas;
     }
 
-    /**
-     * Se obtiene una lista de
-     * @param idDeportista
-     * @return
-     */
-    @Override
-    public List<String> getDisciplinasDeportistaAsStrings(int idDeportista){
-        Connection connection = MiConnection.getCon();
-        List<String> listaDisciplinasAsStrings = new LinkedList<>();
-
-        try {
-            String sql = "SELECT nombre FROM disciplina WHERE id IN (SELECT id_disciplina FROM deportista_en_disciplina WHERE id_deportista = ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, idDeportista);
-            ResultSet disciplinasBD = statement.executeQuery();
-
-            while (disciplinasBD.next()){
-                listaDisciplinasAsStrings.add(disciplinasBD.getString("nombre"));
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
-        }
-
-        return listaDisciplinasAsStrings;
-    }
 }
