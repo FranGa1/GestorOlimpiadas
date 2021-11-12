@@ -17,7 +17,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import java.util.List;
+
+import static frontend.panels.CreateAddDeportista.charge;
 
 public class CreateDeportistaTable {
 
@@ -110,7 +113,12 @@ public class CreateDeportistaTable {
         } else {
 
             //Buscamos en la base de datos
-            lista = FactoryDAO.getDeportistaDAO().getDeportistas();
+            try {
+                lista = FactoryDAO.getDeportistaDAO().getDeportistas();
+            } catch (SQLException e) {
+                System.out.println("No se pudo traer la lista de deportistas");
+                return;
+            }
             //Deportista[] array = lista.toArray(new Deportista[0]);
 
             //Creamos los botones
@@ -148,13 +156,12 @@ public class CreateDeportistaTable {
 
             if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
                 Object value = table.getValueAt(row, column);
-                if (value instanceof JButton) {
-                    JButton boton = (JButton) value;
+                if (value instanceof JButton boton) {
                     Deportista dep = lista.get(row);
 
                     if (boton.getName().equals("edit")) {
-                        System.out.println("Click en el boton editar deportista " + lista.get(row));
-                        //EVENTOS MODIFICAR
+                        CreateAddDeportista.charge(dep);
+                        ChangeCards.swap("AddDeportista");
                     }
                     if (boton.getName().equals("remove")) {
                         int reply = JOptionPane.showConfirmDialog(null, "Seguro que desea " +
@@ -162,9 +169,14 @@ public class CreateDeportistaTable {
                                 "Eliminar Deportista",
                                 JOptionPane.YES_NO_OPTION);
                         if (reply == JOptionPane.YES_OPTION) {
-                            FactoryDAO.getDeportistaDAO().eliminar(dep);
-                            ((TableModelUI)table.getModel()).removeRow(row);
-                            lista.remove(row);
+                            try {
+                                FactoryDAO.getDeportistaDAO().eliminar(dep);
+                                ((TableModelUI)table.getModel()).removeRow(row);
+                                lista.remove(row);
+                            } catch (SQLException e) {
+                                System.out.println("No se pudo eliminar");
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }

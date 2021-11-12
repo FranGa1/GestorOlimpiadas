@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class CreateAddDeportista {
@@ -215,7 +216,6 @@ public class CreateAddDeportista {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            DeportistaDAO dDAO = FactoryDAO.getDeportistaDAO();
 
             boolean empty = false;
             for (JTextField tf : textFields){
@@ -255,16 +255,20 @@ public class CreateAddDeportista {
                 deportista.setDisciplinas(listD);
 
                 //Cargamos el deportista
-                dDAO.cargar(deportista);
-                JOptionPane.showMessageDialog(null, "Agregado Exitoso", "Action Complete",
-                        JOptionPane.INFORMATION_MESSAGE);
-                cleanFields();
+                try {
+                    FactoryDAO.getDeportistaDAO().cargar(deportista);
+                    JOptionPane.showMessageDialog(null, "Agregado Exitoso", "Action Complete",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    cleanFields();
+                } catch (SQLException ex) {
+                    System.out.println("No se pudo cargar el deportista");
+                    ex.printStackTrace();
+                }
                 ChangeCards.swapPrev();
             }
 
         }
     }
-
 
     //Borra los datos ingresados
     private static void cleanFields(){
@@ -287,5 +291,12 @@ public class CreateAddDeportista {
     }
 
     //Dado un deportista, completa los espacios con sus datos
-    //public static void
+    public static void charge(Deportista deportista){
+        textFields[0].setText(deportista.getNombres());
+        textFields[1].setText(deportista.getApellidos());
+        textFields[2].setText(deportista.getEmail());
+        textFields[3].setText(deportista.getTelefono());
+        paisCB.setSelectedItem(deportista.getPais().getNombre().toUpperCase(Locale.ROOT));
+        disciplinaCB.setSelectedItem(deportista.getDisciplinas().get(0).getNombre().toUpperCase(Locale.ROOT));
+    }
 }

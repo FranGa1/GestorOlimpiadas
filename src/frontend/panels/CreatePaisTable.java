@@ -14,6 +14,8 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CreatePaisTable {
@@ -94,19 +96,24 @@ public class CreatePaisTable {
         }
         else {
             //Buscamos en la base de datos
-            List<Pais> list = FactoryDAO.getPaisDAO().getPaises();
+            List<Pais> list = new LinkedList<>();
+            try {
+                list = FactoryDAO.getPaisDAO().getPaises();
+            } catch (SQLException e) {
+                System.out.println("No se pudo traer la lista de paises");
+                e.printStackTrace();
+            }
 
             //Creamos la matriz
-            matrix = new Object[list.size()][5];
-
-            for (int i = 0, n = list.size(); i < n; i++) {
-                matrix[i][0] = list.get(i).getId();
-                matrix[i][1] = list.get(i).getNombre();
-                matrix[i][2] = new ButtonUI("Modificar");
-                matrix[i][3] = new ButtonUI("Eliminar");
-            }
-            //Asignamos la nueva matriz a la tabla
-            model = new TableModelUI(matrix,titles);
+                matrix = new Object[list.size()][5];
+                for (int i = 0, n = list.size(); i < n; i++) {
+                    matrix[i][0] = list.get(i).getId();
+                    matrix[i][1] = list.get(i).getNombre();
+                    matrix[i][2] = new ButtonUI("Modificar");
+                    matrix[i][3] = new ButtonUI("Eliminar");
+                }
+                //Asignamos la nueva matriz a la tabla
+                model = new TableModelUI(matrix,titles);
         }
 
         table.setModel(model);
