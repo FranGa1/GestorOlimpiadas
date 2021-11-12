@@ -2,6 +2,7 @@ package frontend.panels;
 
 
 import backend.MiConnection;
+import frontend.changeDefaults.LabelsUI;
 import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.PasswordFieldUI;
 import frontend.changeDefaults.TextFieldUI;
@@ -31,8 +32,8 @@ public class CreateConfig {
         JButton btnReset = new ButtonUI("Reset Data");
 
         //Creamos los labels
-        JLabel userLbl = new JLabel("Usuario: ");
-        JLabel passwdLbl = new JLabel("Contraseña: ");
+        JLabel userLbl = new LabelsUI("Usuario: ");
+        JLabel passwdLbl = new LabelsUI("Contraseña: ");
         JLabel headerLbl = new JLabel("CONFIGURACION", SwingConstants.CENTER);
 
         //Creamos los textFields

@@ -7,6 +7,6 @@ public class WPanel extends JPanel {
 
     public WPanel(){
         super();
-        this.setBackground(new Color(0xFFFFFF));
+        this.setBackground(new Color(0x1F1F1F));
     }
 }
