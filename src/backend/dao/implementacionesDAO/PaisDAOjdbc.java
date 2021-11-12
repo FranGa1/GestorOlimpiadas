@@ -88,25 +88,19 @@ public class PaisDAOjdbc implements PaisDAO {
     }
 
     @Override
-    public List<Pais> getPaises() {
+    public List<Pais> getPaises() throws SQLException {
         Connection connection = MiConnection.getCon();
-        List<Pais> listaPaises = new LinkedList<>();
-        try {
-            // Se obtienen los paises de la base de datos
-            String sql = "SELECT * FROM pais ORDER BY nombre";
-            Statement statement = connection.createStatement();
-            ResultSet paises = statement.executeQuery(sql);
+    List<Pais> listaPaises = new LinkedList<>();
+        // Se obtienen los paises de la base de datos
+        String sql = "SELECT * FROM pais ORDER BY nombre";
+        Statement statement = connection.createStatement();
+        ResultSet paises = statement.executeQuery(sql);
 
-            // Se agregan en la lista que se va a devolver
-            while (paises.next()){
-                listaPaises.add(new Pais(paises.getString("nombre"), paises.getInt("id")));
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: "+e.getMessage());
-        } catch (NullPointerException e){
-            System.out.println("ERROR: No se esta conectado a la base de datos");
+        // Se agregan en la lista que se va a devolver
+        while (paises.next()){
+            listaPaises.add(new Pais(paises.getString("nombre"), paises.getInt("id")));
         }
+
         return listaPaises;
     }
 

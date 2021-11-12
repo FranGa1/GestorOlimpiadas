@@ -11,6 +11,6 @@ public interface PaisDAO {
     void editar(Pais paisEditar) throws SQLException;
     boolean existe(Pais pais) throws SQLException;
     Pais encontrar(int id) throws SQLException;
-    List<Pais> getPaises();
+    List<Pais> getPaises() throws SQLException;
     List<String> getPaisesAsStrings() throws SQLException;
 }
