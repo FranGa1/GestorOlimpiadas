@@ -61,4 +61,16 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
 
         return listaDisciplinas;
     }
+
+    @Override
+    public int getIDDisciplina(Disciplina disciplina) throws SQLException{
+        Connection connection = MiConnection.getCon();
+        String sql = "SELECT id FROM disciplina WHERE nombre=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        // Setea en la sentencia sql todos los posibles ids de las disciplinas del deportista
+        statement.setString(1, disciplina.getNombre());
+        ResultSet disciplinasBD = statement.executeQuery();
+
+        return disciplinasBD.getInt("id");
+    }
 }

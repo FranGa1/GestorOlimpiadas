@@ -1,6 +1,7 @@
 package backend;
 
 import backend.dao.FactoryDAO;
+import objetos.Deportista;
 import objetos.Disciplina;
 
 import java.sql.SQLException;
@@ -15,9 +16,12 @@ public class test {
 
     public static void main(String[] args) throws SQLException {
         MiConnection.login("root", "fran");
-        List<Disciplina> dis = FactoryDAO.getDeporEnDisciplinaDAO().getDisciplinasDeportista(2);
-        for (Disciplina disciplina : dis)
-            System.out.println(disciplina.getNombre());
+        Deportista d = new Deportista();
+        d.setId(2);
+        FactoryDAO.getDeportistaDAO().eliminar(d);
+//        List<Disciplina> dis = FactoryDAO.getDeporEnDisciplinaDAO().getDisciplinasDeportista(2);
+//        for (Disciplina disciplina : dis)
+//            System.out.println(disciplina.getNombre());
 
 //        List<Integer> asdf = new LinkedList<>();
 //        asdf.add(2);

@@ -22,11 +22,11 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
     @Override
     public void cargarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws SQLException {
         Connection connection = MiConnection.getCon();
-        String sql = "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) VALUES(?,(SELECT id FROM disciplina WHERE nombre=?))";
+        String sql = "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) VALUES(?,?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         for (Disciplina disciplina : disciplinasDeportista) {
             statement.setInt(1, idDeportista);
-            statement.setString(2, disciplina.getNombre());
+            statement.setInt(2, FactoryDAO.getDisciplinaDAO().getIDDisciplina(new Disciplina(disciplina.getNombre())));
             statement.executeUpdate();
         }
     }

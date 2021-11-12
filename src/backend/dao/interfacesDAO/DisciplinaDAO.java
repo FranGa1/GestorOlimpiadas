@@ -9,4 +9,5 @@ public interface DisciplinaDAO {
     List<Disciplina> getDisciplinas() throws SQLException;
     List<String> getDisciplinasAsStrings() throws SQLException;
     List<Disciplina> getDisciplinasSeleccionadas(List<Integer> disciplinasSeleccionadas) throws SQLException;
+    int getIDDisciplina(Disciplina disciplina) throws SQLException;
 }
