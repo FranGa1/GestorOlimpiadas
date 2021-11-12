@@ -2,6 +2,7 @@ package frontend.panels;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
+import backend.dao.interfacesDAO.DeportistaDAO;
 import frontend.changeDefaults.buttons.ButtonTable;
 import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.table.TableModelUI;
@@ -108,6 +109,10 @@ public class CreateDeportistaTable {
             List<Deportista> list = FactoryDAO.getDeportistaDAO().getDeportistas();
             Deportista[] array = list.toArray(new Deportista[0]);
 
+            //Creamos los botones
+            JButton editar = new ButtonTable("Editar");
+            JButton eliminar = new ButtonTable("Eliminar");
+
             //Creamos la matriz
             matrix = new Object[array.length][5];
             for (int i = 0, n = array.length; i < n; i++) {
@@ -116,8 +121,15 @@ public class CreateDeportistaTable {
                 matrix[i][1] = d.getPais().getNombre();
                 List<Disciplina> disciplinas = d.getDisciplinas();
                 matrix[i][2] = disciplinas.get(0).getNombre();
-                matrix[i][3] = new ButtonTable("Editar");
-                matrix[i][4] = new ButtonTable("Eliminar");
+
+                //Creamos y seteamos los botones
+                matrix[i][3] = editar;
+                matrix[i][4] = eliminar;
+
+//                eliminar.addActionListener(e -> {
+//                    DeportistaDAO
+//                });
+//                editar.addActionListener(new ListenerEditar);
             }
         }
             //Asignamos la nueva matriz a la tabla

@@ -3,6 +3,7 @@ package frontend.panels;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.DeportistaDAO;
+import frontend.changeDefaults.LabelsUI;
 import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.ComboBoxUI;
 import frontend.changeDefaults.TextFieldUI;
@@ -48,18 +49,17 @@ public class CreateAddDeportista {
         //Creamos los labels
         JLabel headerLbl = new JLabel("AGREGAR DEPORTISTA", SwingConstants.CENTER);
         JLabel[] labels = new JLabel[6];
-        labels[0] = new JLabel("Nombre: ");
-        labels[1] = new JLabel("Apellido: ");
-        labels[2] = new JLabel("E-mail: ");
-        labels[3] = new JLabel("Telefono: ");
-        labels[4] = new JLabel("Pais: ");
-        labels[5] = new JLabel("Disciplina: ");
+        labels[0] = new LabelsUI("Nombre: ");
+        labels[1] = new LabelsUI("Apellido: ");
+        labels[2] = new LabelsUI("E-mail: ");
+        labels[3] = new LabelsUI("Telefono: ");
+        labels[4] = new LabelsUI("Pais: ");
+        labels[5] = new LabelsUI("Disciplina: ");
 
         //Creamos los Text fields
-        error = new JTextField(40);
+        error = new TextFieldUI(40);
         error.setEditable(false);
         error.setBorder(null);
-        error.setBackground(Color.WHITE);
 
         textFields = new TextFieldUI[4];
         for (int i = 0; i < 4; i++ ) {

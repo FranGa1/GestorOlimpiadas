@@ -1,5 +1,6 @@
 package frontend.panels.pais;
 
+import frontend.changeDefaults.LabelsUI;
 import frontend.changeDefaults.TextFieldUI;
 import frontend.changeDefaults.WPanel;
 import frontend.changeDefaults.buttons.ButtonUI;
@@ -39,13 +40,15 @@ public abstract class CreateModifyPais {
         JPanel bottom = new WPanel();
 
         //Creamos los labels
-        JLabel label = new JLabel("Nombre: ");
+        JLabel label = new LabelsUI("Nombre: ");
         JLabel headerLbl = new JLabel(titlePanel,  SwingConstants.CENTER);
 
         //Creamos los text fields
         input = new TextFieldUI(30);
         error = new TextFieldUI(30);
         error.setEditable(false);
+        error.setBorder(null);
+
 
         //Creamos los botones
         JButton save = new ButtonUI("Guardar");
@@ -66,8 +69,6 @@ public abstract class CreateModifyPais {
         //Construimos el panel centerS
         centerS.setLayout(new FlowLayout());
         centerS.add(error);
-        error.setBorder(null);
-        error.setBackground(Color.WHITE);
 
         //Construimos el panel centerC
         centerC.setLayout(new GridBagLayout());
