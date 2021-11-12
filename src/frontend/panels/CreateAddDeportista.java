@@ -284,4 +284,7 @@ public class CreateAddDeportista {
         disciplinas.add(0, "" );
         disciplinaCB.setModel(new DefaultComboBoxModel<>(disciplinas.toArray(new String[0])));
     }
+
+    //Dado un deportista, completa los espacios con sus datos
+    //public static void
 }

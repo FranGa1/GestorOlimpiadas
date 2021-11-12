@@ -111,7 +111,7 @@ public class CreateDeportistaTable {
 
             //Buscamos en la base de datos
             lista = FactoryDAO.getDeportistaDAO().getDeportistas();
-            Deportista[] array = lista.toArray(new Deportista[0]);
+            //Deportista[] array = lista.toArray(new Deportista[0]);
 
             //Creamos los botones
             JButton editarBtn = new ButtonTable("Editar");
@@ -120,10 +120,10 @@ public class CreateDeportistaTable {
             eliminarBtn.setName("remove");
 
             //Creamos la matriz
-            matrix = new Object[array.length][5];
-            for (int i = 0, n = array.length; i < n; i++) {
-                Deportista d = array[i];
-                matrix[i][0] = d.getNombres() + " " + array[i].getApellidos();
+            matrix = new Object[lista.size()][5];
+            for (int i = 0, n = lista.size(); i < n; i++) {
+                Deportista d = lista.get(i);
+                matrix[i][0] = d.getNombres() + " " + d.getApellidos();
                 matrix[i][1] = d.getPais().getNombre();
                 List<Disciplina> disciplinas = d.getDisciplinas();
                 matrix[i][2] = disciplinas.get(0).getNombre();
@@ -162,9 +162,9 @@ public class CreateDeportistaTable {
                                 "Eliminar Deportista",
                                 JOptionPane.YES_NO_OPTION);
                         if (reply == JOptionPane.YES_OPTION) {
+                            FactoryDAO.getDeportistaDAO().eliminar(dep);
                             ((TableModelUI)table.getModel()).removeRow(row);
                             lista.remove(row);
-                            FactoryDAO.getDeportistaDAO().eliminar(dep);
                         }
                     }
                 }
