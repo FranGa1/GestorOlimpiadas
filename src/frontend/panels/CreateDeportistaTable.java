@@ -134,7 +134,7 @@ public class CreateDeportistaTable {
                 matrix[i][0] = d.getNombres() + " " + d.getApellidos();
                 matrix[i][1] = d.getPais().getNombre();
                 List<Disciplina> disciplinas = d.getDisciplinas();
-                matrix[i][2] = "asdf";
+                matrix[i][2] = "disciplinas.get(0);";
                 matrix[i][3] = editarBtn;
                 matrix[i][4] = eliminarBtn;
             }

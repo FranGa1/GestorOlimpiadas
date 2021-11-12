@@ -16,9 +16,8 @@ public class test {
 
     public static void main(String[] args) throws SQLException {
         MiConnection.login("root", "fran");
-        Deportista d = new Deportista();
-        d.setId(2);
-        FactoryDAO.getDeportistaDAO().eliminar(d);
+
+        System.out.println(FactoryDAO.getDisciplinaDAO().getIDDisciplina(new Disciplina("Arqueria")));
 //        List<Disciplina> dis = FactoryDAO.getDeporEnDisciplinaDAO().getDisciplinasDeportista(2);
 //        for (Disciplina disciplina : dis)
 //            System.out.println(disciplina.getNombre());

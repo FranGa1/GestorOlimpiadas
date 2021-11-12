@@ -70,7 +70,7 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
         // Setea en la sentencia sql todos los posibles ids de las disciplinas del deportista
         statement.setString(1, disciplina.getNombre());
         ResultSet disciplinasBD = statement.executeQuery();
-
+        disciplinasBD.next();
         return disciplinasBD.getInt("id");
     }
 }
