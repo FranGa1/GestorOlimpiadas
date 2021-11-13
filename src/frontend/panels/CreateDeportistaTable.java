@@ -20,7 +20,6 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.List;
 
-import static frontend.panels.CreateAddDeportista.charge;
 
 public class CreateDeportistaTable {
 
@@ -67,6 +66,7 @@ public class CreateDeportistaTable {
         String[] columnNames = {"No conection to DB"};
         Object[][] data = {{"No conection to DB"}};
         table = new TableUI(data, columnNames);
+        table.addMouseListener(new ListenerTable());
         JScrollPane scrollPane = new  JScrollPane(table);
 
         //Construimos el center
@@ -85,15 +85,14 @@ public class CreateDeportistaTable {
         volver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (MiConnection.nullConnection())
-                    ChangeCards.swap("MenuD");
-                else ChangeCards.swap("MenuC");
+                ChangeCards.swap("Menu");
             }
         });
 
         nuevo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                CreateModifDeportista.setAdd();
                 ChangeCards.swap("AddDeportista");
             }
         });
@@ -109,7 +108,6 @@ public class CreateDeportistaTable {
         if (MiConnection.nullConnection()) {
             matrix = new Object[][]{{"No connection to DB"}};
             header = new Object[]{"No connection to DB"};
-            table.removeMouseListener(new ListenerTable());
         } else {
 
             //Buscamos en la base de datos
@@ -134,12 +132,11 @@ public class CreateDeportistaTable {
                 matrix[i][0] = d.getNombres() + " " + d.getApellidos();
                 matrix[i][1] = d.getPais().getNombre();
                 List<Disciplina> disciplinas = d.getDisciplinas();
-                matrix[i][2] = "disciplinas.get(0);";
+                matrix[i][2] = disciplinas.get(0).getNombre();
                 matrix[i][3] = editarBtn;
                 matrix[i][4] = eliminarBtn;
             }
 
-            table.addMouseListener(new ListenerTable());
         }
             //Asignamos la nueva matriz a la tabla
             TableModel model = new TableModelUI(matrix, header);
@@ -160,7 +157,7 @@ public class CreateDeportistaTable {
                     Deportista dep = lista.get(row);
 
                     if (boton.getName().equals("edit")) {
-                        CreateAddDeportista.charge(dep);
+                        CreateModifDeportista.setEditable(dep);
                         ChangeCards.swap("AddDeportista");
                     }
                     if (boton.getName().equals("remove")) {
