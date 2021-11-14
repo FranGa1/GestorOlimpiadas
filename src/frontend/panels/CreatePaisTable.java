@@ -1,5 +1,6 @@
 package frontend.panels;
 
+import backend.ExportCSV;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.exceptions.PaisUsedException;
@@ -20,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,7 +51,6 @@ public class CreatePaisTable {
         String[] columnNames = {"No conection to DB"};
         Object[][] data = {{"No conection to DB"}};
         table = new TableUI(data, columnNames);
-        table.addMouseListener(new ListenerTable());
         JScrollPane scrollPane = new  JScrollPane(table);
 
         //Construimos el header
@@ -77,6 +78,8 @@ public class CreatePaisTable {
         panel.add(center, BorderLayout.CENTER);
 
         //Listeners
+        table.addMouseListener(new ListenerTable());
+
         volver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,6 +92,19 @@ public class CreatePaisTable {
             public void actionPerformed(ActionEvent e) {
                 CreateModifyPais.setAdd();
                 ChangeCards.swap("ModifPais");}
+        });
+
+        exportar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<List<String>> data = new LinkedList<>();
+                List<String> header = Arrays.asList("ID", "Nombre");
+                for (Pais p : list){
+                    List<String> line = Arrays.asList( String.valueOf(p.getId()), p.getNombre());
+                    data.add(line);
+                }
+                ExportCSV.Export(data);
+            }
         });
 
         return panel;

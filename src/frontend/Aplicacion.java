@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.ExportCSV;
 import frontend.panels.*;
 import frontend.panels.CreateMenu;
 
@@ -24,7 +25,7 @@ public class Aplicacion extends JFrame {
         JPanel cardPanel = new JPanel();
         cardPanel.setLayout(cl);
 
-        cardPanel.setBackground(Color.RED);
+        new ExportCSV(this);
 
         JPanel mainPanel = CreateMenu.create();
         CreateMenu.setDisconnected();
