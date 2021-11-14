@@ -3,6 +3,7 @@ package frontend.panels;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.PaisDAO;
+import backend.exceptions.PaisExistsException;
 import backend.exceptions.PaisUsedException;
 import frontend.changeDefaults.LabelsUI;
 import frontend.changeDefaults.TextFieldUI;
@@ -194,7 +195,7 @@ public class CreateModifyPais {
                 } catch (SQLException ex) {
                     System.out.println("No se pudo cargar el pais");
                     ex.printStackTrace();
-                } catch (PaisUsedException ex){
+                } catch (PaisExistsException ex){
                     JOptionPane.showMessageDialog(null, "El Pais ya se encuentra en la base de datos",
                             "Error message",
                             JOptionPane.ERROR_MESSAGE);
@@ -251,7 +252,7 @@ public class CreateModifyPais {
                     JOptionPane.showMessageDialog(null, "Verfique la conexion a la base de datos",
                             "Error message",
                             JOptionPane.ERROR_MESSAGE);
-                }catch (PaisUsedException ex){
+                }catch (PaisExistsException ex){
                     JOptionPane.showMessageDialog(null, "El Pais ya se encuentra en la base de datos",
                             "Error message",
                             JOptionPane.ERROR_MESSAGE);
