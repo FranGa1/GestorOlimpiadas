@@ -44,7 +44,8 @@ public class CreateMenu {
         //Construimos el header
         header.setLayout(new BorderLayout());
         headerLbl.setFont(new Font("Bevan", Font.PLAIN, 40));
-        header.setBackground(new Color(0x1FB7FA));
+        header.setBackground(new Color(0xE30D28));
+        headerLbl.setForeground(Color.WHITE);
         header.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
         header.add(headerLbl);
 

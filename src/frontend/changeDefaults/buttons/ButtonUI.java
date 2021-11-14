@@ -36,7 +36,7 @@ public class ButtonUI extends JButton {
         super(text, img);
         this.setUI(new StyledButtonUI(plusWidth, plusHeight));
         this.setFont(new Font("Calibri", Font.BOLD, 22));
-        this.setBackground(new Color(0xDC1E35));
+        this.setBackground(new Color(0xE30D28));
         this.setForeground(Color.white);
         //0x4C9ED9
     }
