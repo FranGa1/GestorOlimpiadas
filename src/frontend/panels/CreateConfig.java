@@ -101,7 +101,7 @@ public class CreateConfig {
                     JOptionPane.showMessageDialog(null,
                             "Se conecto a la BD", "Info",
                             JOptionPane.INFORMATION_MESSAGE);
-                    ChangeCards.swap("MenuC");
+                    ChangeCards.swap("Menu");
                 }
                 else{
                     JOptionPane.showMessageDialog(null,
@@ -120,7 +120,7 @@ public class CreateConfig {
                 //Reset user and password
                 MiConnection.disconnect();
                 //Load Disconnected Menu
-                ChangeCards.swap("MenuD");
+                ChangeCards.swap("Menu");
 
                 cleanFields();
 

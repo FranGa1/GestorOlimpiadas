@@ -1,8 +1,7 @@
 package frontend;
 
 import frontend.panels.*;
-import frontend.panels.menu.CreateMenuConectado;
-import frontend.panels.menu.CreateMenuDesconectado;
+import frontend.panels.CreateMenu;
 import frontend.panels.pais.CreateAddPais;
 
 import javax.swing.*;
@@ -28,17 +27,17 @@ public class Aplicacion extends JFrame {
 
         cardPanel.setBackground(Color.RED);
 
-        JPanel mainPanelConnected = CreateMenuConectado.create();
-        JPanel mainPanelDesconectado = CreateMenuDesconectado.create();
+        JPanel mainPanel = CreateMenu.create();
+        CreateMenu.setDisconnected();
+        //JPanel mainPanelDesconectado = CreateMenuDesconectado.create();
         JPanel deportistasTable = CreateDeportistaTable.create();
         JPanel paisesTable = CreatePaisTable.create();
         JPanel config = CreateConfig.create();
         JPanel addPais = CreateAddPais.create();
-        JPanel addDeportista = CreateAddDeportista.create();
+        JPanel addDeportista = CreateModifDeportista.create();
 
         //Agregamos las cards
-        cardPanel.add(mainPanelConnected, "MenuC");
-        cardPanel.add(mainPanelDesconectado, "MenuD");
+        cardPanel.add(mainPanel, "Menu");
         cardPanel.add(deportistasTable, "DeportistasTable");
         cardPanel.add(config, "Configuracion");
         cardPanel.add(addPais, "AddPais");
@@ -49,7 +48,7 @@ public class Aplicacion extends JFrame {
         add(cardPanel);
 
         //Iniciamos la aplicacion en el menu e inicializamos la clase Change Cards
-        ChangeCards.swap("MenuD", cl, cardPanel, this);
+        ChangeCards.swap("Menu", cl, cardPanel, this);
 
     }
 

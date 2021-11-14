@@ -2,9 +2,9 @@ package frontend.panels;
 
 import backend.MiConnection;
 import frontend.Aplicacion;
+
 import javax.swing.*;
 import java.awt.*;
-import java.sql.SQLException;
 
 public class ChangeCards {
 
@@ -31,7 +31,10 @@ public class ChangeCards {
 
     public static void swap(String cardName) {
         switch (cardName) {
-            case "MenuD", "MenuC" -> {
+            case "Menu" -> {
+                if (MiConnection.nullConnection()) CreateMenu.setDisconnected();
+                else CreateMenu.setConnected();
+
                 cl.show(cardPanel, cardName);
                 frame.setSize(620, 460);
                 frame.setTitle("Gestor de Olimpiadas");
@@ -48,15 +51,6 @@ public class ChangeCards {
             }
             case "AddDeportista" -> {
                 //Actualizamos los comboBox
-                if (!MiConnection.nullConnection()) {
-                    try {
-                        CreateAddDeportista.updateCB();
-                    } catch (SQLException e) {
-                        System.out.println("No se pudo actualizar la tabla de deportistas");
-                        e.printStackTrace();
-                    }
-                }
-
                 cl.show(cardPanel, cardName);
                 frame.setSize(520, 520);
                 frame.setTitle("Gestor de Olimpiadas - NUEVO DEPORTISTA");

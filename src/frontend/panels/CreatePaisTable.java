@@ -71,9 +71,7 @@ public class CreatePaisTable {
         volver.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (MiConnection.nullConnection())
-                    ChangeCards.swap("MenuD");
-                else ChangeCards.swap("MenuC");
+                ChangeCards.swap("Menu");
             }
         });
 
