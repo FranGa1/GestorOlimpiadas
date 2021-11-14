@@ -3,6 +3,7 @@ package frontend.panels;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.PaisDAO;
+import backend.exceptions.PaisUsedException;
 import frontend.changeDefaults.LabelsUI;
 import frontend.changeDefaults.TextFieldUI;
 import frontend.changeDefaults.WPanel;
@@ -193,6 +194,10 @@ public class CreateModifyPais {
                 } catch (SQLException ex) {
                     System.out.println("No se pudo cargar el pais");
                     ex.printStackTrace();
+                } catch (PaisUsedException ex){
+                    JOptionPane.showMessageDialog(null, "El Pais ya se encuentra en la base de datos",
+                            "Error message",
+                            JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex){
                     System.out.println("Hubo un problema. Intente de nuevo");
                 }
@@ -244,6 +249,10 @@ public class CreateModifyPais {
                     cleanFields();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Verfique la conexion a la base de datos",
+                            "Error message",
+                            JOptionPane.ERROR_MESSAGE);
+                }catch (PaisUsedException ex){
+                    JOptionPane.showMessageDialog(null, "El Pais ya se encuentra en la base de datos",
                             "Error message",
                             JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex){
