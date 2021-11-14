@@ -2,12 +2,11 @@ package backend.dao.interfacesDAO;
 
 import objetos.Disciplina;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface DisciplinaDAO {
-    List<Disciplina> getDisciplinas() throws SQLException;
-    List<String> getDisciplinasAsStrings() throws SQLException;
-    List<Disciplina> getDisciplinasSeleccionadas(List<Integer> disciplinasSeleccionadas) throws SQLException;
-    int getIDDisciplina(Disciplina disciplina) throws SQLException;
+    List<Disciplina> getDisciplinas() throws Exception;
+    List<String> getDisciplinasAsStrings() throws Exception;
+    List<Disciplina> getDisciplinasSeleccionadas(List<Integer> disciplinasSeleccionadas) throws Exception;
+    int getIDDisciplina(Disciplina disciplina) throws Exception;
 }

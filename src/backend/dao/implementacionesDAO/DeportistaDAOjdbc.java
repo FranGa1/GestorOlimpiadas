@@ -19,7 +19,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
      * @param deportistaNuevo Deportista a crear
      */
     @Override
-    public void cargar(Deportista deportistaNuevo) throws SQLException {
+    public void cargar(Deportista deportistaNuevo) throws Exception {
 
         // Se establece la conexion a la BD
         Connection connection = MiConnection.getCon();
@@ -48,7 +48,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
      * @param deportistaEliminar Deportista a eliminar
      */
     @Override
-    public void eliminar(Deportista deportistaEliminar) throws SQLException{
+    public void eliminar(Deportista deportistaEliminar) throws Exception{
 
         // Se establece la conexcion con la base de datos
         Connection connection = MiConnection.getCon();
@@ -69,7 +69,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
      * @param deportistaEditar Deportista a editar
      */
     @Override
-    public void editar(Deportista deportistaEditar) throws SQLException{
+    public void editar(Deportista deportistaEditar) throws Exception{
         // Se establece la conexion a la BD
         Connection connection = MiConnection.getCon();
 
@@ -94,7 +94,7 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
      * @return lista que contiene todos los deportistas
      */
     @Override
-    public List<Deportista> getDeportistas() throws SQLException {
+    public List<Deportista> getDeportistas() throws Exception {
         // Se establece la conexcion con la base de datos
         Connection connection = MiConnection.getCon();
         List<Deportista> listasDeportistas = new LinkedList<>();

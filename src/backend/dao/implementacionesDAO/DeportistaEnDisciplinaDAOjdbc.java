@@ -8,7 +8,6 @@ import objetos.Disciplina;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
      * @param idDeportista
      */
     @Override
-    public void cargarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws SQLException {
+    public void cargarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws Exception {
         Connection connection = MiConnection.getCon();
         String sql = "INSERT INTO deportista_en_disciplina(id_deportista, id_disciplina) VALUES(?,?)";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -32,7 +31,7 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
     }
 
     @Override
-    public void eliminarDisciplinasDeportista(int idDeportista) throws SQLException{
+    public void eliminarDisciplinasDeportista(int idDeportista) throws Exception{
         Connection connection = MiConnection.getCon();
         // Se borra al deportista de la tabla deportista
         String sql = "DELETE FROM deportista_en_disciplina WHERE id_deportista=?";
@@ -43,7 +42,7 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
     }
 
     @Override
-    public void editarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws SQLException{
+    public void editarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws Exception{
         eliminarDisciplinasDeportista(idDeportista);
         cargarDisciplinasDeportista(disciplinasDeportista, idDeportista);
     }
@@ -54,7 +53,7 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
      * @return listaDisciplinas
      */
     @Override
-    public List<Integer> getIDsDisciplinasDeportista(int idDeportista) throws SQLException{
+    public List<Integer> getIDsDisciplinasDeportista(int idDeportista) throws Exception{
         Connection connection = MiConnection.getCon();
         List<Integer> listaDisciplinas = new LinkedList<>();
 
@@ -77,7 +76,7 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
      * @return
      */
     @Override
-    public List<Disciplina> getDisciplinasDeportista(int idDeportista) throws SQLException {
+    public List<Disciplina> getDisciplinasDeportista(int idDeportista) throws Exception {
         Connection connection = MiConnection.getCon();
         List<Integer> listaIdsDisciplinas = FactoryDAO.getDeporEnDisciplinaDAO().getIDsDisciplinasDeportista(idDeportista);
 

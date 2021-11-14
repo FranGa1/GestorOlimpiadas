@@ -265,6 +265,9 @@ public class CreateModifDeportista {
                 } catch (SQLException ex) {
                     System.out.println("No se pudo cargar el deportista");
                     ex.printStackTrace();
+                } catch (Exception ex) {
+                    System.out.println("Hubo un error. Intente de nuevo");
+                    ex.printStackTrace();
                 }
                 ChangeCards.swapPrev();
             }
@@ -321,7 +324,7 @@ public class CreateModifDeportista {
     }
 
     //Actualizamos los ComboBox
-    public static void updateCB() throws SQLException {
+    public static void updateCB() throws Exception {
         List<String> pais = FactoryDAO.getPaisDAO().getPaisesAsStrings();
         List<String> disciplinas = FactoryDAO.getDisciplinaDAO().getDisciplinasAsStrings();
         pais.add(0, "" );
@@ -350,6 +353,9 @@ public class CreateModifDeportista {
         } catch (SQLException e) {
             System.out.println("No se pudiero actualizar los combo box");
             e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Hubo un error. Intente de nuevo");
+            ex.printStackTrace();
         }
        }
 
@@ -362,6 +368,9 @@ public class CreateModifDeportista {
         } catch (SQLException e) {
             System.out.println("No se pudiero actualizar los combo box");
             e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Hubo un error. Intente de nuevo");
+            ex.printStackTrace();
         }
     }
 }

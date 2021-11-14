@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DisciplinaDAOjdbc implements DisciplinaDAO {
     @Override
-    public List<Disciplina> getDisciplinas() throws SQLException{
+    public List<Disciplina> getDisciplinas() throws Exception{
         Connection connection = MiConnection.getCon();
         List<Disciplina> listaDisciplinas = new LinkedList<>();
 
@@ -31,7 +31,7 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
      * @return Lista de Strings
      */
     @Override
-    public List<String> getDisciplinasAsStrings() throws SQLException{
+    public List<String> getDisciplinasAsStrings() throws Exception{
         Connection connection = MiConnection.getCon();
         List<String> listaDisciplinasAsStrings = new LinkedList<>();
 
@@ -47,7 +47,7 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
     }
 
     @Override
-    public List<Disciplina> getDisciplinasSeleccionadas(List<Integer> disciplinasSeleccionadas) throws SQLException{
+    public List<Disciplina> getDisciplinasSeleccionadas(List<Integer> disciplinasSeleccionadas) throws Exception{
         Connection connection = MiConnection.getCon();
         List<Disciplina> listaDisciplinas= new LinkedList<>();
         String sql = "SELECT * FROM disciplina WHERE id IN (?)";
@@ -63,7 +63,7 @@ public class DisciplinaDAOjdbc implements DisciplinaDAO {
     }
 
     @Override
-    public int getIDDisciplina(Disciplina disciplina) throws SQLException{
+    public int getIDDisciplina(Disciplina disciplina) throws Exception{
         Connection connection = MiConnection.getCon();
         String sql = "SELECT id FROM disciplina WHERE nombre=?";
         PreparedStatement statement = connection.prepareStatement(sql);
