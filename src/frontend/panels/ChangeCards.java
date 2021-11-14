@@ -68,7 +68,7 @@ public class ChangeCards {
                 CreatePaisTable.updateTablePais();
 
                 cl.show(cardPanel, cardName);
-                frame.setSize(600, 500);
+                frame.setSize(800, 500);
                 frame.setTitle("Gestor de Olimpiadas - PAISES");
             }
         }

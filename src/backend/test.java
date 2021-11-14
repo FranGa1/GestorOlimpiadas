@@ -24,8 +24,10 @@ public class test {
         MiConnection.login("root", "fran");
 
         try {
-            FactoryDAO.getPaisDAO().cargar(new Pais("ARG"));
-        } catch (Exception e) {
+            FactoryDAO.getPaisDAO().eliminar(new Pais("ARG"));
+        } catch (SQLException e) {
+            System.out.println("sqlex");
+        } catch (Exception e){
             System.out.println(e.getMessage());
         }
 

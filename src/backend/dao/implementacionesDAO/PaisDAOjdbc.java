@@ -1,6 +1,7 @@
 package backend.dao.implementacionesDAO;
 
 import backend.MiConnection;
+import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.PaisDAO;
 import backend.exceptions.PaisExistsException;
 import backend.exceptions.PaisUsedException;
@@ -30,6 +31,10 @@ public class PaisDAOjdbc implements PaisDAO {
 
     @Override
     public void eliminar(Pais paisEliminar) throws Exception {
+
+        if (FactoryDAO.getDeportistaDAO().paisIsUsed(paisEliminar))
+            throw new PaisUsedException();
+
         Connection connection = MiConnection.getCon();
 
         String sql = "DELETE FROM pais WHERE id=?";
@@ -46,6 +51,10 @@ public class PaisDAOjdbc implements PaisDAO {
      */
     @Override
     public void editar(Pais paisEditar) throws Exception{
+
+//        if (existe(paisEditar))
+//            throw new
+
         Connection connection = MiConnection.getCon();
 
         String sql = "UPDATE pais SET nombre=? WHERE id=?";

@@ -61,7 +61,6 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, deportistaEliminar.getId());
         statement.executeUpdate();
-
     }
 
     /**
@@ -119,5 +118,15 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         }
 
         return listasDeportistas;
+    }
+
+    @Override
+    public boolean paisIsUsed(Pais pais) throws Exception{
+        Connection connection = MiConnection.getCon();
+        String sql = "SELECT * FROM deportista WHERE id_pais=?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, pais.getId());
+        ResultSet deportistasQueUsanPais = statement.executeQuery();
+        return deportistasQueUsanPais.next();
     }
 }
