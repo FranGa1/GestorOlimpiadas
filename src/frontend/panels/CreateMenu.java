@@ -12,6 +12,7 @@ public class CreateMenu {
 
     //private static String URL;
     private static JLabel conectionStatus;
+    private static JLabel headerLbl;
 
     public static JPanel create() {
 
@@ -19,9 +20,19 @@ public class CreateMenu {
         JPanel mainPanel = new JPanel();
         JPanel panelC = new WPanel();
         JPanel panelN = new WPanel();
+        JPanel header = new WPanel();
+        JPanel panelNyC = new WPanel();
 
         //Creamos los labels
         conectionStatus = new JLabel();
+        headerLbl = new JLabel("MENU PRINCIPAL", SwingConstants.CENTER);
+
+        //Construimos el header
+        header.setLayout(new BorderLayout());
+        headerLbl.setFont(new Font("Bevan", Font.PLAIN, 40));
+        header.setBackground(Color.decode("#F8D210"));
+        header.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
+        header.add(headerLbl);
 
         //Creamos los botones
         JButton deportistas = new ButtonUI("Deportistas");
@@ -89,9 +100,12 @@ public class CreateMenu {
 
 
         //Construimos el panel final
+        panelNyC.setLayout(new BorderLayout());
+        panelNyC.add(panelC, BorderLayout.CENTER);
+        panelNyC.add(panelN, BorderLayout.NORTH);
         mainPanel.setLayout(new BorderLayout());
-        mainPanel.add(panelC, BorderLayout.CENTER);
-        mainPanel.add(panelN, BorderLayout.NORTH);
+        mainPanel.add(header, BorderLayout.NORTH);
+        mainPanel.add(panelNyC, BorderLayout.CENTER);
 
         mainPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0, Color.BLACK));
 
