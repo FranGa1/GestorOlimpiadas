@@ -108,43 +108,46 @@ public class CreateDeportistaTable {
         if (MiConnection.nullConnection()) {
             matrix = new Object[][]{{"No connection to DB"}};
             header = new Object[]{"No connection to DB"};
-        } else {
 
-            //Buscamos en la base de datos
-            try {
-                lista = FactoryDAO.getDeportistaDAO().getDeportistas();
-            } catch (SQLException e) {
-                System.out.println("No se pudo traer la lista de deportistas");
-                return;
-            } catch (Exception e){
-                System.out.println("Hubo un problema. Intente de nuevo");
-                return;
-            }
-            //Deportista[] array = lista.toArray(new Deportista[0]);
-
-            //Creamos los botones
-            JButton editarBtn = new ButtonTable("Editar");
-            editarBtn.setName("edit");
-            JButton eliminarBtn = new ButtonTable("Eliminar");
-            eliminarBtn.setName("remove");
-
-            //Creamos la matriz
-            matrix = new Object[lista.size()][5];
-            for (int i = 0, n = lista.size(); i < n; i++) {
-                Deportista d = lista.get(i);
-                matrix[i][0] = d.getNombres() + " " + d.getApellidos();
-                matrix[i][1] = d.getPais().getNombre();
-                List<Disciplina> disciplinas = d.getDisciplinas();
-                matrix[i][2] = disciplinas.get(0).getNombre();
-                matrix[i][3] = editarBtn;
-                matrix[i][4] = eliminarBtn;
-            }
-
-        }
             //Asignamos la nueva matriz a la tabla
             TableModel model = new TableModelUI(matrix, header);
             table.setModel(model);
+            return;
+        }
+        //Buscamos en la base de datos
+        try {
+            lista = FactoryDAO.getDeportistaDAO().getDeportistas();
+        } catch (SQLException e) {
+            System.out.println("No se pudo traer la lista de deportistas");
+            return;
+        } catch (Exception e){
+            System.out.println("Hubo un problema. Intente de nuevo");
+            return;
+        }
+        //Deportista[] array = lista.toArray(new Deportista[0]);
 
+        //Creamos los botones
+        JButton editarBtn = new ButtonTable("Editar");
+        editarBtn.setName("edit");
+        JButton eliminarBtn = new ButtonTable("Eliminar");
+        eliminarBtn.setName("remove");
+
+        //Creamos la matriz
+        matrix = new Object[lista.size()][5];
+        for (int i = 0, n = lista.size(); i < n; i++) {
+            Deportista d = lista.get(i);
+            matrix[i][0] = d.getNombres() + " " + d.getApellidos();
+            matrix[i][1] = d.getPais().getNombre();
+            List<Disciplina> disciplinas = d.getDisciplinas();
+            matrix[i][2] = disciplinas.get(0).getNombre();
+            matrix[i][3] = editarBtn;
+            matrix[i][4] = eliminarBtn;
+        }
+        //Asignamos la nueva matriz a la tabla
+        TableModel model = new TableModelUI(matrix, header);
+        table.setModel(model);
+
+        table.getColumnModel().getColumn(0).setPreferredWidth(150);
     }
 
     private static class ListenerTable implements MouseListener{
