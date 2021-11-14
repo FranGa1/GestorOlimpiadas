@@ -4,8 +4,11 @@ import backend.export.ExportCSV;
 import frontend.panels.*;
 import frontend.panels.CreateMenu;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Aplicacion extends JFrame {
 
@@ -35,6 +38,18 @@ public class Aplicacion extends JFrame {
         JPanel config = CreateConfig.create();
         JPanel addPais = CreateModifyPais.create();
         JPanel addDeportista = CreateModifyDeportista.create();
+
+        Icon img = null;
+//        try {
+            img = new ImageIcon("Files/fondoepico.jpg");
+//            img = ImageIO.read(new File("Files/fondoepico.jpg"));
+//        }
+
+
+        JLabel contentPane = new JLabel();
+        contentPane.setIcon( img );
+        contentPane.setLayout( new BorderLayout() );
+        this.setContentPane( contentPane );
 
         //Agregamos las cards
         cardPanel.add(mainPanel, "Menu");

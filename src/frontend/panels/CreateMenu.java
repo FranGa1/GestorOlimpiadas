@@ -1,12 +1,18 @@
 package frontend.panels;
 
+import frontend.changeDefaults.BackgroundPanel;
 import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.WPanel;
 import frontend.panels.ChangeCards;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class CreateMenu {
 
@@ -14,10 +20,17 @@ public class CreateMenu {
     private static JLabel conectionStatus;
     private static JLabel headerLbl;
 
-    public static JPanel create() {
+    public static JPanel create()  {
+
+        Image img = null;
+        try {
+            img = ImageIO.read(new File("Files/fondoepico.jpg"));
+        } catch (IOException e) {
+            System.out.println("asdf");
+        }
 
         //Creamos los paneles
-        JPanel mainPanel = new JPanel();
+        JPanel mainPanel = new BackgroundPanel(img);
         JPanel panelC = new WPanel();
         JPanel panelN = new WPanel();
         JPanel header = new WPanel();
@@ -97,16 +110,15 @@ public class CreateMenu {
         panelNyC.setLayout(new BorderLayout());
         panelNyC.add(panelC, BorderLayout.CENTER);
         panelNyC.add(panelN, BorderLayout.NORTH);
-        panelNyC.setBackground(null);
-        panelN.setBackground(null);
-        panelC.setBackground(null);
-        mainPanel.setBackground(null);
+//        panelNyC.setBackground(null);
+//        panelN.setBackground(null);
+//        panelC.setBackground(null);
+//        mainPanel.setBackground(null);
 
         //Construimos el panel final
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(header, BorderLayout.NORTH);
         mainPanel.add(panelNyC, BorderLayout.CENTER);
-//        mainPanel.setBackground(new ImageIcon("Files/fondoepico.jpg"));
 
         mainPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0, Color.BLACK));
 
