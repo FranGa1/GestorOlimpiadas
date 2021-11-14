@@ -17,7 +17,10 @@ import java.io.IOException;
 
 public class CreateMenu {
 
-    //private static String URL;
+    private static final ImageIcon ICONO_CONECTADO = new ImageIcon(new ImageIcon("Files/conectadoOriginal2.png")
+            .getImage().getScaledInstance(200, 60, Image.SCALE_DEFAULT));
+    private static final ImageIcon ICONO_DESCONECTADO = new ImageIcon(new ImageIcon("Files/desconectadoOriginal2.png")
+            .getImage().getScaledInstance(230, 60, Image.SCALE_DEFAULT));
     private static JLabel conectionStatus;
     private static JLabel headerLbl;
 
@@ -82,9 +85,11 @@ public class CreateMenu {
 
         //Creamos el boton config
         panelN.setLayout(new BorderLayout());
-        JButton btnConfig = new JButton(new ImageIcon("Files/dbConfigIcon2.png"));
+        JButton btnConfig = new JButton(new ImageIcon(new ImageIcon("Files/dbConfigIconWhite.png").getImage().
+                getScaledInstance(60,60, Image.SCALE_DEFAULT)));
         btnConfig.setBorder(BorderFactory.createEmptyBorder(5,0 ,0,5));
         btnConfig.setContentAreaFilled(false);
+
         //Creamos la imagen de estado
         conectionStatus = new JLabel();
         conectionStatus.setBorder(BorderFactory.createEmptyBorder(5,0 ,0,5));
@@ -112,10 +117,7 @@ public class CreateMenu {
         panelNyC.setLayout(new BorderLayout());
         panelNyC.add(panelC, BorderLayout.CENTER);
         panelNyC.add(panelN, BorderLayout.NORTH);
-//        panelNyC.setBackground(null);
-//        panelN.setBackground(null);
-//        panelC.setBackground(null);
-//        mainPanel.setBackground(null);
+
 
         //Construimos el panel final
         mainPanel.setLayout(new BorderLayout());
@@ -128,13 +130,10 @@ public class CreateMenu {
     }
 
     public static void setConnected(){
-        conectionStatus.setIcon(new ImageIcon("Files/conectado2.png"));
+        conectionStatus.setIcon(ICONO_CONECTADO);
     }
 
     public static void setDisconnected(){
-        conectionStatus.setIcon(new ImageIcon("Files/desconectado2.png"));
+        conectionStatus.setIcon(ICONO_DESCONECTADO);
     }
-
-
-
 }

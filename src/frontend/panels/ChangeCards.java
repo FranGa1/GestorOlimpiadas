@@ -36,7 +36,7 @@ public class ChangeCards {
                 else CreateMenu.setConnected();
 
                 cl.show(cardPanel, cardName);
-                frame.setSize(1100, 800);
+                frame.setSize(1000, 600);
                 frame.setTitle("Gestor de Olimpiadas");
             }
             case "Configuracion" -> {
@@ -60,7 +60,7 @@ public class ChangeCards {
                 CreateDeportistaTable.updateTableDeportistas();
 
                 cl.show(cardPanel, cardName);
-                frame.setSize(800, 500);
+                frame.setSize(900, 500);
                 frame.setTitle("Gestor de Olimpiadas - DEPORTISTAS");
             }
             case "PaisesTable" -> {
@@ -68,7 +68,7 @@ public class ChangeCards {
                 CreatePaisTable.updateTablePais();
 
                 cl.show(cardPanel, cardName);
-                frame.setSize(800, 500);
+                frame.setSize(700, 500);
                 frame.setTitle("Gestor de Olimpiadas - PAISES");
             }
         }
