@@ -35,9 +35,9 @@ public class CreateMenu {
         header.add(headerLbl);
 
         //Creamos los botones
-        JButton deportistas = new ButtonUI("Deportistas", 140, 85);
-        ButtonUI paises = new ButtonUI("Paises", new ImageIcon("Files/world.png"), 140, 85);
-        JButton disciplinas = new ButtonUI("Disciplinas", 140, 85);
+        JButton deportistas = new ButtonUI(" Deportistas", new ImageIcon("Files/deportistas.png"), 180, 85);
+        ButtonUI paises = new ButtonUI(" Paises", new ImageIcon("Files/world.png"), 180, 85);
+        JButton disciplinas = new ButtonUI(" Disciplinas", new ImageIcon("Files/disciplinas.png"), 180, 85);
 
 
         //Armamos el panel central
@@ -94,14 +94,19 @@ public class CreateMenu {
 
         paises.addActionListener(e -> ChangeCards.swap("PaisesTable"));
 
-
-        //Construimos el panel final
         panelNyC.setLayout(new BorderLayout());
         panelNyC.add(panelC, BorderLayout.CENTER);
         panelNyC.add(panelN, BorderLayout.NORTH);
+        panelNyC.setBackground(null);
+        panelN.setBackground(null);
+        panelC.setBackground(null);
+        mainPanel.setBackground(null);
+
+        //Construimos el panel final
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(header, BorderLayout.NORTH);
         mainPanel.add(panelNyC, BorderLayout.CENTER);
+//        mainPanel.setBackground(new ImageIcon("Files/fondoepico.jpg"));
 
         mainPanel.setBorder(BorderFactory.createMatteBorder(1,0,0,0, Color.BLACK));
 
