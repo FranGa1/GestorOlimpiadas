@@ -3,6 +3,7 @@ package backend.dao.implementacionesDAO;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.DeportistaDAO;
+import backend.exceptions.NotConnectedException;
 import objetos.Deportista;
 import objetos.Disciplina;
 import objetos.Pais;
@@ -94,8 +95,13 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
      */
     @Override
     public List<Deportista> getDeportistas() throws Exception {
+
+        if (MiConnection.nullConnection())
+            throw new NotConnectedException();
+
         // Se establece la conexcion con la base de datos
         Connection connection = MiConnection.getCon();
+
         List<Deportista> listasDeportistas = new LinkedList<>();
 
         String sql = "SELECT * FROM deportista ORDER BY nombres";

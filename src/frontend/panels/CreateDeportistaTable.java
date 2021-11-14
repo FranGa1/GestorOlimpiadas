@@ -2,6 +2,7 @@ package frontend.panels;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
+import backend.exceptions.NotConnectedException;
 import frontend.changeDefaults.buttons.ButtonTable;
 import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.table.TableModelUI;
@@ -105,23 +106,34 @@ public class CreateDeportistaTable {
         Object[][] matrix;
         Object[] header = titles;
 
-        if (MiConnection.nullConnection()) {
-            matrix = new Object[][]{{"No connection to DB"}};
-            header = new Object[]{"No connection to DB"};
+        //Buscamos en la base de datos
+        try {
+            lista = FactoryDAO.getDeportistaDAO().getDeportistas();
+        } catch (NotConnectedException e) {
+
+            matrix = new Object[][]{{"No connection to DB "}};
+            header = new Object[]{"ERROR"};
 
             //Asignamos la nueva matriz a la tabla
             TableModel model = new TableModelUI(matrix, header);
             table.setModel(model);
             return;
-        }
-        //Buscamos en la base de datos
-        try {
-            lista = FactoryDAO.getDeportistaDAO().getDeportistas();
+
         } catch (SQLException e) {
-            System.out.println("No se pudo traer la lista de deportistas");
+            matrix = new Object[][]{{"Hay problemas con la base de datos."}};
+            header = new Object[]{"ERROR"};
+
+            //Asignamos la nueva matriz a la tabla
+            TableModel model = new TableModelUI(matrix, header);
+            table.setModel(model);
             return;
         } catch (Exception e){
-            System.out.println("Hubo un problema. Intente de nuevo");
+            matrix = new Object[][]{{"Hubo un problema. Intente de nuevo mas tarde" }};
+            header = new Object[]{"ERROR"};
+
+            //Asignamos la nueva matriz a la tabla
+            TableModel model = new TableModelUI(matrix, header);
+            table.setModel(model);
             return;
         }
 

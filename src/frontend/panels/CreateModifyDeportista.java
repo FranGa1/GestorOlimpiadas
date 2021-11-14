@@ -2,6 +2,7 @@ package frontend.panels;
 
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
+import backend.exceptions.NotConnectedException;
 import frontend.changeDefaults.LabelsUI;
 import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.ComboBoxUI;
@@ -324,9 +325,20 @@ public class CreateModifyDeportista {
     }
 
     //Actualizamos los ComboBox
-    public static void updateCB() throws Exception {
-        List<String> pais = FactoryDAO.getPaisDAO().getPaisesAsStrings();
-        List<String> disciplinas = FactoryDAO.getDisciplinaDAO().getDisciplinasAsStrings();
+    public static void updateCB() {
+        List<String> pais;
+        List<String> disciplinas;
+        try {
+         pais = FactoryDAO.getPaisDAO().getPaisesAsStrings();
+         disciplinas = FactoryDAO.getDisciplinaDAO().getDisciplinasAsStrings();
+        } catch (NotConnectedException e){
+            pais = new LinkedList<>();
+            disciplinas = new LinkedList<>();
+        } catch (Exception e){
+            error.setBackground(new Color(0xF13333));
+            error.setText("Hubo un problema con la base de datos.");
+            return;
+        }
         pais.add(0, "" );
         paisCB.setModel(new DefaultComboBoxModel<>(pais.toArray(new String[0])));
         disciplinas.add(0, "" );
@@ -347,19 +359,13 @@ public class CreateModifyDeportista {
         textFields[2].setText(deportista.getEmail());
         textFields[3].setText(deportista.getTelefono());
         //paisCB.setSelectedIndex(1);
-        try {
-            updateCB();
-            System.out.println(deportista.getPais().getNombre().toUpperCase(Locale.ROOT));
-            System.out.println(deportista.getDisciplinas().get(0).getNombre().toUpperCase(Locale.ROOT));
-            paisCB.setSelectedItem(deportista.getPais().getNombre().toUpperCase(Locale.ROOT));
-            disciplinaCB.setSelectedItem(deportista.getDisciplinas().get(0).getNombre());
-        } catch (SQLException e) {
-            System.out.println("No se pudiero actualizar los combo box");
-            e.printStackTrace();
-        } catch (Exception ex) {
-            System.out.println("Hubo un error. Intente de nuevo");
-            ex.printStackTrace();
-        }
+
+        updateCB();
+        System.out.println(deportista.getPais().getNombre().toUpperCase(Locale.ROOT));
+        System.out.println(deportista.getDisciplinas().get(0).getNombre().toUpperCase(Locale.ROOT));
+        paisCB.setSelectedItem(deportista.getPais().getNombre().toUpperCase(Locale.ROOT));
+        disciplinaCB.setSelectedItem(deportista.getDisciplinas().get(0).getNombre());
+
        }
 
     public static void setAdd(){
@@ -369,14 +375,6 @@ public class CreateModifyDeportista {
             guardar.removeActionListener(act);
         }
         guardar.addActionListener(new AddSaveListener());
-        try {
-            updateCB();
-        } catch (SQLException e) {
-            System.out.println("No se pudiero actualizar los combo box");
-            e.printStackTrace();
-        } catch (Exception ex) {
-            System.out.println("Hubo un error. Intente de nuevo");
-            ex.printStackTrace();
-        }
+        updateCB();
     }
 }

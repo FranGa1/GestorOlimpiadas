@@ -3,6 +3,7 @@ package backend.dao.implementacionesDAO;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.dao.interfacesDAO.PaisDAO;
+import backend.exceptions.NotConnectedException;
 import backend.exceptions.PaisExistsException;
 import backend.exceptions.PaisUsedException;
 import objetos.Pais;
@@ -123,8 +124,12 @@ public class PaisDAOjdbc implements PaisDAO {
      */
     @Override
     public List<Pais> getPaises() throws Exception {
+
+        if (MiConnection.nullConnection())
+            throw new NotConnectedException();
+
         Connection connection = MiConnection.getCon();
-    List<Pais> listaPaises = new LinkedList<>();
+        List<Pais> listaPaises = new LinkedList<>();
         // Se obtienen los paises de la base de datos
         String sql = "SELECT * FROM pais ORDER BY nombre";
         Statement statement = connection.createStatement();
@@ -144,10 +149,14 @@ public class PaisDAOjdbc implements PaisDAO {
      */
     @Override
     public List<String> getPaisesAsStrings() throws Exception{
+
+        if (MiConnection.nullConnection())
+            throw new NotConnectedException();
+
         Connection connection = MiConnection.getCon();
         List<String> listaPaises = new LinkedList<>();
         // Se obtienen los paises de la base de datos
-        String sql = "SELECT * FROM pais ORDER BY nombre";
+        String sql = "SasdfELECT * FROM pais ORDER BY nombre";
         Statement statement = connection.createStatement();
         ResultSet paises = statement.executeQuery(sql);
 
