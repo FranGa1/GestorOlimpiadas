@@ -156,7 +156,7 @@ public class PaisDAOjdbc implements PaisDAO {
         Connection connection = MiConnection.getCon();
         List<String> listaPaises = new LinkedList<>();
         // Se obtienen los paises de la base de datos
-        String sql = "SasdfELECT * FROM pais ORDER BY nombre";
+        String sql = "SELECT * FROM pais ORDER BY nombre";
         Statement statement = connection.createStatement();
         ResultSet paises = statement.executeQuery(sql);
 
