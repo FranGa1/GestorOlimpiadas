@@ -23,11 +23,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-public class CreateModifDeportista {
+public class CreateModifyDeportista {
 
     private static final int LONGITUD = 30;
-    private static final ActionListener SAVE_NEW = new AddSaveListener();
-    private static final ActionListener SAVE_EDIT = new EditSaveListener();
 
     private static TextFieldUI[] textFields;
     private static JTextField error;
@@ -341,7 +339,7 @@ public class CreateModifDeportista {
         for(ActionListener act : guardar.getActionListeners()) {
             guardar.removeActionListener(act);
         }
-        guardar.addActionListener(SAVE_EDIT);
+        guardar.addActionListener(new EditSaveListener());
 
         headerLbl.setText("EDITAR DEPORTISTA");
         textFields[0].setText(deportista.getNombres());
@@ -370,7 +368,7 @@ public class CreateModifDeportista {
         for(ActionListener act : guardar.getActionListeners()) {
             guardar.removeActionListener(act);
         }
-        guardar.addActionListener(SAVE_NEW);
+        guardar.addActionListener(new AddSaveListener());
         try {
             updateCB();
         } catch (SQLException e) {

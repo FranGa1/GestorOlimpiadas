@@ -92,8 +92,8 @@ public class CreateDeportistaTable {
         nuevo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateModifDeportista.setAdd();
-                ChangeCards.swap("AddDeportista");
+                CreateModifyDeportista.setAdd();
+                ChangeCards.swap("ModifDeportista");
             }
         });
 
@@ -124,7 +124,6 @@ public class CreateDeportistaTable {
             System.out.println("Hubo un problema. Intente de nuevo");
             return;
         }
-        //Deportista[] array = lista.toArray(new Deportista[0]);
 
         //Creamos los botones
         JButton editarBtn = new ButtonTable("Editar");
@@ -163,8 +162,8 @@ public class CreateDeportistaTable {
                     Deportista dep = lista.get(row);
 
                     if (boton.getName().equals("edit")) {
-                        CreateModifDeportista.setEditable(dep);
-                        ChangeCards.swap("AddDeportista");
+                        CreateModifyDeportista.setEditable(dep);
+                        ChangeCards.swap("ModifDeportista");
                     }
                     if (boton.getName().equals("remove")) {
                         int reply = JOptionPane.showConfirmDialog(null, "Seguro que desea " +

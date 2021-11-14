@@ -44,12 +44,12 @@ public class ChangeCards {
                 frame.setSize(500, 250);
                 frame.setTitle("Gestor de Olimpiadas - CONFIGURACION");
             }
-            case "AddPais" -> {
+            case "ModifPais" -> {
                 cl.show(cardPanel, cardName);
                 frame.setSize(500, 220);
                 frame.setTitle("Gestor de Olimpiadas - NUEVO PAIS");
             }
-            case "AddDeportista" -> {
+            case "ModifDeportista" -> {
                 //Actualizamos los comboBox
                 cl.show(cardPanel, cardName);
                 frame.setSize(520, 520);
@@ -68,7 +68,7 @@ public class ChangeCards {
                 CreatePaisTable.updateTablePais();
 
                 cl.show(cardPanel, cardName);
-                frame.setSize(800, 500);
+                frame.setSize(600, 500);
                 frame.setTitle("Gestor de Olimpiadas - PAISES");
             }
         }

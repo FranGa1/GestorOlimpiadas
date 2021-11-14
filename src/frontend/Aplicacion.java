@@ -2,7 +2,6 @@ package frontend;
 
 import frontend.panels.*;
 import frontend.panels.CreateMenu;
-import frontend.panels.pais.CreateAddPais;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,15 +32,15 @@ public class Aplicacion extends JFrame {
         JPanel deportistasTable = CreateDeportistaTable.create();
         JPanel paisesTable = CreatePaisTable.create();
         JPanel config = CreateConfig.create();
-        JPanel addPais = CreateAddPais.create();
-        JPanel addDeportista = CreateModifDeportista.create();
+        JPanel addPais = CreateModifyPais.create();
+        JPanel addDeportista = CreateModifyDeportista.create();
 
         //Agregamos las cards
         cardPanel.add(mainPanel, "Menu");
         cardPanel.add(deportistasTable, "DeportistasTable");
         cardPanel.add(config, "Configuracion");
-        cardPanel.add(addPais, "AddPais");
-        cardPanel.add(addDeportista, "AddDeportista");
+        cardPanel.add(addPais, "ModifPais");
+        cardPanel.add(addDeportista, "ModifDeportista");
         cardPanel.add(paisesTable, "PaisesTable");
 
         //Agregamos al frame
