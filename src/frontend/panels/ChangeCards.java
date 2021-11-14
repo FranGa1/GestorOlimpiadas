@@ -36,7 +36,7 @@ public class ChangeCards {
                 else CreateMenu.setConnected();
 
                 cl.show(cardPanel, cardName);
-                frame.pack();
+                frame.setSize(1100, 650);
                 frame.setTitle("Gestor de Olimpiadas");
             }
             case "Configuracion" -> {

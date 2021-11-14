@@ -48,12 +48,15 @@ public class Aplicacion extends JFrame {
         cardPanel.add(paisesTable, "PaisesTable");
 
         // Seteamos la imagen de fondo
-        Icon img = new ImageIcon(new ImageIcon("Files/fondoepico.jpg").getImage().getScaledInstance(1000,600, Image.SCALE_SMOOTH));
+        Icon img = new ImageIcon(new ImageIcon("Files/fondoepico.jpg").getImage().getScaledInstance(1100,650, Image.SCALE_SMOOTH));
         JLabel contentPane = new JLabel();
         contentPane.setLayout(new BorderLayout());
         contentPane.setIcon(img);
         contentPane.add(cardPanel);
         setContentPane(contentPane);
+
+        // Seteamos el icono de la aplicacion
+        setIconImage(new ImageIcon("Files/fondoepico.jpg").getImage());
 
         //Iniciamos la aplicacion en el menu e inicializamos la clase Change Cards
         ChangeCards.swap("Menu", cl, cardPanel, this);
