@@ -1,6 +1,7 @@
 package frontend.panels;
 
 import frontend.changeDefaults.BackgroundPanel;
+import frontend.changeDefaults.TransparentPanel;
 import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.WPanel;
 import frontend.panels.ChangeCards;
@@ -31,10 +32,10 @@ public class CreateMenu {
 
         //Creamos los paneles
         JPanel mainPanel = new BackgroundPanel(img);
-        JPanel panelC = new WPanel();
-        JPanel panelN = new WPanel();
-        JPanel header = new WPanel();
-        JPanel panelNyC = new WPanel();
+        JPanel panelC = new TransparentPanel();
+        JPanel panelN = new TransparentPanel();
+        JPanel header = new TransparentPanel();
+        JPanel panelNyC = new TransparentPanel();
 
         //Creamos los labels
         conectionStatus = new JLabel();
