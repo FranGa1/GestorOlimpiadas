@@ -1,8 +1,6 @@
 package backend.dao.interfacesDAO;
 
 import objetos.Disciplina;
-
-import java.sql.Exception;
 import java.util.List;
 
 public interface DeportistaEnDisciplinaDAO {

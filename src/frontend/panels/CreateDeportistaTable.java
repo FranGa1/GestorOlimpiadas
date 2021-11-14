@@ -116,6 +116,9 @@ public class CreateDeportistaTable {
             } catch (SQLException e) {
                 System.out.println("No se pudo traer la lista de deportistas");
                 return;
+            } catch (Exception e){
+                System.out.println("Hubo un problema. Intente de nuevo");
+                return;
             }
             //Deportista[] array = lista.toArray(new Deportista[0]);
 
@@ -173,6 +176,8 @@ public class CreateDeportistaTable {
                             } catch (SQLException e) {
                                 System.out.println("No se pudo eliminar");
                                 e.printStackTrace();
+                            } catch (Exception e){
+                                System.out.println("Hubo un problema. Intente de nuevo");
                             }
                         }
                     }

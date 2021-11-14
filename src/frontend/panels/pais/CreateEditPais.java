@@ -52,6 +52,8 @@ public class CreateEditPais extends CreateModifyPais{
                 } catch (SQLException ex) {
                     System.out.println("No s epudo cargar");
                     ex.printStackTrace();
+                } catch (Exception ex){
+                    System.out.println("Hubo un problema. Intente de nuevo");
                 }
                 JOptionPane.showMessageDialog(null, "Agregado Exitoso", "Action Complete",
                         JOptionPane.INFORMATION_MESSAGE);
