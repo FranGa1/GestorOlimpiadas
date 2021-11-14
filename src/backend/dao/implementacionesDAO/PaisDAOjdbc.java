@@ -2,6 +2,8 @@ package backend.dao.implementacionesDAO;
 
 import backend.MiConnection;
 import backend.dao.interfacesDAO.PaisDAO;
+import backend.exceptions.PaisExistsException;
+import backend.exceptions.PaisUsedException;
 import objetos.Pais;
 
 import java.sql.*;
@@ -11,26 +13,30 @@ import java.util.Locale;
 
 
 public class PaisDAOjdbc implements PaisDAO {
+
     @Override
-    public void cargar(Pais nuevoPais) throws SQLException{
+    public void cargar(Pais nuevoPais) throws Exception, PaisExistsException {
         Connection connection = MiConnection.getCon();
+
+        if(existe(nuevoPais))
+            throw new PaisExistsException();
 
         // Se inserta el pais en la base de datos
         String sql = "INSERT INTO pais (nombre) VALUES (?)";
         PreparedStatement statementPais = connection.prepareStatement(sql);
         statementPais.setString(1, nuevoPais.getNombre().toUpperCase(Locale.ROOT).trim());
         statementPais.executeUpdate();
-
     }
 
     @Override
-    public void eliminar(Pais paisEliminar) throws SQLException{
+    public void eliminar(Pais paisEliminar) throws Exception {
         Connection connection = MiConnection.getCon();
 
         String sql = "DELETE FROM pais WHERE id=?";
         PreparedStatement statementPais = connection.prepareStatement(sql);
         statementPais.setInt(1, paisEliminar.getId());
-        statementPais.executeUpdate();
+        int rowsUpdated = statementPais.executeUpdate();
+        if (rowsUpdated == 0) throw new PaisUsedException();
     }
 
     /**
@@ -39,7 +45,7 @@ public class PaisDAOjdbc implements PaisDAO {
      * @return 0 si es exitoso, 1 en caso contrario
      */
     @Override
-    public void editar(Pais paisEditar) throws SQLException{
+    public void editar(Pais paisEditar) throws Exception{
         Connection connection = MiConnection.getCon();
 
         String sql = "UPDATE pais SET nombre=? WHERE id=?";
@@ -47,7 +53,6 @@ public class PaisDAOjdbc implements PaisDAO {
         statementPais.setString(1, paisEditar.getNombre().toUpperCase(Locale.ROOT).trim());
         statementPais.setInt(2, paisEditar.getId());
         statementPais.executeUpdate();
-
     }
 
     /**
@@ -56,7 +61,7 @@ public class PaisDAOjdbc implements PaisDAO {
      * @return true si lo encontro, false caso contrario
      */
     @Override
-    public boolean existe(Pais paisEncontrar) throws SQLException {
+    public boolean existe(Pais paisEncontrar) throws Exception {
         Connection connection = MiConnection.getCon();
 
         String sql = "SELECT * FROM pais WHERE nombre=?";
@@ -65,11 +70,10 @@ public class PaisDAOjdbc implements PaisDAO {
         ResultSet result = statementPais.executeQuery();
 
         return result.next();
-
     }
 
     @Override
-    public Pais encontrar(int id) throws SQLException{
+    public Pais encontrar(int id) throws Exception{
         Connection connection = MiConnection.getCon();
         Pais pais = new Pais();
 
@@ -88,7 +92,7 @@ public class PaisDAOjdbc implements PaisDAO {
     }
 
     @Override
-    public List<Pais> getPaises() throws SQLException {
+    public List<Pais> getPaises() throws Exception {
         Connection connection = MiConnection.getCon();
     List<Pais> listaPaises = new LinkedList<>();
         // Se obtienen los paises de la base de datos
@@ -105,7 +109,7 @@ public class PaisDAOjdbc implements PaisDAO {
     }
 
     @Override
-    public List<String> getPaisesAsStrings() throws SQLException{
+    public List<String> getPaisesAsStrings() throws Exception{
         Connection connection = MiConnection.getCon();
         List<String> listaPaises = new LinkedList<>();
         // Se obtienen los paises de la base de datos
