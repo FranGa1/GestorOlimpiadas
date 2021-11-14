@@ -1,6 +1,7 @@
 package frontend.panels;
 
 //import backend.ExportCSV;
+import backend.ExportCSV;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.exceptions.PaisUsedException;
@@ -94,18 +95,18 @@ public class CreatePaisTable {
                 ChangeCards.swap("ModifPais");}
         });
 
-//        exportar.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                List<List<String>> data = new LinkedList<>();
-//                List<String> header = Arrays.asList("ID", "Nombre");
-//                for (Pais p : list){
-//                    List<String> line = Arrays.asList( String.valueOf(p.getId()), p.getNombre());
-//                    data.add(line);
-//                }
-//                ExportCSV.Export(data);
-//            }
-//        });
+        exportar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<List<String>> data = new LinkedList<>();
+                List<String> header = Arrays.asList("ID", "Nombre");
+                for (Pais p : list){
+                    List<String> line = Arrays.asList( String.valueOf(p.getId()), p.getNombre());
+                    data.add(line);
+                }
+                ExportCSV.Export(data);
+            }
+        });
 
         return panel;
     }
