@@ -1,6 +1,6 @@
 package frontend.panels;
 
-import backend.ExportCSV;
+//import backend.ExportCSV;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.exceptions.PaisUsedException;
@@ -94,18 +94,18 @@ public class CreatePaisTable {
                 ChangeCards.swap("ModifPais");}
         });
 
-        exportar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                List<List<String>> data = new LinkedList<>();
-                List<String> header = Arrays.asList("ID", "Nombre");
-                for (Pais p : list){
-                    List<String> line = Arrays.asList( String.valueOf(p.getId()), p.getNombre());
-                    data.add(line);
-                }
-                ExportCSV.Export(data);
-            }
-        });
+//        exportar.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                List<List<String>> data = new LinkedList<>();
+//                List<String> header = Arrays.asList("ID", "Nombre");
+//                for (Pais p : list){
+//                    List<String> line = Arrays.asList( String.valueOf(p.getId()), p.getNombre());
+//                    data.add(line);
+//                }
+//                ExportCSV.Export(data);
+//            }
+//        });
 
         return panel;
     }
@@ -182,13 +182,22 @@ public class CreatePaisTable {
                                 ((TableModelUI)table.getModel()).removeRow(row);
                                 list.remove(row);
                             } catch (PaisUsedException e){
-                                System.out.println("Pais is used exception");
+                                JOptionPane.showMessageDialog(null,
+                                        "El Pais se encuentra asigando a deportistas. Eliminalos e intente de nuevo"
+                                        , "Error Message",
+                                        JOptionPane.ERROR_MESSAGE);
                             }
                             catch (SQLException e) {
-                                System.out.println("No se pudo eliminar");
+                                JOptionPane.showMessageDialog(null,
+                                        "Verfique la conexion a la base de datos"
+                                        , "Error Message",
+                                        JOptionPane.ERROR_MESSAGE);
                                 //e.printStackTrace();
                             } catch (Exception e){
-                                System.out.println("Hubo un problema. Intente de nuevo");
+                                JOptionPane.showMessageDialog(null,
+                                        "Hubo un problema. Intente de nuevo mas tarde"
+                                        , "Error Message",
+                                        JOptionPane.ERROR_MESSAGE);
                             }
                         }
                     }
