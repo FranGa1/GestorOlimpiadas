@@ -30,14 +30,14 @@ public class CreateMenu {
         //Construimos el header
         header.setLayout(new BorderLayout());
         headerLbl.setFont(new Font("Bevan", Font.PLAIN, 40));
-        header.setBackground(Color.decode("#F8D210"));
+        header.setBackground(new Color(0x1FB7FA));
         header.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLACK));
         header.add(headerLbl);
 
         //Creamos los botones
-        JButton deportistas = new ButtonUI("Deportistas");
-        JButton paises = new ButtonUI("Paises");
-        JButton disciplinas = new ButtonUI("Disciplinas");
+        JButton deportistas = new ButtonUI("Deportistas", 140, 85);
+        ButtonUI paises = new ButtonUI("Paises", new ImageIcon("Files/world.png"), 140, 85);
+        JButton disciplinas = new ButtonUI("Disciplinas", 140, 85);
 
 
         //Armamos el panel central
@@ -60,26 +60,22 @@ public class CreateMenu {
             for (int j = 0; j < 3; j++){
                 c.gridy = i + 1;
                 c.gridx = j;
-                JButton btn = new ButtonUI("Sin Definir");
+                JButton btn = new ButtonUI("Sin Definir",140, 85);
                 panelC.add(btn, c);
             }
         }
 
-        //Armamos el panel norte
-
-            //Creamos el boton config
+        //Creamos el boton config
         panelN.setLayout(new BorderLayout());
         JButton btnConfig = new JButton(new ImageIcon("Files/dbConfigIcon2.png"));
         btnConfig.setBorder(BorderFactory.createEmptyBorder(5,0 ,0,5));
         btnConfig.setContentAreaFilled(false);
-            //Creamos la imagen de estado
-        //JLabel conectionStatus = new JLabel(new ImageIcon(URL));
+        //Creamos la imagen de estado
         conectionStatus = new JLabel();
         conectionStatus.setBorder(BorderFactory.createEmptyBorder(5,0 ,0,5));
-            //Agregamos al panel
+        //Agregamos al panel
         panelN.add(btnConfig, BorderLayout.EAST);
         panelN.add(conectionStatus, BorderLayout.WEST);
-
 
         //Listeners
         btnConfig.addActionListener(new ActionListener() {

@@ -7,6 +7,19 @@ import java.awt.*;
 
 public class StyledButtonUI extends BasicButtonUI {
 
+    private int plusHeight;
+    private int plushWidth;
+
+    public StyledButtonUI(){
+        this.plusHeight = 0;
+        this.plushWidth = 0;
+    }
+
+    public StyledButtonUI(int plushWidth, int plusHeight){
+        this.plusHeight = plusHeight;
+        this.plushWidth = plushWidth;
+    }
+
     @Override
     public void installUI (JComponent c) {
         super.installUI(c);
@@ -18,6 +31,11 @@ public class StyledButtonUI extends BasicButtonUI {
     @Override
     public void paint (Graphics g, JComponent c) {
         AbstractButton b = (AbstractButton) c;
+
+        if (plusHeight != 0)
+            b.setSize(plushWidth, plusHeight);
+
+        System.out.println(b.getSize().width);
         paintBackground(g, b, b.getModel().isPressed() ? 2 : 0);
         super.paint(g, c);
     }
