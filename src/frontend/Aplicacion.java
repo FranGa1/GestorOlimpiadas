@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.export.ExportCSV;
+import frontend.changeDefaults.TransparentPanel;
 import frontend.panels.*;
 import frontend.panels.CreateMenu;
 
@@ -25,31 +26,18 @@ public class Aplicacion extends JFrame {
         passwd = "";
 
         cl = new CardLayout();
-        JPanel cardPanel = new JPanel();
+        JPanel cardPanel = new TransparentPanel();
         cardPanel.setLayout(cl);
 
         new ExportCSV(this);
 
         JPanel mainPanel = CreateMenu.create();
         CreateMenu.setDisconnected();
-        //JPanel mainPanelDesconectado = CreateMenuDesconectado.create();
         JPanel deportistasTable = CreateDeportistaTable.create();
         JPanel paisesTable = CreatePaisTable.create();
         JPanel config = CreateConfig.create();
         JPanel addPais = CreateModifyPais.create();
         JPanel addDeportista = CreateModifyDeportista.create();
-
-        Icon img = null;
-//        try {
-            img = new ImageIcon("Files/fondoepico.jpg");
-//            img = ImageIO.read(new File("Files/fondoepico.jpg"));
-//        }
-
-
-        JLabel contentPane = new JLabel();
-        contentPane.setIcon( img );
-        contentPane.setLayout( new BorderLayout() );
-        this.setContentPane( contentPane );
 
         //Agregamos las cards
         cardPanel.add(mainPanel, "Menu");
@@ -59,8 +47,13 @@ public class Aplicacion extends JFrame {
         cardPanel.add(addDeportista, "ModifDeportista");
         cardPanel.add(paisesTable, "PaisesTable");
 
-        //Agregamos al frame
-        add(cardPanel);
+        // Seteamos la imagen de fondo
+        Icon img = new ImageIcon(new ImageIcon("Files/fondoepico.jpg").getImage().getScaledInstance(1000,600, Image.SCALE_SMOOTH));
+        JLabel contentPane = new JLabel();
+        contentPane.setLayout(new BorderLayout());
+        contentPane.setIcon(img);
+        contentPane.add(cardPanel);
+        setContentPane(contentPane);
 
         //Iniciamos la aplicacion en el menu e inicializamos la clase Change Cards
         ChangeCards.swap("Menu", cl, cardPanel, this);

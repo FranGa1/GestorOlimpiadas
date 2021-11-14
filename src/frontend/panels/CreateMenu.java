@@ -34,7 +34,7 @@ public class CreateMenu {
         }
 
         //Creamos los paneles
-        JPanel mainPanel = new BackgroundPanel(img);
+        JPanel mainPanel = new TransparentPanel();
         JPanel panelC = new TransparentPanel();
         JPanel panelN = new TransparentPanel();
         JPanel header = new TransparentPanel();
