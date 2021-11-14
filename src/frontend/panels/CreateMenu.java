@@ -65,21 +65,17 @@ public class CreateMenu {
             }
         }
 
-        //Armamos el panel norte
-
-            //Creamos el boton config
+        //Creamos el boton config
         panelN.setLayout(new BorderLayout());
         JButton btnConfig = new JButton(new ImageIcon("Files/dbConfigIcon2.png"));
         btnConfig.setBorder(BorderFactory.createEmptyBorder(5,0 ,0,5));
         btnConfig.setContentAreaFilled(false);
-            //Creamos la imagen de estado
-        //JLabel conectionStatus = new JLabel(new ImageIcon(URL));
+        //Creamos la imagen de estado
         conectionStatus = new JLabel();
         conectionStatus.setBorder(BorderFactory.createEmptyBorder(5,0 ,0,5));
-            //Agregamos al panel
+        //Agregamos al panel
         panelN.add(btnConfig, BorderLayout.EAST);
         panelN.add(conectionStatus, BorderLayout.WEST);
-
 
         //Listeners
         btnConfig.addActionListener(new ActionListener() {
