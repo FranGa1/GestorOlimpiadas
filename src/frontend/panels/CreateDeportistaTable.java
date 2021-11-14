@@ -3,6 +3,7 @@ package frontend.panels;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.exceptions.NotConnectedException;
+import backend.export.ExportCSV;
 import frontend.changeDefaults.buttons.ButtonTable;
 import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.table.TableModelUI;
@@ -10,6 +11,7 @@ import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
 import objetos.Deportista;
 import objetos.Disciplina;
+import objetos.Pais;
 
 import javax.swing.*;
 import javax.swing.table.TableModel;
@@ -19,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -64,8 +68,8 @@ public class CreateDeportistaTable {
         buttonPanel.add(volver);
 
         //Construimos la table
-        String[] columnNames = {"No conection to DB"};
-        Object[][] data = {{"No conection to DB"}};
+        String[] columnNames = {""};
+        Object[][] data = {{""}};
         table = new TableUI(data, columnNames);
         table.addMouseListener(new ListenerTable());
         JScrollPane scrollPane = new  JScrollPane(table);
@@ -98,6 +102,27 @@ public class CreateDeportistaTable {
             }
         });
 
+        export.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (MiConnection.nullConnection()){
+                    JOptionPane.showMessageDialog(null,
+                            "No hay conexion", "Error Message",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                List<List<String>> data = new LinkedList<>();
+                List<String> header = Arrays.asList("ID", "Nombre", "Apellido", "Email", "Telefono", "Pais", "Disciplinas");
+                data.add(header);
+                for (Deportista p : lista){
+                    List<String> line = Arrays.asList( String.valueOf(p.getId()), p.getNombres(), p.getApellidos(), p.getEmail(),
+                            p.getTelefono(), p.getPais().getNombre(), p.getDisciplinas().get(0).getNombre());
+                    data.add(line);
+                }
+                ExportCSV.Export(data);
+            }
+        });
+
         return panel;
     }
 
@@ -120,7 +145,7 @@ public class CreateDeportistaTable {
             return;
 
         } catch (SQLException e) {
-            matrix = new Object[][]{{"Hay problemas con la base de datos."}};
+            matrix = new Object[][]{{"Hubo problemas con la base de datos."}};
             header = new Object[]{"ERROR"};
 
             //Asignamos la nueva matriz a la tabla

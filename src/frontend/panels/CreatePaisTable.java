@@ -1,7 +1,7 @@
 package frontend.panels;
 
-//import backend.ExportCSV;
-import backend.ExportCSV;
+//import backend.export.ExportCSV;
+import backend.export.ExportCSV;
 import backend.MiConnection;
 import backend.dao.FactoryDAO;
 import backend.exceptions.PaisUsedException;
@@ -10,8 +10,6 @@ import frontend.changeDefaults.buttons.ButtonUI;
 import frontend.changeDefaults.table.TableModelUI;
 import frontend.changeDefaults.table.TableUI;
 import frontend.changeDefaults.WPanel;
-import objetos.Deportista;
-import objetos.Disciplina;
 import objetos.Pais;
 
 import javax.swing.*;
@@ -98,8 +96,15 @@ public class CreatePaisTable {
         exportar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (MiConnection.nullConnection()){
+                    JOptionPane.showMessageDialog(null,
+                            "No hay conexion", "Error Message",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 List<List<String>> data = new LinkedList<>();
                 List<String> header = Arrays.asList("ID", "Nombre");
+                data.add(header);
                 for (Pais p : list){
                     List<String> line = Arrays.asList( String.valueOf(p.getId()), p.getNombre());
                     data.add(line);

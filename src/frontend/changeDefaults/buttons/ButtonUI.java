@@ -9,7 +9,7 @@ public class ButtonUI extends JButton {
         super(text);
         this.setUI(new StyledButtonUI());
         this.setFont(new Font("Calibri", Font.BOLD, 22));
-        this.setBackground(new Color(0x4C9ED9));
+        this.setBackground(new Color(0xE30D28));
         this.setForeground(Color.white);
         //0x4C9ED9
     }

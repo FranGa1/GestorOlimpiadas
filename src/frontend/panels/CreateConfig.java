@@ -97,7 +97,7 @@ public class CreateConfig {
                 MiConnection.login(userField.getText(), passwdField.getText());
 
                 //Si la coneccion es exitosa
-                if (MiConnection.getCon() != null) {
+                if (!MiConnection.nullConnection()) {
                     JOptionPane.showMessageDialog(null,
                             "Se conecto a la BD", "Info",
                             JOptionPane.INFORMATION_MESSAGE);

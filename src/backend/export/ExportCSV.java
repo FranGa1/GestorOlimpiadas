@@ -1,8 +1,8 @@
-package backend;
+package backend.export;
 
-import frontend.panels.ChangeCards;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -18,11 +18,11 @@ public class ExportCSV {
     public static void Export(List<List<String>> data){
         FileWriter csvWriter = null;
         try {
-//            JFileChooser fileChooser = new JFileChooser();
-//            if (fileChooser.showSaveDialog(PARENT_FRAME) == JFileChooser.APPROVE_OPTION) {
-//                File file = fileChooser.getSelectedFile();
-//                // save to file
-//            }
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showSaveDialog(PARENT_FRAME) == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                // save to file
+            }
 
             csvWriter = new FileWriter("prueba.csv");
             for (List<String> datos_fila : data) {
