@@ -71,9 +71,10 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
     }
 
     /**
-     * Se obtiene una lista de
-     * @param idDeportista
-     * @return
+     * Se obtiene una lista de las disciplinas a las que pertenece un deportista en base a su id
+     * @param idDeportista id del deportista.
+     * @return lista con objetos de tipo disciplinas.
+     * @throws Exception en el caso de un problama con la base de datos u otros.
      */
     @Override
     public List<Disciplina> getDisciplinasDeportista(int idDeportista) throws Exception {

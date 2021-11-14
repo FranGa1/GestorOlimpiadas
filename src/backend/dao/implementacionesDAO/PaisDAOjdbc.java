@@ -15,8 +15,13 @@ import java.util.Locale;
 
 public class PaisDAOjdbc implements PaisDAO {
 
+    /**
+     * Se carga un pais en la base de datos.
+     * @param nuevoPais pais a cargar.
+     * @throws Exception en el caso de que el pais exista, problemas con la BD u otros.
+     */
     @Override
-    public void cargar(Pais nuevoPais) throws Exception, PaisExistsException {
+    public void cargar(Pais nuevoPais) throws Exception {
         Connection connection = MiConnection.getCon();
 
         if(existe(nuevoPais))
@@ -29,6 +34,11 @@ public class PaisDAOjdbc implements PaisDAO {
         statementPais.executeUpdate();
     }
 
+    /**
+     * Se elimina a un pais de la base de datos.
+     * @param paisEliminar para a eliminar.
+     * @throws Exception en el caso de que el pais este asignado a algun deportista, problemas con la BD u otros.
+     */
     @Override
     public void eliminar(Pais paisEliminar) throws Exception {
 
@@ -45,15 +55,15 @@ public class PaisDAOjdbc implements PaisDAO {
     }
 
     /**
-     * Edita un pais en la base de datos
-     * @param paisEditar Pais a editar, se debe ingresar un pais con id
-     * @return 0 si es exitoso, 1 en caso contrario
+     * * Edita un pais en la base de datos.
+     *  @param paisEditar Pais a editar, se debe ingresar un pais con id.
+     *  @throws Exception en el caso de un problema con la base de datos u otros.
      */
     @Override
     public void editar(Pais paisEditar) throws Exception{
 
-//        if (existe(paisEditar))
-//            throw new
+        if (existe(paisEditar))
+            throw new PaisExistsException();
 
         Connection connection = MiConnection.getCon();
 
@@ -65,9 +75,10 @@ public class PaisDAOjdbc implements PaisDAO {
     }
 
     /**
-     * Se evalua si un pais esta en la base de datos
-     * @param paisEncontrar Pais a buscar en la BD
-     * @return true si lo encontro, false caso contrario
+     * Se evalua si un pais esta en la base de datos.
+     * @param paisEncontrar Pais a buscar en la BD.
+     * @return true o false segun si lo encontro.
+     * @throws Exception en el caso de un problema con la base de datos u otros.
      */
     @Override
     public boolean existe(Pais paisEncontrar) throws Exception {
@@ -81,6 +92,12 @@ public class PaisDAOjdbc implements PaisDAO {
         return result.next();
     }
 
+    /**
+     * Se obtiene un pais de la base de datos en base a su id.
+     * @param id del pais a encontrar.
+     * @return una objeto Pais con nombre e id.
+     * @throws Exception en el caso de un problema con la base de datos u otros.
+     */
     @Override
     public Pais encontrar(int id) throws Exception{
         Connection connection = MiConnection.getCon();
@@ -96,10 +113,14 @@ public class PaisDAOjdbc implements PaisDAO {
             pais.setNombre(result.getString("nombre"));
             pais.setId(id);
         }
-
         return pais;
     }
 
+    /**
+     * Se obtiene una lista de paises de la base de datos.
+     * @return lista con los paises con nombre e id.
+     * @throws Exception en el caso de un problema con la base de datos u otros.
+     */
     @Override
     public List<Pais> getPaises() throws Exception {
         Connection connection = MiConnection.getCon();
@@ -113,10 +134,14 @@ public class PaisDAOjdbc implements PaisDAO {
         while (paises.next()){
             listaPaises.add(new Pais(paises.getString("nombre"), paises.getInt("id")));
         }
-
         return listaPaises;
     }
 
+    /**
+     * Se obtiene una lista de paises como Strings con solo su nombre.
+     * @return listaPaises con los nombres de los paises.
+     * @throws Exception en el caso de un problema con la base de datos u otros.
+     */
     @Override
     public List<String> getPaisesAsStrings() throws Exception{
         Connection connection = MiConnection.getCon();
