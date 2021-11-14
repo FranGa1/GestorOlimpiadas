@@ -2,6 +2,7 @@ package backend.dao.interfacesDAO;
 
 import objetos.Pais;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface PaisDAO {
@@ -12,4 +13,5 @@ public interface PaisDAO {
     Pais encontrar(int id) throws Exception;
     List<Pais> getPaises() throws Exception;
     List<String> getPaisesAsStrings() throws Exception;
+    int getIdPais(Pais pais) throws SQLException, Exception;
 }

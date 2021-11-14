@@ -1,6 +1,7 @@
 package objetos;
 
 import java.util.List;
+import java.util.Locale;
 
 public class Deportista {
     private int id;
@@ -11,19 +12,19 @@ public class Deportista {
     public Deportista(){}
 
     public Deportista(String nombres, String apellidos, String email, String telefono, Pais pais, List<Disciplina> disciplinas) {
-        this.nombres = nombres.trim();
-        this.apellidos = apellidos.trim();
-        this.email = email.trim();
-        this.telefono = telefono.trim();
+        this.nombres = nombres.trim().toUpperCase(Locale.ROOT);
+        this.apellidos = apellidos.trim().toUpperCase(Locale.ROOT);
+        this.email = email.trim().toUpperCase(Locale.ROOT);
+        this.telefono = telefono.trim().toUpperCase(Locale.ROOT);
         this.pais = pais;
         this.disciplinas = disciplinas;
     }
 
     public Deportista(String nombres, String apellidos, String email, String telefono, Pais pais, List<Disciplina> disciplinas,int id) {
-        this.nombres = nombres.trim();
-        this.apellidos = apellidos.trim();
-        this.email = email.trim();
-        this.telefono = telefono.trim();
+        this.nombres = nombres.trim().toUpperCase(Locale.ROOT);
+        this.apellidos = apellidos.trim().toUpperCase(Locale.ROOT);
+        this.email = email.trim().toUpperCase(Locale.ROOT);
+        this.telefono = telefono.trim().toUpperCase(Locale.ROOT);
         this.pais = pais;
         this.disciplinas = disciplinas;
         this.id = id;

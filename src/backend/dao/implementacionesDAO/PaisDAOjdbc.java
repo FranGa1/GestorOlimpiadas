@@ -166,4 +166,27 @@ public class PaisDAOjdbc implements PaisDAO {
         }
         return listaPaises;
     }
+
+    /**
+     * Se obtiene el id de un Pais del que se sabe el nombre
+     * @param pais a encontrar
+     * @return id del pais
+     * @throws SQLException
+     */
+    @Override
+    public int getIdPais(Pais pais) throws Exception {
+        Connection connection = MiConnection.getCon();
+        int id = 0;
+
+        String sql = "SELECT * FROM pais WHERE nombre=?";
+        PreparedStatement statementPais = connection.prepareStatement(sql);
+        statementPais.setString(1, pais.getNombre());
+        ResultSet result = statementPais.executeQuery();
+
+        // Si se encontro el pais, se lo devuelve
+        if (result.next()) {
+            id = result.getInt("id");
+        }
+        return id;
+    }
 }

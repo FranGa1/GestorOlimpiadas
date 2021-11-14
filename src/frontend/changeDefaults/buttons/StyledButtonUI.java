@@ -35,7 +35,6 @@ public class StyledButtonUI extends BasicButtonUI {
         if (plusHeight != 0)
             b.setSize(plushWidth, plusHeight);
 
-        System.out.println(b.getSize().width);
         paintBackground(g, b, b.getModel().isPressed() ? 2 : 0);
         super.paint(g, c);
     }

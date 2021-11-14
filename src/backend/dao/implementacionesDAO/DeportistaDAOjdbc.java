@@ -11,7 +11,6 @@ import objetos.Pais;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 public class DeportistaDAOjdbc implements DeportistaDAO {
 
@@ -26,13 +25,13 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         Connection connection = MiConnection.getCon();
 
         // Se inserta en la tabla deportista al deportistaNuevo
-        String sql =  "INSERT INTO deportista (apellidos, nombres, email, telefono, id_pais) VALUES(?,?,?,?,(SELECT id FROM pais WHERE nombre=?))";
+        String sql =  "INSERT INTO deportista (apellidos, nombres, email, telefono, id_pais) VALUES(?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, deportistaNuevo.getApellidos().toUpperCase(Locale.ROOT));
-        statement.setString(2, deportistaNuevo.getNombres().toUpperCase(Locale.ROOT));
-        statement.setString(3, deportistaNuevo.getEmail().toUpperCase(Locale.ROOT));
-        statement.setString(4, deportistaNuevo.getTelefono().trim());
-        statement.setString(5, deportistaNuevo.getPais().getNombre().toUpperCase(Locale.ROOT));
+        statement.setString(1, deportistaNuevo.getApellidos());
+        statement.setString(2, deportistaNuevo.getNombres());
+        statement.setString(3, deportistaNuevo.getEmail());
+        statement.setString(4, deportistaNuevo.getTelefono());
+        statement.setInt(5, FactoryDAO.getPaisDAO().getIdPais(deportistaNuevo.getPais()));
         statement.executeUpdate();
 
         // Se obtiene el id del deportista recien agregado
@@ -74,14 +73,14 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         Connection connection = MiConnection.getCon();
 
         String sql =  "UPDATE deportista " +
-                "SET nombres=?, apellidos=?, email=?, telfono=?, id_pais=?" +
+                "SET nombres=?, apellidos=?, email=?, telefono=?, id_pais=?" +
                 " WHERE id=?";
-        PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        statement.setString(1, deportistaEditar.getNombres().toUpperCase(Locale.ROOT));
-        statement.setString(2, deportistaEditar.getApellidos().toUpperCase(Locale.ROOT));
-        statement.setString(3, deportistaEditar.getEmail().toUpperCase(Locale.ROOT));
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, deportistaEditar.getNombres());
+        statement.setString(2, deportistaEditar.getApellidos());
+        statement.setString(3, deportistaEditar.getEmail());
         statement.setString(4, deportistaEditar.getTelefono());
-        statement.setInt(5, deportistaEditar.getPais().getId());
+        statement.setInt(5, FactoryDAO.getPaisDAO().getIdPais(deportistaEditar.getPais()));
         statement.setInt(6, deportistaEditar.getId());
         statement.executeUpdate();
 

@@ -238,15 +238,18 @@ public class CreateModifyPais {
                     pais.setNombre(input.getText());
 
                     //Actualizamos el Pais
-                    pDAO.cargar(pais);
-                    JOptionPane.showMessageDialog(null, "Agregado Exitoso", "Action Complete",
+                    pDAO.editar(pais);
+                    JOptionPane.showMessageDialog(null, "Se edito exitosamente", "Action Complete",
                             JOptionPane.INFORMATION_MESSAGE);
                     cleanFields();
                 } catch (SQLException ex) {
-                    System.out.println("No se pudo cargar el pais");
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Verfique la conexion a la base de datos",
+                            "Error message",
+                            JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex){
-                    System.out.println("Hubo un problema. Intente de nuevo");
+                    JOptionPane.showMessageDialog(null, "Hubo un problema. Intente mas tarde",
+                            "Error message",
+                            JOptionPane.ERROR_MESSAGE);
                 }
                 ChangeCards.swapPrev();
             }

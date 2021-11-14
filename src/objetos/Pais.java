@@ -1,15 +1,17 @@
 package objetos;
 
+import java.util.Locale;
+
 public class Pais {
     private String nombre;
     private int id;
 
     public Pais(String nombre) {
-        this.nombre = nombre.trim();;
+        this.nombre = nombre.trim().toUpperCase(Locale.ROOT);
     }
 
     public Pais(String nombre, int id) {
-        this.nombre = nombre.trim();
+        this.nombre = nombre.trim().toUpperCase(Locale.ROOT);
         this.id = id;
     }
 

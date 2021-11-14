@@ -217,7 +217,6 @@ public class CreateModifyDeportista {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Listener A: Nuevo");
             boolean empty = false;
             for (JTextField tf : textFields){
                 if (tf.getText().equals("")){
@@ -262,13 +261,14 @@ public class CreateModifyDeportista {
                             JOptionPane.INFORMATION_MESSAGE);
                     cleanFields();
                 } catch (SQLException ex) {
-                    System.out.println("No se pudo cargar el deportista");
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Verifique la conexion a la base de datos",
+                            "Error message",
+                            JOptionPane.ERROR_MESSAGE);
                 } catch (Exception ex) {
-                    System.out.println("Hubo un error. Intente de nuevo");
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Hubo un problema. Intente luego mas tarde.",
+                            "Error message",
+                            JOptionPane.ERROR_MESSAGE);
                 }
-                ChangeCards.swapPrev();
             }
 
         }
@@ -277,9 +277,14 @@ public class CreateModifyDeportista {
     //Listener para el boton save (Edita un jugador)
     private static class EditSaveListener implements ActionListener{
 
+        private static Deportista deportista;
+
+        public EditSaveListener(Deportista deportista) {
+            EditSaveListener.deportista = deportista;
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Listener B: Editar");
 
             boolean empty = false;
             for (JTextField tf : textFields){
@@ -309,6 +314,31 @@ public class CreateModifyDeportista {
 
             }else{
                 //Se edita el deportista
+                deportista.setNombres(textFields[0].getText());
+                deportista.setApellidos(textFields[1].getText());
+                deportista.setEmail(textFields[2].getText());
+                deportista.setTelefono(textFields[3].getText());
+                deportista.setPais(new Pais(paisCB.getSelectedItem().toString()));
+                List<Disciplina> listD = new LinkedList<>();
+                listD.add(new Disciplina(disciplinaCB.getSelectedItem().toString()));
+                deportista.setDisciplinas(listD);
+
+                //Cargamos el deportista
+                try {
+                    FactoryDAO.getDeportistaDAO().editar(deportista);
+                    JOptionPane.showMessageDialog(null, "Se edito correctamente", "Action Complete",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    cleanFields();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Verifique la conexion a la base de datos" + ex.getMessage(),
+                            "Error message",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Hubo un problema. Intente luego mas tarde.",
+                            "Error message",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
                 ChangeCards.swapPrev();
             }
         }
@@ -329,8 +359,8 @@ public class CreateModifyDeportista {
         List<String> pais;
         List<String> disciplinas;
         try {
-         pais = FactoryDAO.getPaisDAO().getPaisesAsStrings();
-         disciplinas = FactoryDAO.getDisciplinaDAO().getDisciplinasAsStrings();
+            pais = FactoryDAO.getPaisDAO().getPaisesAsStrings();
+            disciplinas = FactoryDAO.getDisciplinaDAO().getDisciplinasAsStrings();
         } catch (NotConnectedException e){
             pais = new LinkedList<>();
             disciplinas = new LinkedList<>();
@@ -351,7 +381,7 @@ public class CreateModifyDeportista {
         for(ActionListener act : guardar.getActionListeners()) {
             guardar.removeActionListener(act);
         }
-        guardar.addActionListener(new EditSaveListener());
+        guardar.addActionListener(new EditSaveListener(deportista));
 
         headerLbl.setText("EDITAR DEPORTISTA");
         textFields[0].setText(deportista.getNombres());
@@ -366,7 +396,7 @@ public class CreateModifyDeportista {
         paisCB.setSelectedItem(deportista.getPais().getNombre().toUpperCase(Locale.ROOT));
         disciplinaCB.setSelectedItem(deportista.getDisciplinas().get(0).getNombre());
 
-       }
+    }
 
     public static void setAdd(){
         headerLbl.setText("AGREGAR DEPORTISTA");
