@@ -218,7 +218,7 @@ public class CreateModifDeportista {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
+            System.out.println("Listener A: Nuevo");
             boolean empty = false;
             for (JTextField tf : textFields){
                 if (tf.getText().equals("")){
@@ -280,6 +280,8 @@ public class CreateModifDeportista {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("Listener B: Editar");
+
             boolean empty = false;
             for (JTextField tf : textFields){
                 if (tf.getText().equals("")){
@@ -335,7 +337,10 @@ public class CreateModifDeportista {
 
     //Dado un deportista, completa los espacios con sus datos
     public static void setEditable(Deportista deportista){
-        guardar.removeActionListener(SAVE_NEW);
+        //guardar.removeActionListener(SAVE_NEW);
+        for(ActionListener act : guardar.getActionListeners()) {
+            guardar.removeActionListener(act);
+        }
         guardar.addActionListener(SAVE_EDIT);
 
         headerLbl.setText("EDITAR DEPORTISTA");
@@ -361,7 +366,10 @@ public class CreateModifDeportista {
 
     public static void setAdd(){
         headerLbl.setText("AGREGAR DEPORTISTA");
-        guardar.removeActionListener(SAVE_EDIT);
+        //guardar.removeActionListener(SAVE_EDIT);
+        for(ActionListener act : guardar.getActionListeners()) {
+            guardar.removeActionListener(act);
+        }
         guardar.addActionListener(SAVE_NEW);
         try {
             updateCB();
