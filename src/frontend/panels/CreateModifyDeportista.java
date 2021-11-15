@@ -267,6 +267,7 @@ public class CreateModifyDeportista {
                             "Error message",
                             JOptionPane.ERROR_MESSAGE);
                 }
+                ChangeCards.swapPrev();
             }
 
         }
@@ -336,7 +337,6 @@ public class CreateModifyDeportista {
                             "Error message",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
                 ChangeCards.swapPrev();
             }
         }
