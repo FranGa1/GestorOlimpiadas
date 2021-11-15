@@ -14,9 +14,10 @@ import java.util.List;
 public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO {
 
     /**
-     * Asocia e
-     * @param disciplinasDeportista
-     * @param idDeportista
+     * Se cargan las disciplinas de un deportista en particular
+     * @param disciplinasDeportista lista de disciplinas del deportista
+     * @param idDeportista id deportista
+     * @throws Exception en el caso de problemas con la BD u otros.
      */
     @Override
     public void cargarDisciplinasDeportista(List<Disciplina> disciplinasDeportista, int idDeportista) throws Exception {
@@ -30,6 +31,11 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
         }
     }
 
+    /**
+     * Se eliminan las disiciplinas de un deportista en particular
+     * @param idDeportista id del deportista a eliminar
+     * @throws Exception en el caso de problemas con la BD u otros.
+     */
     @Override
     public void eliminarDisciplinasDeportista(int idDeportista) throws Exception{
         Connection connection = MiConnection.getCon();
@@ -51,6 +57,7 @@ public class DeportistaEnDisciplinaDAOjdbc implements DeportistaEnDisciplinaDAO 
      * Retorna una lista con los id's de las disciplinas del deportista
      * @param idDeportista
      * @return listaDisciplinas
+     * @throws Exception en el caso de problemas con la BD u otros.
      */
     @Override
     public List<Integer> getIDsDisciplinasDeportista(int idDeportista) throws Exception{

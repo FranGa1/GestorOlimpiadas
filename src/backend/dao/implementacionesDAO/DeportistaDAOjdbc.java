@@ -15,8 +15,9 @@ import java.util.List;
 public class DeportistaDAOjdbc implements DeportistaDAO {
 
     /**
-     * Se carga un deportista en la base de datos
-     * @param deportistaNuevo Deportista a crear
+     * Se carga un deportista en la base de datos.
+     * @param deportistaNuevo deportista a agregar.
+     * @throws Exception en el caso de problemas con la BD u otros.
      */
     @Override
     public void cargar(Deportista deportistaNuevo) throws Exception {
@@ -44,8 +45,9 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
     }
 
     /**
-     * Se elimina un deportista de la base de datos
-     * @param deportistaEliminar Deportista a eliminar
+     * Se elimina a un deportista de la base de datos.
+     * @param deportistaEliminar deportista a eliminar.
+     * @throws Exception en el caso de problemas con la BD u otros.
      */
     @Override
     public void eliminar(Deportista deportistaEliminar) throws Exception{
@@ -64,8 +66,9 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
     }
 
     /**
-     * Se edita un deportista en la base de datos
-     * @param deportistaEditar Deportista a editar
+     * Se edita a un deportista en la base de datos.
+     * @param deportistaEditar deportista a editar.
+     * @throws Exception en el caso de problemas con la BD u otros.
      */
     @Override
     public void editar(Deportista deportistaEditar) throws Exception{
@@ -89,8 +92,9 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
     }
 
     /**
-     * Se obtiene una lista de deportistas
-     * @return lista que contiene todos los deportistas
+     * Se obtiene una lista de deportista.
+     * @return lista que contiene los deportistas.
+     * @throws Exception en el caso de problemas con la BD u otros.
      */
     @Override
     public List<Deportista> getDeportistas() throws Exception {
@@ -125,6 +129,12 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
         return listasDeportistas;
     }
 
+    /**
+     * Retorna verdadero o falso segun si un pais esta asignado a algun deportista
+     * @param pais a ser comprobado
+     * @return boolean
+     * @throws Exception en el caso de problemas con la BD u otros.
+     */
     @Override
     public boolean paisIsUsed(Pais pais) throws Exception{
         Connection connection = MiConnection.getCon();
