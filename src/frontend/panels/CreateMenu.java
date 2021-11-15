@@ -1,17 +1,13 @@
 package frontend.panels;
 
-import frontend.changeDefaults.BackgroundPanel;
 import frontend.changeDefaults.TransparentPanel;
 import frontend.changeDefaults.buttons.ButtonUI;
-import frontend.changeDefaults.WPanel;
-import frontend.panels.ChangeCards;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -56,7 +52,6 @@ public class CreateMenu {
         JButton deportistas = new ButtonUI(" Deportistas", new ImageIcon("Files/deportistas.png"), 180, 85);
         ButtonUI paises = new ButtonUI(" Paises", new ImageIcon("Files/world.png"), 180, 85);
         JButton disciplinas = new ButtonUI(" Disciplinas", new ImageIcon("Files/disciplinas.png"), 180, 85);
-
 
         //Armamos el panel central
         panelC.setLayout(new GridBagLayout());

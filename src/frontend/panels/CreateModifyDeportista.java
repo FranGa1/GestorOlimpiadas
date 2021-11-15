@@ -151,8 +151,6 @@ public class CreateModifyDeportista {
                 " ERROR: Solo numeros para el telefono (Minimo 3 numeros )",
                 3));
 
-        //Combobox
-
 
         return panel;
     }
@@ -377,7 +375,6 @@ public class CreateModifyDeportista {
 
     //Dado un deportista, completa los espacios con sus datos
     public static void setEditable(Deportista deportista){
-        //guardar.removeActionListener(SAVE_NEW);
         for(ActionListener act : guardar.getActionListeners()) {
             guardar.removeActionListener(act);
         }
@@ -388,7 +385,6 @@ public class CreateModifyDeportista {
         textFields[1].setText(deportista.getApellidos());
         textFields[2].setText(deportista.getEmail());
         textFields[3].setText(deportista.getTelefono());
-        //paisCB.setSelectedIndex(1);
 
         updateCB();
         System.out.println(deportista.getPais().getNombre().toUpperCase(Locale.ROOT));
@@ -400,7 +396,6 @@ public class CreateModifyDeportista {
 
     public static void setAdd(){
         headerLbl.setText("AGREGAR DEPORTISTA");
-        //guardar.removeActionListener(SAVE_EDIT);
         for(ActionListener act : guardar.getActionListeners()) {
             guardar.removeActionListener(act);
         }

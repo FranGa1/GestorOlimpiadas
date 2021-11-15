@@ -49,10 +49,6 @@ public class CreateDeportistaTable {
         //Creamos los labels
         JLabel headerLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
         JLabel headerTableLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
-        //JLabel headerLbl = new JLabel("DEPORTISTAS", SwingConstants.CENTER);
-
-        //Creamos la tabla
-        //JTable table = new JTable();
 
         //Construimos el header
         header.setLayout(new BorderLayout());
@@ -193,6 +189,7 @@ public class CreateDeportistaTable {
             int row = evt.getY() / table.getRowHeight();
             System.out.println("Column: " + column + "\n Fila: " + row);
 
+            //Si el click es en una casilla valida
             if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
                 Object value = table.getValueAt(row, column);
                 if (value instanceof JButton boton) {

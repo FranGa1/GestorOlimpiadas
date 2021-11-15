@@ -58,6 +58,8 @@ public class Aplicacion extends JFrame {
         // Seteamos el icono de la aplicacion
         setIconImage(new ImageIcon("Files/fondoepico.jpg").getImage());
 
+        setIconImage(new ImageIcon("Files/fondoepico.jpg").getImage());
+
         //Iniciamos la aplicacion en el menu e inicializamos la clase Change Cards
         ChangeCards.swap("Menu", cl, cardPanel, this);
 
