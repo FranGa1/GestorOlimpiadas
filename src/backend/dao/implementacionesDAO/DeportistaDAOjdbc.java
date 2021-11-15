@@ -125,7 +125,6 @@ public class DeportistaDAOjdbc implements DeportistaDAO {
             // Se lo agrega a la lista a devolver
             listasDeportistas.add(new Deportista(nombre, apellido, email, telefono, pais, disciplinas, idDeportista));
         }
-
         return listasDeportistas;
     }
 

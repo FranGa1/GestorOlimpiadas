@@ -14,8 +14,7 @@ public class MiConnection {
 
     public static void login(String user, String password){
         try {
-            //con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", user, password);
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", "root", "123");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/tokyo2021_e3", user, password);
         } catch (SQLException e) {
             System.out.println("Error de SQL: " + e.getMessage());
             System.out.println("No es posible conectarse a la base de datos");
