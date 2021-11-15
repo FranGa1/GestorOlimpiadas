@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Entregable3:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Entregable3_jar</output-path>
+    <root id="archive" name="Entregable3.jar">
+      <element id="module-output" name="Entregable3" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/MySQL/mysql-connector-java-8.0.27.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

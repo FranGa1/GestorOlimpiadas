@@ -5,11 +5,8 @@ import frontend.changeDefaults.TransparentPanel;
 import frontend.panels.*;
 import frontend.panels.CreateMenu;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class Aplicacion extends JFrame {
 
@@ -48,7 +45,7 @@ public class Aplicacion extends JFrame {
         cardPanel.add(paisesTable, "PaisesTable");
 
         // Seteamos la imagen de fondo
-        Icon img = new ImageIcon(new ImageIcon("Files/fondoepico.jpg").getImage().getScaledInstance(1100,650, Image.SCALE_SMOOTH));
+        Icon img = new ImageIcon(new ImageIcon(this.getClass().getResource("/img/fondoepico.jpg")).getImage().getScaledInstance(1100,650, Image.SCALE_SMOOTH));
         JLabel contentPane = new JLabel();
         contentPane.setLayout(new BorderLayout());
         contentPane.setIcon(img);
@@ -56,9 +53,7 @@ public class Aplicacion extends JFrame {
         setContentPane(contentPane);
 
         // Seteamos el icono de la aplicacion
-        setIconImage(new ImageIcon("Files/fondoepico.jpg").getImage());
-
-        setIconImage(new ImageIcon("Files/fondoepico.jpg").getImage());
+        setIconImage(new ImageIcon(this.getClass().getResource("/img/fondoepico.jpg")).getImage());
 
         //Iniciamos la aplicacion en el menu e inicializamos la clase Change Cards
         ChangeCards.swap("Menu", cl, cardPanel, this);

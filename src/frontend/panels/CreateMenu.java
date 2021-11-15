@@ -3,31 +3,22 @@ package frontend.panels;
 import frontend.changeDefaults.TransparentPanel;
 import frontend.changeDefaults.buttons.ButtonUI;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 public class CreateMenu {
 
-    private static final ImageIcon ICONO_CONECTADO = new ImageIcon(new ImageIcon("Files/conectadoOriginal2.png")
-            .getImage().getScaledInstance(200, 60, Image.SCALE_DEFAULT));
-    private static final ImageIcon ICONO_DESCONECTADO = new ImageIcon(new ImageIcon("Files/desconectadoOriginal2.png")
+    private static final ImageIcon ICONO_CONECTADO = new ImageIcon(new ImageIcon(CreateMenu.class.getResource("/img/conectadoOriginal2.png")).getImage().getScaledInstance(200, 60, Image.SCALE_DEFAULT));
+
+    private static final ImageIcon ICONO_DESCONECTADO = new ImageIcon(new ImageIcon(CreateMenu.class.getResource("/img/desconectadoOriginal2.png"))
             .getImage().getScaledInstance(230, 60, Image.SCALE_DEFAULT));
+
     private static JLabel conectionStatus;
     private static JLabel headerLbl;
 
     public static JPanel create()  {
-
-        Image img = null;
-        try {
-            img = ImageIO.read(new File("Files/fondoepico.jpg"));
-        } catch (IOException e) {
-            System.out.println("asdf");
-        }
 
         //Creamos los paneles
         JPanel mainPanel = new TransparentPanel();
@@ -49,9 +40,9 @@ public class CreateMenu {
         header.add(headerLbl);
 
         //Creamos los botones
-        JButton deportistas = new ButtonUI(" Deportistas", new ImageIcon("Files/deportistas.png"), 180, 85);
-        ButtonUI paises = new ButtonUI(" Paises", new ImageIcon("Files/world.png"), 180, 85);
-        JButton disciplinas = new ButtonUI(" Disciplinas", new ImageIcon("Files/disciplinas.png"), 180, 85);
+        JButton deportistas = new ButtonUI(" Deportistas", new ImageIcon(CreateMenu.class.getResource("/img/deportistas.png")), 180, 85);
+        JButton paises = new ButtonUI(" Paises", new ImageIcon(CreateMenu.class.getResource("/img/world.png")), 180, 85);
+        JButton disciplinas = new ButtonUI(" Disciplinas", new ImageIcon(CreateMenu.class.getResource("/img/disciplinas.png")), 180, 85);
 
         //Armamos el panel central
         panelC.setLayout(new GridBagLayout());
@@ -80,8 +71,8 @@ public class CreateMenu {
 
         //Creamos el boton config
         panelN.setLayout(new BorderLayout());
-        JButton btnConfig = new JButton(new ImageIcon(new ImageIcon("Files/dbConfigIconWhite.png").getImage().
-                getScaledInstance(60,60, Image.SCALE_DEFAULT)));
+        JButton btnConfig = new JButton(new ImageIcon(new ImageIcon(CreateMenu.class.getResource("/img/dbConfigIconWhite.png"))
+                .getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
         btnConfig.setBorder(BorderFactory.createEmptyBorder(5,0 ,0,5));
         btnConfig.setContentAreaFilled(false);
 
