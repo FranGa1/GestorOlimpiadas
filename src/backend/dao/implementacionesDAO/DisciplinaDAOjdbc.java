@@ -2,7 +2,6 @@ package backend.dao.implementacionesDAO;
 
 import backend.MiConnection;
 import backend.dao.interfacesDAO.DisciplinaDAO;
-import backend.exceptions.NotConnectedException;
 import objetos.Disciplina;
 
 import java.sql.*;
